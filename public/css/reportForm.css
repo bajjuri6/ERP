@@ -1,0 +1,41 @@
+@CHARSET "ISO-8859-1";
+
+#gr-element, #export-element {width:12%; margin-top:-2px;}
+#export-element{margin-left:-60px;}
+#rt-label, #gr-label, #selectflockfordr-label,#selectbrafordr-label, #selectsupfordr-label, #export-label, #from-label,#to-label {display: none;}
+#rt-element, #selectflockfordr-element, #selectsupfordr-element, #selectbrafordr-element {width:10% ; padding:20px 0}
+#selectsupfordr-element select {width:90%;}
+#from-label, #to-label {width: 5%;
+margin-right: -40px;
+margin-left: 24px;}
+#from-element, #to-element{width:10%;}
+#from-element {margin-left:20px;}
+#from-element input, #to-element input {width:100%;}
+@media(min-width: 768px and max-width: 1440px){
+#reportsForm dd {
+	width:10%;
+}
+#reportsForm dt{
+	width: 10%;
+}
+}
+@media(max-width: 768px){
+	h2{width:100%; float:left;margin:0; padding:0; font-size:18px;}
+	h2 span {color : #4CA3E0;}
+	#gr-element, #export-element { width:120px;}
+	#rt-element, #selectflockfordr-element, #selectsupfordr-element, #selectbrafordr-element{ width:150px;}
+	#gr-element, #export-element{margin-left:10px;}
+	#from-label, #to-label {width: 60px;margin:0px;}
+
+#from-element, #to-element{width:60px; margin:0px;}
+#reportsForm dd {
+	margin-left:2%;
+	padding: 0px;
+	margin-bottom:2%;
+}
+#reportsForm dt{
+	margin-left: 2%;
+	padding:0px;
+}
+}
+

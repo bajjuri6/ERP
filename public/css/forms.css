@@ -1,0 +1,50 @@
+#login-box { width: 25%; padding-top: 30px; margin: auto}
+#login-form { padding: 20px;}
+
+#login-box form {background: #FFF;}
+#login-form td{width:50%; padding-top: 20px;}
+
+#view-content { width:85%; margin: 0 auto; background-color:#FFFFFF}
+#view-content h2{width:100%; float:left; clear:both; margin-left:20px;}
+#view-content form{width: 100%; float: left;background: #FFF url('../images/watermark.png') no-repeat center; background-size: contain;}
+#view-content .zend_form {width: 100%; margin-left: 40px;}
+.zend_form dt {float: left; text-align: left !important; width: 20%; padding: 20px 5px;}
+.zend_form dd {float: left; text-align: left !important; width: 24%; padding: 20px 5px;}
+.zend_form dd input[type='text']{width:55%;}
+.zend_form {text-align: center;}
+#submit-element {clear: both; width:12%; padding:20px 0 0 0 !important; margin:0;}
+#clear-element{padding:20px 0; width:14%;}
+#clear-label, #submit-label, #login-box #csrf-label, #rt-label, #gr-label {display: none;}
+#rct-element #rct, #rct-element #frdcn {width:17%;}
+#rct-element #feedType {width:19%; margin:3px;}
+
+/* start Login-box */
+#password-label {clear: both;}
+#login-box #csrf-element {width:90%;margin: 0 auto; font-size: 14px; color: #F00;}
+#login-box #submit {text-align: center;}
+.autonum, .fcChkBx {width:10% !important; margin-top:4px;}
+.inret{margin-left:-120px;}
+.errors{color:#F00; font-size:14px; display:none;}
+
+/* Fee Return add button */
+.addFeedReturn img, .removeFeedReturn  img{width:16px; height:16px; margin-right:3px; cursor:pointer;}
+#frdcn{margin: 0 3px;}
+a.edit {color:#000 !important; text-decoration: underline !important; font-weight:bold;}
+/* end login-box */
+
+@media screen and (min-width: 500px) and (max-width:780px)
+{
+    #view-content {width: 95%; margin: 0 auto;}
+    .zend_form {width:100%;}
+    .zend_form dt {width: 20%; font-size: 12px; text-align: right !important; padding: 15px 0;}
+    .zend_form dd{width: 20%;   font-size: 12px; padding: 15px 0;}
+    #clear-element, #submit-element {width: 14%;}
+    #login-box {width: 60%;}
+    #login-box dd{ width: 40%;}
+    #login-box #submit-element, #login-box #clear-element {width:20%;}
+}
+
+@media screen and (min-width:780px)  and (max-width:1024px) and (orientation:landscape)
+{
+    #login-box {width: 35%;}
+}
