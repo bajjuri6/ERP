@@ -17,6 +17,7 @@ defined('APP_PUBLIC') || define('APP_PUBLIC', dirname(__FILE__).'/public');
 defined('MODULES') || define('MODULES', dirname(__FILE__).'/application/modules');
 
 require 'library/Bootstrap.php';
+require 'library/VivenAuth.php';
 require 'library/Mem_cached.php';
 require 'library/Controller.php';
 require 'library/View.php';

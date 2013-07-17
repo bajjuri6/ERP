@@ -1,15 +1,15 @@
 <?php
 
-class User_Login extends Controller{
+class Viven_User_Login extends Controller{
 
   function __construct() {
     parent::__construct();
   }
   
   public function indexAction(){
-    
+    $this -> view -> LoginStatus = "Initialized";
     if(isset($_POST['lgn'])){
-      $model = new User_Model();
+      $model = new Viven_User_Model();
       $res = $model ->loginUser($_POST['un'], $_POST['pw']);
       $result = "Login: ";
       switch($res){
@@ -20,7 +20,7 @@ class User_Login extends Controller{
           $result .= "PARTIAL SUCCESS";
           break;
         case 2:
-          $result .= "SUCCESS !!";  
+          $result .= "SUCCESS !!";
           break;
       }
        $this -> view -> LoginStatus = $result;

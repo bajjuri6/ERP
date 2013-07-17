@@ -4,10 +4,6 @@
   <?php
     echo $this -> form;
   ?>
-  </form>
-  
-  <?php
-    echo $this -> LoginStatus;
-  ?>  
+  </form> 
 </div>
 

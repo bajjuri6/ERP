@@ -1,6 +1,6 @@
 <?php
 
-class User_Register extends Controller{
+class Viven_User_Register extends Controller{
 
   function __construct() {
     parent::__construct();
@@ -9,7 +9,8 @@ class User_Register extends Controller{
   public function indexAction(){
     
     if(isset($_POST['reg'])){
-      $model = new User_Model();
+      require MODULES.'/user/models/user.php';
+      $model = new Viven_User_Model();
       if($_POST['pw'] == $_POST['cpw']) {
         $res = $model -> addUser(array('branch' => $_POST['branch'], 
                                       'un' => $_POST['un'],
@@ -18,8 +19,17 @@ class User_Register extends Controller{
       }
       $result = "Registration Status: ";
       
-      if($res) $result .= "SUCCESS !!";          
-      else $result .= "FAILURE";
+      switch($res){
+        case 0:
+          $result .= "Successful";
+          break;
+        case 1:
+          $result .= "Failed";
+          break;
+        case 2:
+          $result .= "UserName exists, please select a new one";
+          break;
+      }
       
       $this -> view -> regResult = $result;
     }else{
@@ -91,8 +101,9 @@ class User_Register extends Controller{
       $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
       $outForm .= '</form>';
       
-      $this -> view -> form = $outForm;      
+      echo $outForm;
+      //$this -> view -> form = $outForm;      
     } 
-    $this -> view -> render('register/index', 'user');
+    //$this -> view -> render('register/index', 'user');
   }
 }

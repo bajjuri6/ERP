@@ -1,6 +1,6 @@
 <?php
 
-class Viven_Staff_Employee extends Controller{
+class Viven_Business_Followup extends Controller{
 
   function __construct() {
     parent::__construct();

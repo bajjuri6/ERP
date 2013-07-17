@@ -4,46 +4,43 @@ class Bootstrap {
 
   function __construct() {
     $temp_url = strtolower(trim($_SERVER['REQUEST_URI'], '/'));
-    $url = explode('/', $temp_url);
+    $url = explode('/', strtolower($temp_url));
     
-    if (empty($url[0])) {
+    if(!VivenAuth::sessionExists()){
       
-      require MODULES . '/default/controllers/index.php';
-      $controller = new Default_Index();
+      require MODULES . '/user/controllers/login.php';   
+      require MODULES . '/user/models/user.php';
+      $controller = new Viven_User_Login();
       $controller->indexAction();
       
-    } 
-    
-    else{
-      switch($url[0]):
-        case 'user':
-          require MODULES . '/user/models/user.php';
-          if(empty($url[1])){
-            require MODULES . '/user/controllers/login.php';
-            $controller = new User_Login();
-            $controller->indexAction();
-          } else{
-            switch($url[1]):
-              case 'login':
-                require MODULES . '/user/controllers/login.php';
-                $cmontroller = new User_Login();
-                $cmontroller->indexAction();
-                break;
-              case 'logout':
-                require MODULES . '/user/controllers/logout.php';
-                $cmontroller = new User_Logout();
-                $cmontroller->indexAction();
-                break;
-              case 'register':
-                require MODULES . '/user/controllers/register.php';
-                $controller = new User_Register();
-                $controller->indexAction();
-                break;
-            endswitch;
-          }
-          break;          
-      endswitch;
     }
+    else{
     
+      if (empty($url[0]) || empty($url[1])) {
+        
+        require MODULES . '/business/controllers/enquiry.php';
+        $controller = new Viven_Business_Enquiry;
+        $controller->newAction();
+        /*require MODULES . '/error/controllers/invalid.php';
+        $controller = new Viven_Error_Invalid;
+        $controller->indexAction();*/
+        
+      }
+      else{
+        $classString = 'Viven_'.ucfirst($url[0]).'_'.ucfirst($url[1]);
+        
+        if(file_exists(MODULES.'/'.$url[0].'/controllers/'.$url[1].'.php'))
+          require MODULES.'/'.$url[0].'/controllers/'.$url[1].'.php';
+
+        if(class_exists($classString))
+          $controller = new $classString;
+        
+        if(isset($url[2])){
+          $action = $url[2].'Action';
+          $controller -> $action();
+        }else $controller -> indexAction();
+        
+      }
+    }
   }
 }

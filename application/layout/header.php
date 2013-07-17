@@ -1,6 +1,8 @@
-<link rel="stylesheet" type="text/css" href="/public/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/public/css/style.css">
-
+<?php
+  if(VivenAuth::sessionExists()){
+?>
+<link rel="stylesheet" type="text/css" href="/public/css/bootstrap.css">
 <script src="/public/js/jquery/jquery.min.js"></script>
 
 <div class="ibar">
@@ -8,7 +10,7 @@
 		<ul>
 			<li class='dataEntryHead'><a  href='#' id="morebutton" class="gn"><i class="icon-edit icon-white"></i>Data Entry</a>
 				<ul class='stayontop'>
-					<li><a class="gn" href="/staff/attendance/new"> Staff Attendance </a></li>    
+					<li><a class="gn" onclick="fetchform('Staff Attendance','/staff/attendance/new')"> Staff Attendance </a></li>    
 					<li><a class="gn" href="/business/enquiry/new"> Record Enquiry</a></li>
      <li><a class="gn" href="/business/followup/new"> Record Follow-up</a></li>
 					<li><a class="gn" href="/finance/expense/new">Record Expense </a></li>
@@ -17,8 +19,8 @@
    
    <li class='customerEntryHead'><a  href='#' id="morebutton" class="gn"><i class="icon-user icon-white"></i>Customer</a>
 				<ul>
-      <li><a class="gn" href="/customer/attendance">Attendance </a></li>
-      <li><a class="gn" href="/customer/training">Personal Training </a></li>
+      <li><a class="gn" href="/customer/attendance/new">Attendance </a></li>
+      <li><a class="gn" href="/customer/training/new">Personal Training </a></li>
       <li><a class="gn" href="/business/enroll/new">Enrollment</a></li>
       <li><a class="gn" href="/finance/revenue/new">Payment </a></li>
       <li><a class="gn" href="/customer/physical/new">Physical </a></li>
@@ -55,7 +57,7 @@
 					<li><a class="gn" href="/business/service/report">Services & Offers</a></li>
      <li><a class="gn" href="/data/user/report">Software Users</a></li>
      <li><a class="gn" href="/business/branch/report">Branches</a></li>
-     <li><a class="gn" href="/staff/feedback/new">Add Staff Feedback</a></li>
+     <li><a class="gn" href="/staff/feedback/new">Staff Feedback</a></li>
      <li><a class="gn" href="/data/logins">Login Records</a></li>
 				</ul>
 			</li>
@@ -72,7 +74,8 @@
           
           <ul class='stayontop'>
            <li><a class="gn" id="add-service" onclick="fetchform('New Service','/business/service/new')">New Service </a></li>
-           <li><a class="gn" id="add-employee" onclick="fetchform('New Employee','/data/user/register')">New Employee </a></li>							
+           <li><a class="gn" id="add-feedback" onclick="fetchform('Staff Feedback','/staff/feedback/new')">New Service </a></li>
+           <li><a class="gn" id="add-employee" onclick="fetchform('Software User','/user/register')">New User </a></li>							
            <li><a class="gn" id="add-branch" onclick="fetchform('New Branch','/business/branch/new')">New Branch </a></li>           
           </ul>			
           
@@ -86,3 +89,12 @@
 				</ul>
 	</div>
 </div>
+
+  
+<div id="popupbox">
+   <strong>Please wait while we try to load form</strong>    
+</div>
+<div id="lightbox"></div>
+<?php
+  }
+?>

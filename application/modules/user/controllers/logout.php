@@ -1,6 +1,6 @@
 <?php
 
-class User_Logout extends Controller{
+class Viven_User_Logout extends Controller{
 
   function __construct() {
     parent::__construct();

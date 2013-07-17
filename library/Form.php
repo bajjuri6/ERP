@@ -156,7 +156,7 @@ class Form {
       * num_btns -> 2 - Need Submit and Clear Buttons
       */
      if($num_btns == 1){
-       $org .= '<div style="clear:both">';
+       $org .= '<div style="clear:both; margin:6px 0px">';
 
        $sub = array("type" => "submit", 
                    "name" => "Submit",
@@ -167,7 +167,7 @@ class Form {
 
        $org .= '</div>';
      }elseif($num_btns == 2){
-       $org .= '<div style="clear:both">';
+       $org .= '<div style="clear:both; margin:16px 0px">';
 
        $sub = array("type" => "submit", 
                    "name" => "Submit",

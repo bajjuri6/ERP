@@ -61,7 +61,7 @@ white-space:nowrap;
 border:none;
 padding-left:20px;
 top:0;
-1position:fixed;
+position:fixed;
 -webkit-box-shadow:0 1px 2px #1E1D6D;
 -moz-box-shadow:0 1px 2px #1E1D6D;
 box-shadow:0 1px 2px #1E1D6D;
@@ -99,12 +99,13 @@ padding-top:10px;
 .nav ul li:hover ul {
 text-align:center;
 display:block;
+position:relative;
+z-index:9999;
 }
 
 .nav ul li ul li {
 text-align:center;
 float:none;
-z-index:9999;
 }
 
 .nav ul li ul li a {
@@ -539,7 +540,11 @@ dd{
   -webkit-box-shadow: 0 1px 5px #1E1D6D;
   -moz-box-shadow: 0 1px 5px #1E1D6D;
   box-shadow: 0 1px 5px #1E1D6D;
-  width: 30%;
+  width: 35%;
+}
+
+#popupbox table{
+  margin:0px auto;
 }
 
 .popHead{
@@ -554,6 +559,7 @@ dd{
 }
 
 .popBody{
+  text-align: center;
   margin: 20px;
 }
 
@@ -566,23 +572,25 @@ dd{
   border:1px solid #DDD;
   border-radius: 1px;
   box-shadow: 1px 1px 0px #999;
-  padding: 8px 8px;
+  padding: 6px 8px;
   line-height:16px;
   font-size:1em;
+  margin: 8px 0px;
 }
 
 
 .bodyworks{
-  margin: 60px auto;
+  margin: 90px auto;
   text-align: center;
   border: 1px solid #AAA;
   background-color: #FFF;
   border-radius: 4px;
   box-shadow: 1px 1px 0px #CCC;
+  width: 75%;
 }
 
 .bodyworks form, .bodyworks form table{
-  padding: 0px 8px 24px 8px;
+  padding: 8px 8px;
   margin: 0px auto;
 }
 
@@ -592,6 +600,7 @@ dd{
 
 .bodyworks form table tr td{
   padding: 6px 24px;
+  margin: 8px 0xp;
 }
 
 form table tr td{
@@ -600,8 +609,4 @@ form table tr td{
 
 h1{
   padding-bottom:8px;
-}
-
-.stayontop{
-  z-index:9999;
 }

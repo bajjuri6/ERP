@@ -1,6 +1,6 @@
 <?php 
 
-class User_Model extends Model{
+class Viven_User_Model extends Model{
 
   function __construct() {
     parent::__construct();
@@ -15,6 +15,14 @@ class User_Model extends Model{
    */
   public function addUser($details){
     
+    /**
+     * Check if the username exists before adding user to the db
+     */
+    $cu = $this -> db -> query("SELECT COUNT(*) FROM viv_emp_en WHERE _emp_un = ".
+                                  $this -> db -> quote($details['un']));
+    $valid = $cu -> fetch(PDO::FETCH_ASSOC);
+    if(!$valid) return 2;
+    
     $qs = "INSERT INTO viv_emp_en (_emp_branch,
                                   _emp_un,
                                   _emp_pw,
@@ -25,8 +33,8 @@ class User_Model extends Model{
                                                         $this -> db -> quote($details['level']).",".
                                                         "1".")";
     
-    if($this -> db -> exec($qs)) return true;
-    else return false;
+    if($this -> db -> exec($qs)) return 0;
+    else return 1;
     
   }
   
@@ -54,9 +62,7 @@ class User_Model extends Model{
     $result = $temp -> fetch(PDO::FETCH_ASSOC);
     
     if($result){
-      
-      $_SESSION['un'] = $eun;
-      $_SESSION['level'] = $result['_emp_level'];
+      VivenAuth::setSession($eun, $result['_emp_level']);
       $eserver = $this -> db -> quote($_SERVER['REMOTE_ADDR']);
       
       /*$remote = geoip_record_by_name($_SERVER['REMOTE_ADDR']);
