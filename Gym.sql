@@ -606,6 +606,32 @@ CREATE TABLE IF NOT EXISTS `viv_payment_en` (
 
 -- --------------------------------------------------------
 
+-- Payments Modes Available
+-- Table structure for table `viv_payment_md_en`
+--
+
+CREATE TABLE IF NOT EXISTS `viv_payment_md_en` (
+  `_payment_md_id` int(11) NOT NULL AUTO_INCREMENT,
+  `_payment_md_name` varchar(30) NOT NULL,
+-- What data must be recorded when accepting this form of payment
+  `_payment_md_fields` text NOT NULL,
+  `_payment_md_status` tinyint(4) NOT NULL,
+-- Which branches are allowed this mode of payment
+  `_payment_md_branches` text NOT NULL,
+-- What role employees are allowed to accept this form of payment
+  `_payment_md_level` text NOT NULL,
+  
+  `_payment_md_addedby` varchar(40) NOT NULL,
+  `_payment_md_addedon` timestamp NULL DEFAULT NULL,
+  `_payment_md_lastmodby` varchar(40) NOT NULL,
+  `_payment_md_lastmodon` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`_payment_md_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+
+-- --------------------------------------------------------
+
 -- Paymenys Receivable Details
 -- Table structure for table `viv_payment_det_en`
 --
