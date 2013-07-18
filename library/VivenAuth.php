@@ -7,8 +7,9 @@ class VivenAuth {
     else return false;
   }
   
-  function setSession($un, $level){
+  function setSession($un, $level, $branch){
     $_SESSION['un'] = $un;
-    $_SESSION['level'] = $level;    
+    $_SESSION['level'] = $level;
+    $_SESSION['branch'] = $branch;
   }
 }

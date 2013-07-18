@@ -53,7 +53,7 @@ class Viven_User_Model extends Model{
     $eun = $this -> db -> quote($un);
     $epw = $this -> db -> quote(md5($pw));    
     
-    $temp = $this -> db -> query("SELECT _emp_level FROM viv_emp_en WHERE _emp_un =". 
+    $temp = $this -> db -> query("SELECT _emp_level, _emp_branch FROM viv_emp_en WHERE _emp_un =". 
                                   $eun.
                                   " AND _emp_pw =".
                                   $epw.
@@ -62,7 +62,14 @@ class Viven_User_Model extends Model{
     $result = $temp -> fetch(PDO::FETCH_ASSOC);
     
     if($result){
-      VivenAuth::setSession($eun, $result['_emp_level']);
+      
+      /**
+       * Store identifiers for the current session
+       */
+      VivenAuth::setSession($eun, 
+                            $result['_emp_level'], 
+                            $result['_emp_branch']);
+      
       $eserver = $this -> db -> quote($_SERVER['REMOTE_ADDR']);
       
       /*$remote = geoip_record_by_name($_SERVER['REMOTE_ADDR']);

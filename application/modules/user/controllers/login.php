@@ -21,6 +21,7 @@ class Viven_User_Login extends Controller{
           break;
         case 2:
           $result .= "SUCCESS !!";
+          header("location:/data/logins");
           break;
       }
        $this -> view -> LoginStatus = $result;

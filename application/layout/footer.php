@@ -1,9 +1,19 @@
 <script src="/public/js/popup.js"></script>
 <script src="/public/js/jquery/jquery-ui.min.js"></script>
 <script type="text/javascript">
-  $('#date, #fd').datepicker({
-    showOn: 'focus', dateFormat : 'yy-mm-dd'
+  /**
+   * Datepicker script. To set a field for datepicker, set the class to 'datepicker'
+   **/
+  $('.datepicker').live('focus', function(){
+    $(this).datepicker({
+      showOn: 'focus', dateFormat : 'yy-mm-dd',
+      onSelect: function(){
+        $(this).datepicker("destroy");
+      }
+    });
   });
+  
+  
   
   /**
   * Hide active popup and lightbox when lightbox area is clicked

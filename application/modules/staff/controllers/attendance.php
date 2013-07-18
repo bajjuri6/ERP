@@ -40,7 +40,7 @@ class Viven_Staff_Attendance extends Controller{
       $status = array("name" => "level",
                   "id" => "level",
                   "class" => "none",
-                  "options" => array("Select" => array("value" => "0"),
+                  "options" => array("-- Select --" => array("value" => "0"),
                                      "Present" => array("value" => "1"),
                                      "Partial" => array("value" => "2"),
                                      "Absent" => array("value" => "3")

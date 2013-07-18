@@ -22,7 +22,7 @@ class Viven_Business_Enquiry extends Controller{
                   "id" => "date",
                   "size" => "30",
                   "readonly" => "readonly",
-                  "class" => "none");
+                  "class" => "none datepicker");
       $adate = $form -> Viven_AddInput($date);
       $form_fields['Date:'] = $adate;
       
@@ -51,7 +51,7 @@ class Viven_Business_Enquiry extends Controller{
                   "size" => "30",
                   "class" => "none");
       $question = $form -> Viven_AddInput($ques);
-      $form_fields['Enquiry Question:'] = $question;
+      $form_fields['Enquiry:'] = $question;
       
       
       $fd = array("type" => "text", 
@@ -59,7 +59,7 @@ class Viven_Business_Enquiry extends Controller{
                   "id" => "fd",
                   "size" => "30",
                   "readonly" => "readonly",
-                  "class" => "none");
+                  "class" => "none datepicker");
       $fdate = $form -> Viven_AddInput($fd);      
       $form_fields['Follow Up Date:'] = $fdate;
       
@@ -73,24 +73,13 @@ class Viven_Business_Enquiry extends Controller{
       $form_fields['Follow Up Incharge:'] = $incharge;
       
       
-      $status = array("name" => "level",
-                  "id" => "level",
-                  "class" => "none",
-                  "options" => array("Select" => array("value" => "0"),
-                                     "Present" => array("value" => "1"),
-                                     "Partial" => array("value" => "2"),
-                                     "Absent" => array("value" => "3")
-                    ));
-      $astatus = $form ->Viven_AddSelect($status);
-      $form_fields['Attendance:'] = $astatus;
-            
-      
       $remarks = array("type" => "input", 
-                  "name" => "date",
-                  "id" => "date",
-                  "size" => "30",
+                  "name" => "remarks",
+                  "id" => "remarks",
+                  "rows" => "4",          
+                  "cols" => "28",
                   "class" => "none");
-      $aremarks = $form -> Viven_AddInput($remarks);
+      $aremarks = $form ->Viven_AddText($remarks);
       $form_fields['Comments:'] = $aremarks;
       
       $enq = array("type" => "hidden", 
@@ -99,9 +88,7 @@ class Viven_Business_Enquiry extends Controller{
       $enquiry = $form -> Viven_AddInput($enq);
       $form_fields[''] = $enquiry;
       
-      $outForm = '<form method="post" action="/staff/enquiry/new">';
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
-      $outForm .= '</form>';
+      $outForm = $form -> Viven_ArrangeForm($form_fields,2);
       
       $this -> view-> enquiryform = $outForm;
       

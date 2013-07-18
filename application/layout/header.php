@@ -19,13 +19,13 @@
    
    <li class='customerEntryHead'><a  href='#' id="morebutton" class="gn"><i class="icon-user icon-white"></i>Customer</a>
 				<ul>
-      <li><a class="gn" href="/customer/attendance/new">Attendance </a></li>
+      <li><a class="gn" onclick="fetchform('Customer Attendance','/customer/attendance/new')">Attendance </a></li>
       <li><a class="gn" href="/customer/training/new">Personal Training </a></li>
       <li><a class="gn" href="/business/enroll/new">Enrollment</a></li>
       <li><a class="gn" href="/finance/revenue/new">Payment </a></li>
       <li><a class="gn" href="/customer/physical/new">Physical </a></li>
      <li><a class="gn" href="/customer/account/forgot">Forgot ID </a></li>
-     <li><a class="gn" href="/customer/feedback/new">Feedback </a></li>
+     <li><a class="gn" onclick="fetchform('Customer Feedback','/customer/feedback/new')">Feedback </a></li>
 				</ul>
 			</li>
    
@@ -57,7 +57,7 @@
 					<li><a class="gn" href="/business/service/report">Services & Offers</a></li>
      <li><a class="gn" href="/data/user/report">Software Users</a></li>
      <li><a class="gn" href="/business/branch/report">Branches</a></li>
-     <li><a class="gn" href="/staff/feedback/new">Staff Feedback</a></li>
+     <li><a class="gn" onclick="fetchform('Staff Attendance','/staff/feedback/new')">Staff Feedback</a></li>
      <li><a class="gn" href="/data/logins">Login Records</a></li>
 				</ul>
 			</li>
@@ -74,7 +74,7 @@
           
           <ul class='stayontop'>
            <li><a class="gn" id="add-service" onclick="fetchform('New Service','/business/service/new')">New Service </a></li>
-           <li><a class="gn" id="add-feedback" onclick="fetchform('Staff Feedback','/staff/feedback/new')">New Service </a></li>
+           <li><a class="gn" id="add-feedback" onclick="fetchform('Staff Feedback','/staff/feedback/new')">Staff Feedback </a></li>
            <li><a class="gn" id="add-employee" onclick="fetchform('Software User','/user/register')">New User </a></li>							
            <li><a class="gn" id="add-branch" onclick="fetchform('New Branch','/business/branch/new')">New Branch </a></li>           
           </ul>			

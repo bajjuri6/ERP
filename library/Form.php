@@ -5,6 +5,9 @@ class Form {
   protected $inp_open = "<input ";
   protected $inp_close = "</input>";
   
+  protected $txt_open = "<textarea ";
+  protected $txt_close = "</textarea>";
+  
   protected $sel_open = "<select ";
   protected $sel_close = "</select>";
   
@@ -39,6 +42,31 @@ class Form {
     return $ret;
   } 
   
+    
+  /**
+   * 
+   * @param type $arr: Assoc Array of Attributes for Input Tag
+   * @return type String: A string of Input Field
+   * 
+   * Example Usage
+   * ******************
+        $un = array("type" => "text", 
+                      "name" => "un",
+                       "id" => "un",
+                       "class" => "none");
+         $uname = $form -> Viven_AddInput($un);
+   */
+  
+  public function Viven_AddText($arr){
+    $ret = '';
+    $ret .= $this -> txt_open;
+    foreach ($arr as $key => $val){
+      $ret .= $key.'='.'"'.$val.'"'.' ';
+    }
+    $ret .= $this -> simpl_close;
+    $ret .= $this -> txt_close;
+    return $ret;
+  } 
   
   
   /**
