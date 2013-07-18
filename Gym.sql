@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `viv_emp_level_en` (
 
 CREATE TABLE IF NOT EXISTS `viv_emp_en` (
   `_emp_id` int(11) NOT NULL AUTO_INCREMENT,
-  `_emp_branch` tinyint(4) NOT NULL,  
+  `_emp_branch` branch(30) NOT NULL,  
   `_emp_un` varchar(30) NOT NULL,
   `_emp_pw` varchar(48) NOT NULL,
   `_emp_level` tinyint(4) NOT NULL,
@@ -157,10 +157,10 @@ CREATE TABLE IF NOT EXISTS `viv_emp_emer_en` (
 -- Table structure for table `viv_emp_pro_en`
 --
 
-CREATE TABLE IF NOT EXISTS `viv_usr_pro_en` (
+CREATE TABLE IF NOT EXISTS `viv_emp_pro_en` (
   `_emp_pro_id` int(11) NOT NULL AUTO_INCREMENT,
   `_emp_pro_un` varchar(40) NOT NULL,
-  `_emp_pro_branch` tinyint(4) NOT NULL,
+  `_emp_pro_branch` varchar(30) NOT NULL,
 -- Morning or Afternoon
   `_emp_pro_shift` tinyint(4) NOT NULL,
 -- Full Time or Part Time
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `viv_lgn_rec_en` (
 
 CREATE TABLE IF NOT EXISTS `viv_srv_en` (
   `_srv_id` int(11) NOT NULL AUTO_INCREMENT,
-  `_srv_branch` tinyint(4) NOT NULL,
+  `_srv_branch` varchar(30) NOT NULL,
   `_srv_unq_id` varchar(40) NOT NULL,
   `_srv_type` tinyint(4) NOT NULL,
   `_srv_name` varchar(40) NOT NULL,
@@ -318,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `viv_srv_en` (
 CREATE TABLE IF NOT EXISTS `viv_inq_en` (
   `_inq_id` int(11) NOT NULL AUTO_INCREMENT,
   `_inq_emp_un` varchar(40) NOT NULL,
-  `_inq_branch` tinyint(4) NOT NULL,
+  `_inq_branch` varchar(30) NOT NULL,
   `_inq_cus_name` varchar(40) NOT NULL,
   `_inq_time` int(11) NOT NULL,
 -- Who should follow up?
@@ -370,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `viv_cust_en` (
   `_cust_ph` varchar(15) NOT NULL,
   `_cust_addr` text NOT NULL,
   `_cust_email` varchar(40) NOT NULL,
-  `_cust_branch` tinyint(4) NOT NULL,
+  `_cust_branch` varchar(30) NOT NULL,
   
   `_cust_addedby` varchar(40) NOT NULL,
   `_cust_addedon` timestamp NULL,
@@ -587,7 +587,7 @@ CREATE TABLE IF NOT EXISTS `viv_cust_fdb_en` (
 
 CREATE TABLE IF NOT EXISTS `viv_payment_en` (
   `_payment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `_payment_branch` tinyint(4) NOT NULL,
+  `_payment_branch` varchar(30) NOT NULL,
   `_payment_un` varchar(40) NOT NULL,
   `_payment_date` int(11) NOT NULL,
   `_payment_amt` decimal(10,2) NOT NULL,
