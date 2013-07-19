@@ -103,6 +103,13 @@ class Form {
      * Create all OPTIONS under the select
      */
     $optArr = $arr['options'];
+    
+    $ret .= $this -> opt_open;
+    $ret .= 'value="0"';
+    $ret .= $this -> simpl_close;
+    $ret .= "-- Select --";
+    $ret .= $this -> opt_close;
+    
     foreach ($optArr as $option => $attribs){
       $ret .= $this -> opt_open;
       
@@ -133,14 +140,20 @@ class Form {
    * 
    * @param type $list - List of all the form elements (minus the submit and reset buttons)
    * @param type $num_btns - Number of control buttons required for the form (Just SUBMIT or both SUBMIT & RESET)
+   * @param type $num_cols - Number of colums, 0 => 2-Column, >0 => 1-Column layout
+   * @param type $hidden - Indicates if the form contains a Hidden Field. Helps in clean formatting
+   * 
+   * 
    * @return string - A string of the entire form laid out in a single or double column layout
    * 
    */
   
-  public function Viven_ArrangeForm($list, $num_btns){
+  public function Viven_ArrangeForm($list, $num_btns, $num_cols = 0, $hidden=TRUE){
     $org = ''; 
+    $col_count = $hidden? count($list)-1 : count($list);
     
-    if(count($list) < 8){
+    //count($list) < 4 || 
+    if($num_cols > 0){
       
       $org .= '<table>';
       
@@ -154,8 +167,8 @@ class Form {
       $org .= '</table>';
       
     } else{
-      $tbl1 = array_slice($list, 0, count($list)/2);
-      $tbl2 = array_slice($list, count($list)/2,count($list)/2+1);
+      $tbl1 = array_slice($list, 0, $col_count/2);
+      $tbl2 = array_slice($list, $col_count/2,($col_count/2)+1);
       
       $org .= '<div style="float:left;"><table>';
       foreach($tbl1 as $name => $field){
