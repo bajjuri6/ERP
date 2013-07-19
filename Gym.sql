@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `viv_branch_en` (
   `_branch_name` varchar(30) NOT NULL,
   `_branch_manager` varchar(30) NOT NULL,
   `_branch_addr` text NOT NULL,
+  `_branch_cmnts` text NOT NULL,
 
   `_branch_addedby` varchar(40) NOT NULL,
   `_branch_addedon` timestamp NULL,
@@ -66,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `viv_dept_en` (
   `_dept_name` varchar(30) NOT NULL,
   `_dept_branch` varchar(30) NOT NULL,
   `_dept_manager` text NOT NULL,
+  `_dept_cmnts` text NOT NULL,
 
   `_dept_addedby` varchar(40) NOT NULL,
   `_dept_addedon` timestamp NULL,
