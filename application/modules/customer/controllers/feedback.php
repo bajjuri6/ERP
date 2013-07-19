@@ -20,7 +20,7 @@ class Viven_Customer_Feedback extends Controller{
       $date = array("type" => "input", 
                   "name" => "date",
                   "id" => "date",
-                  "size" => "30",
+                  "size" => "27",
                   "readonly" => "readonly",
                   "class" => "none datepicker");
       $adate = $form -> Viven_AddInput($date);
@@ -30,7 +30,7 @@ class Viven_Customer_Feedback extends Controller{
       $cn = array("type" => "text", 
                   "name" => "sn",
                   "id" => "sn",
-                  "size" => "30",
+                  "size" => "27",
                   "class" => "none");
       $cname = $form -> Viven_AddInput($cn);
       $form_fields['Customer Name:'] = $cname;
@@ -52,7 +52,7 @@ class Viven_Customer_Feedback extends Controller{
       $form_fields[''] = $cfeedback;
       
       $outForm = '<form method="post" action="/customer/feedback/new">';
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
+      $outForm .= $form -> Viven_ArrangeForm($form_fields,2,1);
       $outForm .= '</form>';
       
       echo $outForm;

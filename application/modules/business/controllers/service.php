@@ -39,7 +39,7 @@ class Viven_Business_Service extends Controller{
       $sn = array("type" => "text", 
                   "name" => "sn",
                   "id" => "sn",
-                  "size" => "30",
+                  "size" => "27",
                   "class" => "none");
       $sname = $form -> Viven_AddInput($sn);
       $form_fields['Srvice Name:'] = $sname;
@@ -48,7 +48,7 @@ class Viven_Business_Service extends Controller{
       $br = array("type" => "text", 
                   "name" => "br",
                   "id" => "br",
-                  "size" => "30",
+                  "size" => "27",
                   "class" => "none");
       $brnch = $form -> Viven_AddInput($br);
       $form_fields['Branch Name:'] = $brnch;
@@ -70,7 +70,7 @@ class Viven_Business_Service extends Controller{
       $form_fields[''] = $nservice;
       
       $outForm = '<form method="post" action="/business/service/new">';
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
+      $outForm .= $form -> Viven_ArrangeForm($form_fields,2,1);
       $outForm .= '</form>';
       
       echo $outForm;

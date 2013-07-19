@@ -1,18 +1,18 @@
 <?php
 
-class Viven_Model_Branch extends Model{
+class Viven_Model_Department extends Model{
 
   function __construct() {
     parent::__construct();
   }
   
   
-  function getBranchDetails($name){
+  function getDeptDetails($name){
     return $name;
   }
   
   
-  function getBranchList($param){
+  function getDeptList($param){
     switch($param){
       case 'all':
         break;
@@ -24,8 +24,9 @@ class Viven_Model_Branch extends Model{
     return $param;
   }
   
-  function addBranch($details){
-    return; 
+  
+  function addDepartment($details){
+    return $details;
   }
   
 }

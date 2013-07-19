@@ -79,7 +79,7 @@ class Viven_User_Register extends Controller{
       $branch = array("name" => "branch",
                   "id" => "branch",
                   "class" => "none",
-                  "options" => array("DSNR" => array("value" => "0"),
+                  "options" => array("Nagole" => array("value" => "0"),
                                      "Film Nagar" => array("value" => "1")
                     ));
       $ubranch = $form ->Viven_AddSelect($branch);
@@ -98,7 +98,7 @@ class Viven_User_Register extends Controller{
        * Create Form string
        */
       $outForm = '<form method="post" action="/user/register">';
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
+      $outForm .= $form -> Viven_ArrangeForm($form_fields,2,1);
       $outForm .= '</form>';
       
       echo $outForm;

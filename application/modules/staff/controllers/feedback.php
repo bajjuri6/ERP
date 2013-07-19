@@ -20,7 +20,7 @@ class Viven_Staff_Feedback extends Controller{
       $date = array("type" => "input", 
                   "name" => "date",
                   "id" => "date",
-                  "size" => "30",
+                  "size" => "27",
                   "readonly" => "readonly",
                   "class" => "none datepicker");
       $adate = $form -> Viven_AddInput($date);
@@ -30,7 +30,7 @@ class Viven_Staff_Feedback extends Controller{
       $sn = array("type" => "text", 
                   "name" => "sn",
                   "id" => "sn",
-                  "size" => "30",
+                  "size" => "27",
                   "class" => "none");
       $sname = $form -> Viven_AddInput($sn);
       $form_fields['Staff Name:'] = $sname;
@@ -52,7 +52,7 @@ class Viven_Staff_Feedback extends Controller{
       $form_fields[''] = $sfeedback;
       
       $outForm = '<form method="post" action="/staff/feedback/new">';
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
+      $outForm .= $form -> Viven_ArrangeForm($form_fields,2,1);
       $outForm .= '</form>';
       
       echo $outForm;

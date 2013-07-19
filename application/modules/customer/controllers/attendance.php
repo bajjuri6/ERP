@@ -20,7 +20,7 @@ class Viven_Customer_Attendance extends Controller{
       $cn = array("type" => "text", 
                   "name" => "cn",
                   "id" => "cn",
-                  "size" => "30",
+                  "size" => "27",
                   "class" => "none");
       $cname = $form -> Viven_AddInput($cn);
       
@@ -29,7 +29,7 @@ class Viven_Customer_Attendance extends Controller{
       $date = array("type" => "input", 
                   "name" => "pdate",
                   "id" => "pdate",
-                  "size" => "30",
+                  "size" => "27",
                   "readonly" => "readonly",
                   "class" => "none datepicker");
       $adate = $form -> Viven_AddInput($date);
@@ -39,8 +39,7 @@ class Viven_Customer_Attendance extends Controller{
       $status = array("name" => "level",
                   "id" => "level",
                   "class" => "none",
-                  "options" => array("Select" => array("value" => "0"),
-                                     "Present" => array("value" => "1"),
+                  "options" => array("Present" => array("value" => "1"),
                                      "Absent" => array("value" => "2")
                     ));
       $astatus = $form ->Viven_AddSelect($status);
@@ -48,11 +47,12 @@ class Viven_Customer_Attendance extends Controller{
             
       
       $remarks = array("type" => "input", 
-                  "name" => "date",
-                  "id" => "date",
-                  "size" => "30",
+                  "name" => "remarks",
+                  "id" => "remarks",
+                  "rows" => "3",
+                  "cols" => "26",
                   "class" => "none");
-      $aremarks = $form -> Viven_AddInput($remarks);
+      $aremarks = $form ->Viven_AddText($remarks);
       $form_fields['Comments:'] = $aremarks;
       
       $attn = array("type" => "hidden", 
@@ -62,11 +62,11 @@ class Viven_Customer_Attendance extends Controller{
       $form_fields[''] = $cattn;
       
       $outForm = '<form method="post" action="/customer/attendance/new">';
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
+      $outForm .= $form -> Viven_ArrangeForm($form_fields,2,1);
       $outForm .= '</form>';
       
       echo $outForm;
       
-    }
-  } 
+    } // End Else
+  } // End newAction()
 }

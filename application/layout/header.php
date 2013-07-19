@@ -8,13 +8,14 @@
 <div class="ibar">
 	<div class="nav">	
 		<ul>
-			<li class='dataEntryHead'><a  href='#' id="morebutton" class="gn"><i class="icon-edit icon-white"></i>Data Entry</a>
+			<li class='dataEntryHead'><a  href='#' id="morebutton" class="gn"><i class="icon-edit icon-white"></i>Business</a>
 				<ul class='stayontop'>
 					<li><a class="gn" onclick="fetchform('Staff Attendance','/staff/attendance/new')"> Staff Attendance </a></li>    
-					<li><a class="gn" href="/business/enquiry/new"> Record Enquiry</a></li>
-     <li><a class="gn" href="/business/followup/new"> Record Follow-up</a></li>
-					<li><a class="gn" href="/finance/expense/new">Record Expense </a></li>
-				</ul>
+					<li><a class="gn" href="/business/enquiry/new"> Enquiry</a></li>
+     <li><a class="gn" href="/business/followup/new"> Follow-up</a></li>
+					<li><a class="gn" href="/finance/expense/new">Expense </a></li>
+     <li><a class="gn" id="add-service" onclick="fetchform('New Service','/business/service/new')">New Service </a></li>
+    </ul>
 			</li>
    
    <li class='customerEntryHead'><a  href='#' id="morebutton" class="gn"><i class="icon-user icon-white"></i>Customer</a>
@@ -24,7 +25,7 @@
       <li><a class="gn" href="/business/enroll/new">Enrollment</a></li>
       <li><a class="gn" href="/finance/revenue/new">Payment </a></li>
       <li><a class="gn" href="/customer/physical/new">Physical </a></li>
-     <li><a class="gn" href="/customer/account/forgot">Forgot ID </a></li>
+     <li><a class="gn" onclick="fetchform('Forgot ID','/customer/account/forgot')">Forgot ID </a></li>
      <li><a class="gn" onclick="fetchform('Customer Feedback','/customer/feedback/new')">Feedback </a></li>
 				</ul>
 			</li>
@@ -51,8 +52,21 @@
 					
 				</ul>
 			</li>
+   
+   
+   <li class="reportEntry"><a  href='#' id="reports" class="gn"><i class="icon-user icon-white"></i>Staff </a>
+				<ul class='stayontop'>
+      
+      <!-- Business -->
+					<li><a class="gn" href="/business/enroll/report">New Employee </a></li>
+     <li><a class="gn" id="add-feedback" onclick="fetchform('Staff Feedback','/staff/feedback/new')">Staff Feedback </a></li>
+           
+					
+				</ul>
+			</li>
+   
 			
-			<li class="manageEntry"><a href="#" id="manage" class="gn"><i class="icon-user icon-white"></i>Manage</a>
+			<li class="manageEntry"><a href="#" id="manage" class="gn"><i class="icon-eye-open icon-white"></i>Manage</a>
 				<ul class='stayontop'>					
 					<li><a class="gn" href="/business/service/report">Services & Offers</a></li>
      <li><a class="gn" href="/data/user/report">Software Users</a></li>
@@ -73,14 +87,13 @@
 						<li><a  href='#' id="tinyadd" class="gn"><i class="icon-plus icon-white"></i>Add</a>
           
           <ul class='stayontop'>
-           <li><a class="gn" id="add-service" onclick="fetchform('New Service','/business/service/new')">New Service </a></li>
-           <li><a class="gn" id="add-feedback" onclick="fetchform('Staff Feedback','/staff/feedback/new')">Staff Feedback </a></li>
            <li><a class="gn" id="add-employee" onclick="fetchform('Software User','/user/register')">New User </a></li>							
-           <li><a class="gn" id="add-branch" onclick="fetchform('New Branch','/business/branch/new')">New Branch </a></li>           
+           <li><a class="gn" id="add-branch" onclick="fetchform('New Branch','/business/branch/new')">New Branch </a></li> 
+           <li><a class="gn" id="add-dept" onclick="fetchform('New Department','/business/department/new')">New Department </a></li>
           </ul>			
           
       </li>
-      <li><a class="userAccount" onclick="fetchform('User Account','/user/account')">
+      <li><a class="userAccount" onclick="fetchform('User Account','/user/account/password')">
           <i class="icon-wrench icon-white"></i>Account </a></li>
       <li><a class="Logout" href="/user/logout"><i class="icon-off icon-white"></i>Logout</a></li>
       

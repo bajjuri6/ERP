@@ -78,13 +78,13 @@ class Viven_Business_Branch extends Controller{
       $form_fields[''] = $newbranch;
       
       $outForm = '<form method="post" action="/business/branch/new">';
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
+      $outForm .= $form -> Viven_ArrangeForm($form_fields,2,1);
       $outForm .= '</form>';
       
       echo $outForm;
       
-    }
+    } //End Else
     //$this -> view -> render('branch/index','business');
-  }
+  } //End newAction()
   
 }
