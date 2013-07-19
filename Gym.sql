@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `viv_app_en` (
 -- --------------------------------------------------------
 
 -- Branch Configuration
--- Table structure for table `viv_branch_cfg_en`
+-- Table structure for table `viv_branch_en`
 --
 
 CREATE TABLE IF NOT EXISTS `viv_branch_en` (
@@ -46,7 +46,32 @@ CREATE TABLE IF NOT EXISTS `viv_branch_en` (
   `_branch_name` varchar(30) NOT NULL,
   `_branch_manager` varchar(30) NOT NULL,
   `_branch_addr` text NOT NULL,
+
+  `_branch_addedby` varchar(40) NOT NULL,
+  `_branch_addedon` timestamp NULL,
+  `_branch_lastmodby` varchar(40) NOT NULL,
+  `_branch_lastmodon` timestamp NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`_branch_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+
+-- Deparments Configuration
+-- Table structure for table `viv_dept_en`
+--
+
+CREATE TABLE IF NOT EXISTS `viv_dept_en` (
+  `_dept_id` int(11) NOT NULL AUTO_INCREMENT,
+  `_dept_name` varchar(30) NOT NULL,
+  `_dept_branch` varchar(30) NOT NULL,
+  `_dept_manager` text NOT NULL,
+
+  `_dept_addedby` varchar(40) NOT NULL,
+  `_dept_addedon` timestamp NULL,
+  `_dept_lastmodby` varchar(40) NOT NULL,
+  `_dept_lastmodon` timestamp NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`_dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
