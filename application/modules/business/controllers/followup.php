@@ -80,8 +80,8 @@ class Viven_Business_Followup extends Controller{
                   "name" => "fd",
                   "id" => "fd",
                   "size" => "27",
-                  "readonly" => "readonly datepicker",
-                  "class" => "none");
+                  "readonly" => "readonly",
+                  "class" => "none datepicker");
       $fdate = $form -> Viven_AddInput($fd);      
       $form_fields['Follow Up Date:'] = $fdate;
       
@@ -110,7 +110,7 @@ class Viven_Business_Followup extends Controller{
       $followup = $form -> Viven_AddInput($flw);
       $form_fields[''] = $followup;
       
-      $outForm = '<form method="post" action="/business/followup/new">';
+      $outForm = '<form id="vf_flw" class="renderform" method="post" action="/business/followup/new">';
       $outForm .= $form -> Viven_ArrangeForm($form_fields,2,0,false);
       $outForm .= '</form>';
       
@@ -118,6 +118,11 @@ class Viven_Business_Followup extends Controller{
       
     }
     $this -> view -> render('followup/index','business');
+  }
+  
+  function getOpenFollowup(){
+    require '/business/models/followup.php';
+    $model = new Business_Model_Followup;
   }
 
 }

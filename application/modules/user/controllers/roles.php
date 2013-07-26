@@ -1,85 +1,64 @@
 <?php
 
-class Viven_User_Account extends Controller{
+class Viven_User_Roles extends Controller{
 
   function __construct() {
     parent::__construct();
   }
   
-  public function passwordAction(){
-    //$this -> view -> LoginStatus = "Initialized";
-    if(isset($_POST['lgn'])){
-      $model = new Viven_User_Model();
-      $res = $model ->updateUser($_POST['un'], $_POST['pw']);
-      $result = "Update: ";
-      switch($res){
-        case 0:
-          $result .= "FAILURE";
-          break;
-        case 1:
-          $result .= "PARTIAL SUCCESS";
-          break;
-        case 2:
-          $result .= "SUCCESS !!";
-          header("location:/data/logins");
-          break;
+  function newAction(){
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
+    
+      if(isset($_POST['role'])){
+        require MODULES.'/user/models/roles.php';
+        $model = new Viven_Roles_Model;
+        $res = $model -> addRole($_POST);
+        echo $res;
       }
-       $this -> view -> LoginStatus = $result;
-    }else{
-      $form = new Form();
-      //$form_fields = array();
-      //$form_fields_info = array();
+      else{
+        $form = new Form();
+        $form_fields = array();
+
+        /**
+         * Add Role Form Elements
+         */
+        $rn = array("type" => "text", 
+                    "name" => "rn",
+                    "id" => "rn",
+                    "size" => "30",
+                    "class" => "none");
+        $rname = $form -> Viven_AddInput($rn);
+        $form_fields['Role Name:'] = $rname;
+
+
+        $rle = array("type" => "hidden", 
+                     "name" => "role",
+                     "value" => "1");
+        $role = $form -> Viven_AddInput($rle);
+        $form_fields[''] = $role;
+
+
+        /**
+         * Create Form string
+         */
+        $outForm = '<form id="vf_role" class="popform" method="post">';
+        $outForm .= $form -> Viven_ArrangeForm($form_fields,2,1);
+        $outForm .= '</form>';
+
+        echo $outForm;
+
+      } //End Else
       
-      /**
-       * Current Account Info
-       */
-      $form_fields_info['User Name: '] = $_SESSION['un'];
-      $form_fields_info['User Level: '] = $_SESSION['level'];
-      $infoform = $form -> Viven_ArrangeForm($form_fields_info,0,0,FALSE);
-      
-      /**
-       * Change Password Form Elements
-       */
-      $cp = array("type" => "text", 
-                  "name" => "cp",
-                  "id" => "cp",
-                  "size" => "25",
-                  "class" => "none");
-      $cpassword = $form -> Viven_AddInput($cp);
-      
-      $form_fields['Current Password:'] = $cpassword;
-      
-      $pw = array("type" => "password", 
-                  "name" => "pw",
-                  "id" => "pw",
-                  "size" => "25",
-                  "class" => "none");
-      $pword = $form -> Viven_AddInput($pw);
-      
-      $form_fields['New Password:'] = $pword;
-      
-      
-      $cnp = array("type" => "password", 
-                  "name" => "cnp",
-                  "id" => "cnp",
-                  "size" => "25",
-                  "class" => "none");
-      $cnpassword = $form -> Viven_AddInput($cnp);
-      
-      $form_fields['Confirm New Password:'] = $cnpassword;
-      
-      $np = array("type" => "hidden", 
-                   "name" => "np",
-                   "value" => "1");
-      $npass = $form -> Viven_AddInput($np);
-      $form_fields[''] = $npass;
-            
-      $outform = '<form action="/user/account/update">';
-      $outform .= $infoform;
-      $outform .= $form -> Viven_ArrangeForm($form_fields,2,1);
-      $outform .= '</form>';
-      echo $outform;
-      
-    }
+    } //End XMLHTTPREQUEST Check
+    
+  } //End newAction()
+  
+  
+  public function getRolesAction(){
+    require MODULES . '/user/models/roles.php';
+    $model = new Viven_Roles_Model;
+    
+    return $model -> getList();
   }
+  
 }

@@ -10,7 +10,6 @@
 		<ul>
 			<li class='dataEntryHead'><a  href='#' id="morebutton" class="gn"><i class="icon-edit icon-white"></i>Business</a>
 				<ul class='stayontop'>
-					<li><a class="gn" onclick="fetchform('Staff Attendance','/staff/attendance/new')"> Staff Attendance </a></li>    
 					<li><a class="gn" href="/business/enquiry/new"> Enquiry</a></li>
      <li><a class="gn" href="/business/followup/new"> Follow-up</a></li>
 					<li><a class="gn" href="/finance/expense/new">Expense </a></li>
@@ -58,8 +57,9 @@
 				<ul class='stayontop'>
       
       <!-- Business -->
+      <li><a class="gn" onclick="fetchform('Staff Attendance','/staff/attendance/new')">Staff Attendance</a></li>
 					<li><a class="gn" href="/business/enroll/report">New Employee </a></li>
-     <li><a class="gn" id="add-feedback" onclick="fetchform('Staff Feedback','/staff/feedback/new')">Staff Feedback </a></li>
+     <li><a class="gn" id="add-feedback" onclick="fetchform('Staff Feedback','/staff/feedback/new')">Staff Feedback </a></li>    
            
 					
 				</ul>
@@ -70,8 +70,7 @@
 				<ul class='stayontop'>					
 					<li><a class="gn" href="/business/service/report">Services & Offers</a></li>
      <li><a class="gn" href="/data/user/report">Software Users</a></li>
-     <li><a class="gn" href="/business/branch/report">Branches</a></li>
-     <li><a class="gn" onclick="fetchform('Staff Attendance','/staff/feedback/new')">Staff Feedback</a></li>
+     <li><a class="gn" href="/business/branch/report">Branches</a></li>     
      <li><a class="gn" href="/data/logins">Login Records</a></li>
 				</ul>
 			</li>
@@ -87,9 +86,11 @@
 						<li><a  href='#' id="tinyadd" class="gn"><i class="icon-plus icon-white"></i>Add</a>
           
           <ul class='stayontop'>
-           <li><a class="gn" id="add-employee" onclick="fetchform('Software User','/user/register')">New User </a></li>							
-           <li><a class="gn" id="add-branch" onclick="fetchform('New Branch','/business/branch/new')">New Branch </a></li> 
-           <li><a class="gn" id="add-dept" onclick="fetchform('New Department','/business/department/new')">New Department </a></li>
+           <li><a class="gn" id="add-employee" onclick="fetchform('Software User','/user/register/new')">User </a></li>
+           <li><a class="gn" id="add-user-role" onclick="fetchform('Software User Role','/user/roles/new')">User Role</a></li>	
+           <li><a class="gn" id="add-user-role" onclick="fetchform('New Payment Mode','/finance/mode/new')">Payment Mode</a></li>	
+           <li><a class="gn" id="add-branch" onclick="fetchform('New Branch','/business/branch/new')">Branch </a></li> 
+           <li><a class="gn" id="add-dept" onclick="fetchform('New Department','/business/department/new')">Department </a></li>
           </ul>			
           
       </li>

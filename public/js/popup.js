@@ -1,8 +1,3 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 function fetchform(heading, url){
     
 /**
@@ -39,9 +34,9 @@ $.post(url,
 
 popupPanel = $("#popupbox");
 
-  /**
-   * Calculate the position of the popup
-   */
+/**
+ * Calculate the position of the popup
+ */
 var width = popupPanel.width();
 var winWidth = $(window).width();
 var left = (winWidth - width)/2;

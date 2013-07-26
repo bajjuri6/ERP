@@ -1,64 +1,141 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-function fetchform(heading, url){
+$(document).ready(function(){
+  
+  function clearpopup(){
     
-/**
- * Fetch the form that was requested via an AJAX call
- * Populate popupbox with the fetched form
- */
-var head = "<div class='popHead'>"+heading+"</div>";
-$.post(url,
-      { },
-      function(data){
-        if( data ){
-          if(data == "login"){
-            head = "<div class='popHead'>Login</div>";
-            $.post('/Poplogin',
-                   { },
-                   function(data){
-                      $("#popupbox").html(head + "<div class='popBody'>\n\
-                                                 Your session has expired. \n\
-                                                 Please login again to continue"+ 
-                                                 data +"</div>");
-            });
-
-          }else{
-            $("#popupbox").html(head + "<div class='popBody'>"+ data +"</div>");
-
-          }
-
-        }
-
-        else
-          $("#popupbox").html("Could not fetch requested form. <br /> \n\
-                              Please check you internet connection and try again");
-      });
-
-popupPanel = $("#popupbox");
+    setTimeout(function(){
+                 $("#popupbox, #lightbox").fadeOut(400);
+               }, 2000);
+  } //End CLEARPOPUP
+  
 
   /**
-   * Calculate the position of the popup
+   * All the events from here on are responsible for AJAX processing of popup forms
    */
-var width = popupPanel.width();
-var winWidth = $(window).width();
-var left = (winWidth - width)/2;
+  
+  // Process New Department Form
+  $('#vf_dept').live('submit', function(){
 
-/**
- * Fix the position of the pop-up relative to the window
- */
-popupPanel.css('left',left);
-popupPanel.css('top',120);
-//popupPanel.css('height',320);
+    $.post('/business/department/new',
+            $('#vf_dept').serialize(),
+            function(data){
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });
 
-/**
- * Bring up the tansparent grey background and the popup
- */
-$('#lightbox').fadeIn(250);
-popupPanel.fadeIn(300);
-return;
-}
+    return false;
+  }); // End VF_DEPT SUBMIT
 
 
+  // Process New Branch Form
+  $('#vf_brnch').live('submit', function(){
+    $.post('/business/branch/new',
+            $('#vf_brnch').serialize(),
+            function(data){
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); // End VF_BRANCH SUBMIT
+  
+  
+  // Process New User Form
+  $('#vf_register').live('submit', function(){
+    $.post('/user/register/new',
+            $('#vf_register').serialize(),
+            function(data){
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_USER SUBMIT
+   
+  
+  // Process New User Role Form
+  $('#vf_role').live('submit', function(){
+    $.post('/user/roles/new',
+            $('#vf_role').serialize(),
+            function(data){
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_ROLE SUBMIT
+   
+  
+  // Process Add Staff Attendance Form
+  $('#vf_sattn').live('submit', function(){
+    $.post('/staff/attendance/new',
+            $('#vf_sattn').serialize(),
+            function(data){
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_SATTN SUBMIT
+   
+  
+  // Process Add Customer Attendance Form
+  $('#vf_cattn').live('submit', function(){
+    $.post('/customer/attendance/new',
+            $('#vf_cattn').serialize(),
+            function(data){
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CATTN SUBMIT
+   
+  
+  // Process Add New Service Form
+  $('#vf_ns').live('submit', function(){
+    $.post('/business/service/new',
+            $('#vf_ns').serialize(),
+            function(data){
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_ns SUBMIT
+  
+    
+  // Process Add Customer Feedback Form
+  $('#vf_cfdb').live('submit', function(){
+    $.post('/customer/feedback/new',
+            $('#vf_cfdb').serialize(),
+            function(data){
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_cfdb SUBMIT
+  
+    
+  // Process Add Staff Feedback Form
+  $('#vf_sfdb').live('submit', function(){
+    $.post('/staff/feedback/new',
+            $('#vf_sfdb').serialize(),
+            function(data){
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_sfdb SUBMIT
+  
+  
+}); // End DOCUMENT.READY

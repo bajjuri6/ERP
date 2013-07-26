@@ -94,8 +94,9 @@ class Form {
      */
     $ret .= $this -> sel_open;
     foreach ($arr as $attrib => $val){
-      if($attrib != 'options')
-        $ret .= $attrib.'='.'"'.$val.'"'.' ';
+      if($attrib != 'options'){
+        $ret .= $attrib . '=' . '"' . $val . '"' . ' ';
+      }
     }
     $ret .= $this -> simpl_close;
     
@@ -104,12 +105,13 @@ class Form {
      */
     $optArr = $arr['options'];
     
-    $ret .= $this -> opt_open;
-    $ret .= 'value="0"';
-    $ret .= $this -> simpl_close;
-    $ret .= "-- Select --";
-    $ret .= $this -> opt_close;
-    
+    if(!$arr["multiple"]){
+      $ret .= $this -> opt_open;
+      $ret .= 'value="0"';
+      $ret .= $this -> simpl_close;
+      $ret .= "-- Select --";
+      $ret .= $this -> opt_close;
+    }
     foreach ($optArr as $option => $attribs){
       $ret .= $this -> opt_open;
       

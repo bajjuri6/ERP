@@ -1,85 +1,48 @@
 <?php
 
-class Viven_User_Account extends Controller{
+class Viven_Roles_Model extends Model{
 
   function __construct() {
     parent::__construct();
   }
   
-  public function passwordAction(){
-    //$this -> view -> LoginStatus = "Initialized";
-    if(isset($_POST['lgn'])){
-      $model = new Viven_User_Model();
-      $res = $model ->updateUser($_POST['un'], $_POST['pw']);
-      $result = "Update: ";
-      switch($res){
-        case 0:
-          $result .= "FAILURE";
-          break;
-        case 1:
-          $result .= "PARTIAL SUCCESS";
-          break;
-        case 2:
-          $result .= "SUCCESS !!";
-          header("location:/data/logins");
-          break;
+  public function getList(){
+    
+    $qs = "SELECT _usr_role_name FROM viv_usr_role_en WHERE 1";
+    $res = $this -> db -> query($qs); 
+    $roleslist = $res->fetchAll(PDO::FETCH_ASSOC); 
+    
+    /**
+     * Generate associative list to be returned
+     */
+    $rla = array();
+    if($roleslist){      
+      foreach($roleslist as $val){
+        $rla[$val['_usr_role_name']] = array("value" => $val['_usr_role_name']);
       }
-       $this -> view -> LoginStatus = $result;
-    }else{
-      $form = new Form();
-      //$form_fields = array();
-      //$form_fields_info = array();
-      
-      /**
-       * Current Account Info
-       */
-      $form_fields_info['User Name: '] = $_SESSION['un'];
-      $form_fields_info['User Level: '] = $_SESSION['level'];
-      $infoform = $form -> Viven_ArrangeForm($form_fields_info,0,0,FALSE);
-      
-      /**
-       * Change Password Form Elements
-       */
-      $cp = array("type" => "text", 
-                  "name" => "cp",
-                  "id" => "cp",
-                  "size" => "25",
-                  "class" => "none");
-      $cpassword = $form -> Viven_AddInput($cp);
-      
-      $form_fields['Current Password:'] = $cpassword;
-      
-      $pw = array("type" => "password", 
-                  "name" => "pw",
-                  "id" => "pw",
-                  "size" => "25",
-                  "class" => "none");
-      $pword = $form -> Viven_AddInput($pw);
-      
-      $form_fields['New Password:'] = $pword;
-      
-      
-      $cnp = array("type" => "password", 
-                  "name" => "cnp",
-                  "id" => "cnp",
-                  "size" => "25",
-                  "class" => "none");
-      $cnpassword = $form -> Viven_AddInput($cnp);
-      
-      $form_fields['Confirm New Password:'] = $cnpassword;
-      
-      $np = array("type" => "hidden", 
-                   "name" => "np",
-                   "value" => "1");
-      $npass = $form -> Viven_AddInput($np);
-      $form_fields[''] = $npass;
-            
-      $outform = '<form action="/user/account/update">';
-      $outform .= $infoform;
-      $outform .= $form -> Viven_ArrangeForm($form_fields,2,1);
-      $outform .= '</form>';
-      echo $outform;
-      
     }
+    return $rla;
   }
+  
+  function addRole($details){
+    
+    $ern = $this -> db -> quote($details['rn']);
+    
+    $qsc = "SELECT _usr_role_name FROM viv_usr_role_en WHERE _usr_role_name = " . $ern;    
+    $res = $this -> db -> query($qsc);
+    if($res -> fetchAll(PDO::FETCH_ASSOC)){
+      return "Role exists. Cannot add duplicates.";
+    }
+    
+    $qs = "INSERT INTO viv_usr_role_en (_usr_role_name,
+                                        _usr_role_addedby,
+                                        _usr_role_addedon) VALUES (". $ern.", "
+                                                                      . $_SESSION['un'].", "
+                                                                      . "NOW())";
+    if($this -> db -> exec($qs)){
+      return "Role added successfully";
+    } else return $qs;
+    
+  }
+  
 }

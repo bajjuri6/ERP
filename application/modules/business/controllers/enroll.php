@@ -151,25 +151,6 @@ class Viven_Business_Enroll extends Controller{
       $form_fields_medical['Alcohol:'] = $alcohol;
       
       
-      /*$gender = array("name" => "gender",
-                      "id" => "gender",
-                      "class" => "none",
-                      "options" => array("Male" => array("value" => "1"),
-                                         "Female" => array("value" => "2")
-                                        ));
-      $igender = $form ->Viven_AddSelect($gender);
-      $form_fields_medical['Gender:'] = $igender;
-      
-      
-      $pro = array("type" => "text", 
-                  "name" => "pro",
-                  "id" => "pro",
-                  "size" => "27",
-                  "class" => "none");
-      $profession = $form -> Viven_AddInput($pro);      
-      $form_fields_medical['Profession:'] = $profession;
-      */
-      
       //Get the First Sub Form of the Enrollment
       $medical = $form -> Viven_ArrangeForm($form_fields_medical,0,0,false);
       $this -> view -> medical = $medical;

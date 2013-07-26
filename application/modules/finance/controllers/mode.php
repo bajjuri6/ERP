@@ -1,13 +1,13 @@
 <?php
 
-class Viven_Finance_Revenue extends Controller{
+class Viven_Finance_Mode extends Controller{
 
   function __construct() {
     parent::__construct();
   }
   
   function newAction(){
-    if(isset($_POST['pmnt'])){
+    if(isset($_POST['mde'])){
       return 0;
     }
     else{

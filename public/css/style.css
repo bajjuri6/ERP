@@ -138,7 +138,7 @@ padding:5px 3px;
 line-height:300%;
 width:80%;
 background:#FFF;
-border:1px solid #777;
+border:1px solid #B9B9B9;
 background-image:url(/images/watermark.png);
 background-repeat:no-repeat;
 background-position:center;
@@ -521,6 +521,7 @@ dd{
 #popupbox{
   background-color: #FFF;
   display:none;
+  top:10px !important;
   position:absolute;
   z-index:10;
   -webkit-box-shadow: 0 1px 5px #1E1D6D;
@@ -587,7 +588,7 @@ dd{
 
 .bodyworks form table tr td{
   padding: 6px 24px;
-  margin: 8px 0xp;
+  margin: 8px 0px;
 }
 
 form table tr td{
@@ -603,7 +604,7 @@ h1{
   margin:100px auto;
   text-align: center;
   border-radius: 4px;
-  box-shadow: 1px 1px 20px #AAA;
+  box-shadow: 1px 1px 15px #AAA;
 }
 
 .reports-table th {

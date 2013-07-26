@@ -25,14 +25,26 @@ class Viven_Customer_Training extends Controller{
       $form_fields['Date:'] = $adate;
       
       
-      $status = array("name" => "level",
-                  "id" => "level",
+      $dataController = new Viven_Api_Generic;
+      $trainerlist = $dataController -> getActiveStaffList("trainer");
+      $customerlist = $dataController -> getActiveCutomerList();
+      
+
+      $cust = array("name" => "customer",
+                  "id" => "customer",
                   "class" => "none",
-                  "options" => array("Trainer1" => array("value" => "1"),
-                                     "Trainer2" => array("value" => "2")
-                    ));
-      $astatus = $form ->Viven_AddSelect($status);
-      $form_fields['Trainer:'] = $astatus;
+                  "options" => $customerlist);        
+      $customer = $form ->Viven_AddSelect($cust);
+      $form_fields['Customer:'] = $customer;
+      
+      
+      $trainer = array("name" => "trainer",
+                  "id" => "trainer",
+                  "class" => "none",
+                  "options" => $trainerlist);        
+      $ptrainer = $form ->Viven_AddSelect($trainer);
+      $form_fields['Trainer:'] = $ptrainer;
+      
       
       $remarks = array("type" => "text", 
                   "name" => "date",
@@ -67,13 +79,13 @@ class Viven_Customer_Training extends Controller{
       $balance = $form -> Viven_AddInput($bal);
       $form_fields['Balance:'] = $balance;
       
-      $attn = array("type" => "hidden", 
-                   "name" => "cattn",
+      $train = array("type" => "hidden", 
+                   "name" => "train",
                    "value" => "1");
-      $cattn = $form -> Viven_AddInput($attn);
-      $form_fields[''] = $cattn;
+      $traininghidden = $form -> Viven_AddInput($train);
+      $form_fields[''] = $traininghidden;
       
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
+      $outForm .= $form -> Viven_ArrangeForm($form_fields,2,0,false);
       $this -> view -> personaltraining = $outForm;
       
     } //End Else

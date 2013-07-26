@@ -1,5 +1,6 @@
-<script src="/public/js/popup.js"></script>
 <script src="/public/js/jquery/jquery-ui.min.js"></script>
+<script src="/public/js/popup.js"></script>
+<script src="/public/js/popsubmit.js"></script>
 <script type="text/javascript">
   /**
    * Datepicker script. To set a field for datepicker, set the class to 'datepicker'

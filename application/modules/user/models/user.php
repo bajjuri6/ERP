@@ -18,10 +18,10 @@ class Viven_User_Model extends Model{
     /**
      * Check if the username exists before adding user to the db
      */
-    $cu = $this -> db -> query("SELECT COUNT(*) FROM viv_emp_en WHERE _emp_un = ".
+    $cu = $this -> db -> query("SELECT _emp_un FROM viv_emp_en WHERE _emp_un = ".
                                   $this -> db -> quote($details['un']));
-    $valid = $cu -> fetch(PDO::FETCH_ASSOC);
-    if(!$valid) return 2;
+    $valid = $cu -> fetchAll(PDO::FETCH_ASSOC);
+    if($valid) return "User Name <strong>".$valid[0]['_emp_un']."</strong> exists. Please select a unique one.";
     
     $qs = "INSERT INTO viv_emp_en (_emp_branch,
                                   _emp_un,
@@ -33,8 +33,8 @@ class Viven_User_Model extends Model{
                                                         $this -> db -> quote($details['level']).",".
                                                         "1".")";
     
-    if($this -> db -> exec($qs)) return 0;
-    else return 1;
+    if($this -> db -> exec($qs)) return "User added SUCCESSFULLY";
+    else return "Could not ADD USER. Contact Admin";
     
   }
   
@@ -72,9 +72,9 @@ class Viven_User_Model extends Model{
       
       $eserver = $this -> db -> quote($_SERVER['REMOTE_ADDR']);
       
-      /*$remote = geoip_record_by_name($_SERVER['REMOTE_ADDR']);
-      $loc = $this -> db -> quote($remote['city']. '/'. $remote['country_name']);*/
-      $loc = $this -> db -> quote("Hyderabad/India");
+      $remote = geoip_record_by_name('183.82.3.242');
+      $loc = $this -> db -> quote($remote['city']. '/'. $remote['country_name']);
+      //$loc = $this -> db -> quote("Hyderabad/India");
       $qs = "INSERT INTO viv_lgn_rec_en ( _lgn_un,
                                           _lgn_ip,
                                           _lgn_loc,
@@ -82,7 +82,6 @@ class Viven_User_Model extends Model{
                                                               $eserver.",".
                                                               $loc.",".
                                                               time().")";
-      //var_dump($qs);
       /**
        * Return 2 indicates LOGIN AND RECORDING SUCCESSFUL
        * Return 1 indicates LOGIN SUCCESS, BUT RECORDING FAIL
