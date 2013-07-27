@@ -58,7 +58,7 @@
       
       <!-- Business -->
       <li><a class="gn" onclick="fetchform('Staff Attendance','/staff/attendance/new')">Staff Attendance</a></li>
-					<li><a class="gn" href="/business/enroll/report">New Employee </a></li>
+					<li><a class="gn" href="/staff/employee/new">New Employee </a></li>
      <li><a class="gn" id="add-feedback" onclick="fetchform('Staff Feedback','/staff/feedback/new')">Staff Feedback </a></li>    
            
 					

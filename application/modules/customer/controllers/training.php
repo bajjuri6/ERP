@@ -7,8 +7,9 @@ class Viven_Customer_Training extends Controller{
   }
   
   function newAction(){
-    if($_POST['cattn']){
-      return 0;
+    
+    if($_POST['train']){
+      var_dump($_POST);
     }
     else{
       $form = new Form();

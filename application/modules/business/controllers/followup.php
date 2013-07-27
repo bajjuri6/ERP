@@ -8,7 +8,7 @@ class Viven_Business_Followup extends Controller{
   
   function newAction(){
     if(isset($_POST['flw'])){
-      //process the enquiry on submit
+      var_dump($_POST);
     }else{
       
       $form = new Form();

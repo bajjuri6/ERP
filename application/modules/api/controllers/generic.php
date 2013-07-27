@@ -52,7 +52,7 @@ class Viven_Api_Generic extends Controller{
    * @return type
    */  
   public function getActiveStaffList($type){
-    require MODULES.'/staff/controllers/employee.php';
+    require_once MODULES.'/staff/controllers/employee.php';
     $employeeController = new Viven_Staff_Employee;
     return $employeeController -> getStaffListAction($type,1);
   }
