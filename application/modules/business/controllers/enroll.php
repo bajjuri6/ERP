@@ -151,6 +151,11 @@ class Viven_Business_Enroll extends Controller{
       $alcohol = $form ->Viven_AddSelect($alco);
       $form_fields_medical['Alcohol:'] = $alcohol;
       
+      $enroll = array("type" => "hidden",
+                      "name" => "enroll",
+                      "value" => "1");
+      $enrollArray = $form->Viven_AddInput($enroll);
+      $form_fields[''] = $enrollArray;
       
       //Get the First Sub Form of the Enrollment
       $medical = $form -> Viven_ArrangeForm($form_fields_medical,0,0,false);
