@@ -16,6 +16,9 @@ class Viven_Business_Enroll extends Controller{
       $form = new Form();
       $form_fields = array();
       
+      $dataController = new Viven_Api_Generic;
+      $activeBrancheslist = $dataController->activeBranchesAction();
+    
       /**
        * Basics Sub-Form Elements
        */
@@ -59,9 +62,7 @@ class Viven_Business_Enroll extends Controller{
       $branch = array("name" => "branch",
                       "id" => "branch",
                       "class" => "none",
-                      "options" => array("branch one" => array("value" => "1"),
-                                         "branch two" => array("value" => "2")
-                                        ));
+                      "options" => $activeBrancheslist);
       $ibranch = $form ->Viven_AddSelect($branch);
       $form_fields_basics['Branch:'] = $ibranch;
       
