@@ -26,8 +26,6 @@ class Viven_Model_Enquiry extends Model{
                       .$this -> db -> quote($timeCreated).","
                       .$this -> db -> quote($_SESSION['un']).","
                       .$this -> db -> quote($timeCreated).")";
-    $this -> db -> exec($query);
-    
-    return $this -> db -> errorInfo();
+    return $this -> db -> exec($query);
   }
 }
