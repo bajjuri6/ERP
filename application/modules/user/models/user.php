@@ -66,7 +66,7 @@ class Viven_User_Model extends Model{
       /**
        * Store identifiers for the current session
        */
-      VivenAuth::setSession($eun, 
+      VivenAuth::setSession($un, 
                             $result['_emp_level'], 
                             $result['_emp_branch']);
       
