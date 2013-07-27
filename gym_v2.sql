@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 27, 2013 at 01:01 PM
+-- Generation Time: Jul 27, 2013 at 03:29 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.17-1~precise+1
 
@@ -601,9 +601,9 @@ CREATE TABLE IF NOT EXISTS `viv_lgn_rec_en` (
   `_lgn_un` varchar(40) NOT NULL,
   `_lgn_ip` varchar(20) NOT NULL,
   `_lgn_loc` varchar(40) NOT NULL,
-  `_lgn_time` timestamp NULL DEFAULT NULL,
+  `_lgn_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`_lgn_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
