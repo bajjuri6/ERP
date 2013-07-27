@@ -171,7 +171,25 @@ class Viven_Staff_Model extends Model{
     
   }
   
-  
-  
-  
+  function addEmployee($data){
+    $timeCreated = time();
+    $query = "INSERT INTO `viv_emp_pro_en` (`_emp_pro_un`, `_emp_pro_branch`, `_emp_pro_shift`, 
+              `_emp_pro_type`, `_emp_pro_supervisor_un`, `_emp_pro_doj`, `_emp_pro_designation`, `_emp_pro_sal`, 
+              `_emp_pro_remarks`, `_emp_pro_addedby`, `_emp_pro_addedon`, `_emp_pro_lastmodby`, `_emp_pro_lastmodon`) 
+              VALUES (".$this -> db -> quote($data['en']).","
+                      .$this -> db -> quote($data['br']).","
+                      .$this -> db -> quote($data['sft']).","
+                      .$this -> db -> quote($data['type']).","
+                      .$this -> db -> quote($data['sn']).","
+                      .$this -> db -> quote($data['doj']).","
+                      .$this -> db -> quote($data['dsg']).","
+                      .$this -> db -> quote($data['sal']).","
+                      .$this -> db -> quote($data['rm']).","
+                      .$this -> db -> quote($_SESSION['un']).","
+                      .$this -> db -> quote($timeCreated).","
+                      .$this -> db -> quote($_SESSION['un']).","
+                      .$this -> db -> quote($timeCreated).")";
+    
+    return $this -> db -> exec($query);
+  }
 }
