@@ -84,8 +84,8 @@ class Viven_Business_Enroll extends Controller{
        * Personal Sub-Form Elements
        */
       $dob = array("type" => "input", 
-                  "name" => "date",
-                  "id" => "date",
+                  "name" => "dob",
+                  "id" => "dob",
                   "size" => "27",
                   "readonly" => "readonly",
                   "class" => "none datepicker");
@@ -96,9 +96,9 @@ class Viven_Business_Enroll extends Controller{
       $marital = array("name" => "marital",
                       "id" => "marital",
                       "class" => "none",
-                      "options" => array("Single" => array("value" => "1"),
-                                         "Married" => array("value" => "2"),
-                                         "Separated" => array("value" => "3")
+                      "options" => array("Single" => array("value" => "S"),
+                                         "Married" => array("value" => "M"),
+                                         "Separated" => array("value" => "D")
                                         ));
       $imarital = $form ->Viven_AddSelect($marital);
       $form_fields_personal['Marital Status:'] = $imarital;
@@ -106,8 +106,8 @@ class Viven_Business_Enroll extends Controller{
       $gender = array("name" => "gender",
                       "id" => "gender",
                       "class" => "none",
-                      "options" => array("Male" => array("value" => "1"),
-                                         "Female" => array("value" => "2")
+                      "options" => array("Male" => array("value" => "M"),
+                                         "Female" => array("value" => "F")
                                         ));
       $igender = $form ->Viven_AddSelect($gender);
       $form_fields_personal['Gender:'] = $igender;
