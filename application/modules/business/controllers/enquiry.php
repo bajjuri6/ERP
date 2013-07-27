@@ -22,7 +22,7 @@ class Viven_Business_Enquiry extends Controller{
         require MODULES . '/business/models/enquiry.php';
         $model = new Viven_Model_Enquiry();
         $res = $model -> addEnquiry($_POST);
-        var_dump($res);
+        
         if($res){
           $this -> view -> msg = 'Record added successfully!!';
         }
