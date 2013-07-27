@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 27, 2013 at 10:06 AM
--- Server version: 5.5.31
+-- Generation Time: Jul 27, 2013 at 12:57 PM
+-- Server version: 5.5.32
 -- PHP Version: 5.4.17-1~precise+1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
@@ -376,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `viv_emp_en` (
   `_emp_status` tinyint(4) NOT NULL DEFAULT '1',
   `_emp_lastlogin` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`_emp_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 
@@ -467,8 +467,8 @@ CREATE TABLE IF NOT EXISTS `viv_emp_pro_en` (
   `_emp_pro_id` int(11) NOT NULL AUTO_INCREMENT,
   `_emp_pro_un` varchar(40) NOT NULL,
   `_emp_pro_branch` varchar(30) NOT NULL,
-  `_emp_pro_shift` tinyint(4) NOT NULL,
-  `_emp_pro_type` tinyint(4) NOT NULL,
+  `_emp_pro_shift` varchar(1) NOT NULL,
+  `_emp_pro_type` varchar(2) NOT NULL,
   `_emp_pro_supervisor_un` varchar(40) NOT NULL,
   `_emp_pro_doj` int(11) NOT NULL,
   `_emp_pro_designation` varchar(60) NOT NULL,
@@ -480,7 +480,7 @@ CREATE TABLE IF NOT EXISTS `viv_emp_pro_en` (
   `_emp_pro_lastmodby` varchar(40) NOT NULL,
   `_emp_pro_lastmodon` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`_emp_pro_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
