@@ -9,14 +9,33 @@ class Viven_Staff_Employee extends Controller{
   //Add new employee
   function newAction(){
   
-    if(isset($_POST['train'])){
-      var_dump($_POST);
+    if(isset($_POST['newemp'])){
+      foreach($_POST as $option){
+        if(!$option){
+          $error = true;
+          break;
+        }
+      }
+      
+      if(isset($error)){
+        $this -> view -> msg = 'All fields are required!';
+      }
+      else{
+        require MODULES . '/staff/models/staff.php';
+        $model = new Viven_Staff_Model();
+        $res = $model -> addEmployee($_POST);
+        
+        if($res){
+          $this -> view -> msg = 'Employee created successfully!!';
+        }
+        else{
+          $this -> view -> msg = 'Error in processing. Please try after sometime.';
+        }
+      }
     }
-    else{
-    }  
+    
     $form = new Form();
     $form_fields = array();
-
 
     $name = array("type" => "text", 
                 "name" => "en",
@@ -31,6 +50,7 @@ class Viven_Staff_Employee extends Controller{
     $activeBrancheslist = $dataController ->activeBranchesAction();
     $activeStafflist = $dataController ->getActiveStaffList('all');
     //$designationList = $dataController ->getActiveStaffList('all');
+    //$shiftsList = $dataController -> getShiftsList('all');
 
 
     $br = array("name" => "br",
@@ -47,7 +67,14 @@ class Viven_Staff_Employee extends Controller{
                                       "Full time" => array("value" => "ft")));        
     $stfType = $form ->Viven_AddSelect($type);
     $form_fields['Type:'] = $stfType;
-
+    
+    $shft = array("name" => "sft",
+                "id" => "br",
+                "class" => "none",
+                "options" => array("Morning" => array("value" => "m"),
+                                      "Evening" => array("value" => "e")));        
+    $shtfType = $form ->Viven_AddSelect($shft);
+    $form_fields['Shift:'] = $shtfType;
 
     $sup = array("name" => "sn",
                 "id" => "sn",
@@ -92,6 +119,12 @@ class Viven_Staff_Employee extends Controller{
                   "class" => "none");
     $aremarks = $form ->Viven_AddText($remarks);
     $form_fields['Remarks:'] = $aremarks;
+    
+    $newemp = array("type" => "hidden", 
+                     "name" => "newemp",
+                     "value" => "1");
+    $newempArray = $form -> Viven_AddInput($newemp);
+    $form_fields[''] = $newempArray;
     
     $outForm .= $form -> Viven_ArrangeForm($form_fields,2,0,false);
     $this -> view -> employeeForm = $outForm;
