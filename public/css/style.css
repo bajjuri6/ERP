@@ -80,31 +80,29 @@ margin-top:10px;
 }
 
 .nav ul li {
-text-align:center;
-list-style-type:none;
-float:left;
-height:40px;
-margin-right: 10px;
+  text-align:center;
+  list-style-type:none;
+  float:left;
+  height:40px;
 }
 
 .nav ul li ul {
-margin-left:-20px;
-width:160px;
-display:none;
-margin-top:14px;
-background:#0962A3;
-padding-top:10px;
+  text-align:left;
+  width:120px;
+  display:none;
+  margin-top:14px;
+  background:#0962A3;
+  padding-top:10px;
 }
 
 .nav ul li:hover ul {
-text-align:center;
-display:block;
-position:relative;
-z-index:9999;
-}
+  display:block;
+  position:absolute;
+  z-index:9999;
+  }
 
 .nav ul li ul li {
-text-align:center;
+text-align:left;
 float:none;
 }
 
@@ -388,7 +386,6 @@ margin:20px auto 30px;
 }
 
 
-
 .addPopup input.flat {
 margin-bottom:10px;
 margin-top:10px;
@@ -399,23 +396,15 @@ margin-left:10px;
 margin-right: 4px;
 position:relative;
 top:2px;
-opacity:.5;
+opacity:.8;
 }
 
 .dataEntry {
 width:164px;
 }
 
-.dataEntryHead {
-width:112px;
-}
-
-.addEntryHead {
-width:72px;
-}
-
-.addEntry {
-width:110px;
+.navbarhead{
+  margin:0px 6px;
 }
 
 #view-content {
@@ -626,4 +615,9 @@ h1{
   border: 1px solid #EEE;
   font-size:.8em;
   padding:8px;
+}
+
+
+.move{
+  margin-top: -1px;
 }
