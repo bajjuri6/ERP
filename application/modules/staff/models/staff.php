@@ -105,7 +105,7 @@ class Viven_Staff_Model extends Model{
     else{
       
       if($estatus == 0){
-        "_emp_pro_designation = " . $etype;
+       $qs .= "_emp_pro_designation = " . $etype;
       }
       else{
       $qs .= "_emp_pro_designation = " . $etype . " AND _emp_pro_status = 1";
