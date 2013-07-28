@@ -254,29 +254,19 @@ width:100px!important;
 }
 
 .flat {
-background-color:#0962A3;
-border:solid 1px #0962A3;
-color:#fff;
-padding: 8px 16px;
+background-color:#357ebd;
+color:#FFF;
+border:0px;
+padding: 12px 24px;
 font-weight: 700;
-border-radius:1px;
+border-radius:2px;
 margin: 0px 24px;
 }
 
 .flat:hover {
-background-color:#CCC;
+background-color:#2a6496;
 cursor:pointer;
-color:#0962A3;
-text-rendering:optimizeLegibility;
--webkit-box-shadow:0 1px 5px #1E1D6D;
--moz-box-shadow:0 1px 5px #1E1D6D;
-box-shadow:0 1px 5px #1E1D6D;
-}
-
-.flat:active {
-background-color:#333;
 color:#FFF;
-cursor:pointer;
 }
 
 .double-height tr {
@@ -513,9 +503,9 @@ dd{
   top:10px !important;
   position:absolute;
   z-index:10;
-  -webkit-box-shadow: 0 1px 5px #1E1D6D;
-  -moz-box-shadow: 0 1px 5px #1E1D6D;
-  box-shadow: 0 1px 5px #1E1D6D;
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   width: 35%;
 }
 
@@ -546,9 +536,9 @@ dd{
 
 .none{
   background-color: #EEE;
-  border:1px solid #DDD;
+  border:1px solid rgba(210,210,210,0.8);
   border-radius: 1px;
-  box-shadow: 1px 1px 0px #999;
+  box-shadow: 0 1px 0 rgba(240,240,240,0.5);
   padding: 6px 8px;
   line-height:16px;
   font-size:1em;
@@ -559,16 +549,23 @@ dd{
 .bodyworks{
   margin: 90px auto;
   text-align: center;
-  border: 1px solid #AAA;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: #FFF;
-  border-radius: 4px;
-  box-shadow: 1px 1px 0px #CCC;
+  border-radius: 6px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   width: 75%;
 }
 
 .bodyworks form, .bodyworks form table{
   padding: 8px 8px;
   margin: 0px auto;
+}
+
+.bodyworks h1{
+  text-align: left;
+  background-color: #EAEAEA;
+  border-bottom: 1px solid #D4D4DD;
+  padding: 24px;
 }
 
 #reg-form, #lgn-form{
@@ -584,16 +581,13 @@ form table tr td{
   font-size: 0.9em;
 }
 
-h1{
-  padding-bottom:8px;
-}
-
 #login-records-box {
   width:60%;
   margin:100px auto;
   text-align: center;
   border-radius: 4px;
-  box-shadow: 1px 1px 15px #AAA;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  
 }
 
 .reports-table th {
@@ -617,7 +611,7 @@ h1{
   padding:8px;
 }
 
-
-.move{
-  margin-top: -1px;
+#enr-form form {
+  padding-bottom: 35px;
+  border-bottom: 1px solid #E4E4E4;
 }
