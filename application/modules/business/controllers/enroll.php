@@ -29,7 +29,7 @@ class Viven_Business_Enroll extends Controller{
           $this->view->msg = 'Error in processing. Please try after sometime.';
         }
       }
-    }  
+    }
     $form = new Form();
     $form_fields = array();
 
@@ -47,6 +47,14 @@ class Viven_Business_Enroll extends Controller{
     $cname = $form -> Viven_AddInput($cn);      
     $form_fields_basics['Customer Name:'] = $cname;
 
+
+    $username = array("type" => "text", 
+                "name" => "un",
+                "id" => "un",
+                "size" => "27",
+                "class" => "none");
+    $uname = $form -> Viven_AddInput($username);      
+    $form_fields_basics['Customer ID:'] = $uname;
 
     $pn = array("type" => "text", 
                 "name" => "pn",
@@ -73,14 +81,6 @@ class Viven_Business_Enroll extends Controller{
     $addrssarr = $form->Viven_AddText($addrss);
     $form_fields_basics['Address:'] = $addrssarr;
     
-    $username = array("type" => "text", 
-                "name" => "un",
-                "id" => "un",
-                "size" => "27",
-                "class" => "none");
-    $uname = $form -> Viven_AddInput($username);      
-    $form_fields_basics['Customer Username:'] = $uname;
-
     $date = array("type" => "input", 
                 "name" => "date",
                 "id" => "date",
@@ -90,12 +90,14 @@ class Viven_Business_Enroll extends Controller{
     $adate = $form -> Viven_AddInput($date);
     $form_fields_basics['Date Of Joining:'] = $adate;
     
-    $branch = array("name" => "branch",
+    
+    //By default, the branch should be fetched from the logged in user information. Of course, this assumes that a person can add people to only his branches.
+    /*$branch = array("name" => "branch",
                     "id" => "branch",
                     "class" => "none",
                     "options" => $activeBrancheslist);
     $ibranch = $form ->Viven_AddSelect($branch);
-    $form_fields_basics['Branch:'] = $ibranch;
+    $form_fields_basics['Branch:'] = $ibranch;*/
 
     $service = array("name" => "service",
                     "id" => "service",
@@ -105,16 +107,96 @@ class Viven_Business_Enroll extends Controller{
                                       ));
     $iservice = $form ->Viven_AddSelect($service);
     $form_fields_basics['Service:'] = $iservice;
+    
+    
+    $bas = array("type" => "hidden",
+                  "name" => "basics",
+                  "value" => "1");
+    $basicshidden = $form->Viven_AddInput($bas);
+    $form_fields_basics[''] = $basicshidden;
 
     //Get the First Sub Form of the Enrollment
-    $basics = $form -> Viven_ArrangeForm($form_fields_basics,0,0,false);
+    $basics = $form -> Viven_ArrangeForm($form_fields_basics,2,0,false);
     $this -> view -> basics = $basics;
+    
+    
+    
+    /**
+     * Emergency Sub-Form Elements
+     */
+    $cun = array("type" => "text", 
+                "name" => "cun",
+                "id" => "cun",
+                "size" => "27",
+                "class" => "none");
+    $cid = $form -> Viven_AddInput($cun);      
+    $form_fields_emergency['Customer ID:'] = $cid;
+
+
+    $en = array("type" => "text", 
+                "name" => "en",
+                "id" => "en",
+                "size" => "27",
+                "class" => "none");
+    $ename = $form -> Viven_AddInput($en);
+    $form_fields_emergency['Contact Name:'] = $ename;
+
+
+    $ep = array("type" => "text", 
+                "name" => "ep",
+                "id" => "ep",
+                "size" => "27",
+                "class" => "none");
+    $ephone = $form -> Viven_AddInput($ep);      
+    $form_fields_emergency['Contact Number:'] = $ephone;
+    
+    $eem = array("type" => "text", 
+                "name" => "eaddr",
+                "id" => "eaddr",
+                "size" => "27",
+                "class" => "none");
+    $eemail = $form->Viven_AddInput($eem);
+    $form_fields_emergency['Email Address:'] = $eemail;
+    
+    $eaddr = array("name" => "eem",
+                    "id" => "eem",
+                    "rows" => "3",
+                    "cols" => "26",
+                    "class" => "none");
+    $eaddress = $form -> Viven_AddText($eaddr);      
+    $form_fields_emergency['Contact Address:'] = $eaddress;
+
+    $erem = array("type" => "input", 
+                "name" => "eremarks",
+                "id" => "eremarks",
+                "size" => "27",
+                "class" => "none");
+    $eremarks = $form -> Viven_AddInput($erem);
+    $form_fields_emergency['Contact Notes:'] = $eremarks;
+    
+    $emer = array("type" => "hidden",
+                  "name" => "emer",
+                  "value" => "1");
+    $emergencyhidden = $form->Viven_AddInput($emer);
+    $form_fields_emergency[''] = $emergencyhidden;
+
+    //Get the First Sub Form of the Enrollment
+    $emergency = $form -> Viven_ArrangeForm($form_fields_emergency,2,0,false);
+    $this -> view -> emergency = $emergency;
 
 
     /**
      * Personal Sub-Form Elements
      */
-    $dob = array("type" => "input", 
+    $pcun = array("type" => "text", 
+                "name" => "pcun",
+                "id" => "pcun",
+                "size" => "27",
+                "class" => "none");
+    $pcuname = $form -> Viven_AddInput($pcun);      
+    $form_fields_personal['Customer ID:'] = $pcuname;
+
+   $dob = array("type" => "input", 
                 "name" => "dob",
                 "id" => "dob",
                 "size" => "27",
@@ -153,15 +235,39 @@ class Viven_Business_Enroll extends Controller{
     $form_fields_personal['Profession:'] = $profession;
 
 
-    //Get the First Sub Form of the Enrollment
-    $personal = $form -> Viven_ArrangeForm($form_fields_personal,0,0,false);
+    $ref = array("type" => "text", 
+                "name" => "ref",
+                "id" => "ref",
+                "size" => "27",
+                "class" => "none");
+    $reference = $form -> Viven_AddInput($ref);      
+    $form_fields_personal['Referred By:'] = $reference;
+
+    
+    
+    $per = array("type" => "hidden",
+                  "name" => "per",
+                  "value" => "1");
+    $personalhidden = $form->Viven_AddInput($per);
+    $form_fields_personal[''] = $personalhidden;
+
+    //Get the PERSONAL DETAILS Sub Form of the Enrollment
+    $personal = $form -> Viven_ArrangeForm($form_fields_personal,2,0,false);
     $this -> view -> personal = $personal;
 
 
     /**
      * Medical Sub-Form Elements
      */
-    $smoke = array("name" => "smoke",
+    $mcun = array("type" => "text", 
+                "name" => "mcun",
+                "id" => "mcun",
+                "size" => "27",
+                "class" => "none");
+    $mcuname = $form -> Viven_AddInput($mcun);      
+    $form_fields_medical['Customer ID:'] = $mcuname;
+
+   $smoke = array("name" => "smoke",
                     "id" => "smoke",
                     "class" => "none",
                     "options" => array("Never" => array("value" => "1"),
@@ -182,15 +288,126 @@ class Viven_Business_Enroll extends Controller{
     $alcohol = $form ->Viven_AddSelect($alco);
     $form_fields_medical['Alcohol:'] = $alcohol;
 
-    $enroll = array("type" => "hidden",
-                    "name" => "enroll",
+    $med = array("type" => "hidden",
+                    "name" => "medical",
                     "value" => "1");
-    $enrollArray = $form->Viven_AddInput($enroll);
-    $form_fields[''] = $enrollArray;
+    $medicahidden = $form->Viven_AddInput($med);
+    $form_fields[''] = $medicahidden;
+    $form_fields_medical[''] = $medicalhidden;
+    
 
     //Get the First Sub Form of the Enrollment
     $medical = $form -> Viven_ArrangeForm($form_fields_medical,2,0,false);
     $this -> view -> medical = $medical;
+    
+    
+    /**
+     * Physical Sub-Form Elements
+     */
+    
+
+    $phycun = array("type" => "text", 
+                "name" => "phycunun",
+                "id" => "phycun",
+                "size" => "27",
+                "class" => "none");
+    $phyuname = $form -> Viven_AddInput($phycun);      
+    $form_fields_physical['Customer ID:'] = $phyuname;
+
+   $wt = array("type" => "text", 
+                "name" => "wt",
+                "id" => "wt",
+                "size" => "27",
+                "class" => "none");
+    $weight = $form -> Viven_AddInput($wt);      
+    $form_fields_physical['Weight:'] = $weight;
+
+    
+    $ht = array("type" => "text", 
+                "name" => "ht",
+                "id" => "ht",
+                "size" => "27",
+                "class" => "none");
+    $height = $form -> Viven_AddInput($ht);
+    $form_fields_physical['Height:'] = $height;
+
+    
+    $chst = array("type" => "text", 
+                "name" => "chst",
+                "id" => "chst",
+                "size" => "27",
+                "class" => "none");
+    $chest = $form -> Viven_AddInput($chst);
+    $form_fields_physical['Chest:'] = $chest;
+
+    
+    $sldr = array("type" => "text", 
+                "name" => "sldr",
+                "id" => "sldr",
+                "size" => "27",
+                "class" => "none");
+    $shoulder = $form -> Viven_AddInput($sldr);      
+    $form_fields_physical['Shoulder:'] = $shoulder;
+
+    
+    $wst = array("type" => "text", 
+                "name" => "wst",
+                "id" => "wst",
+                "size" => "27",
+                "class" => "none");
+    $waist = $form -> Viven_AddInput($wst);      
+    $form_fields_physical['Waist:'] = $waist;
+
+    
+    $bcp = array("type" => "text", 
+                "name" => "bcp",
+                "id" => "bcp",
+                "size" => "27",
+                "class" => "none");
+    $bicep = $form -> Viven_AddInput($bcp);      
+    $form_fields_physical['Bicep:'] = $bicep;
+
+    
+    $clf = array("type" => "text", 
+                "name" => "clf",
+                "id" => "clf",
+                "size" => "27",
+                "class" => "none");
+    $calf = $form -> Viven_AddInput($clf);
+    $form_fields_physical['Calf:'] = $calf;
+
+    
+    $pdate = array("type" => "text", 
+                "name" => "pdate",
+                "id" => "pdate",
+                "size" => "27",
+                "readonly" => "readonly",
+                "class" => "none datepicker");
+    $phydate = $form -> Viven_AddInput($pdate);      
+    $form_fields_physical['Date of Physical:'] = $phydate;
+
+    
+    $premarks = array("type" => "text", 
+                "name" => "premarks",
+                "id" => "premarks",
+                "rows" => "3",
+                "cols" => "26",
+                "class" => "none");
+    $phyremarks = $form -> Viven_AddText($premarks);      
+    $form_fields_physical['Comments on Physical:'] = $phyremarks;
+
+    
+    $phy = array("type" => "hidden",
+                    "name" => "physical",
+                    "value" => "1");
+    $phyhidden = $form->Viven_AddInput($phy);
+    $form_fields[''] = $phyhidden;
+    
+    $form_fields_physical[''] = $phyhidden;
+
+    //Get the First Sub Form of the Enrollment
+    $physical = $form -> Viven_ArrangeForm($form_fields_physical,2,0,false);
+    $this -> view -> physical = $physical;
       
     $this -> view -> render('enroll/index','business');
   } //End newAction
