@@ -137,6 +137,22 @@ $(document).ready(function(){
 
   }); //End VF_sfdb SUBMIT
   
+  
+  
+  // Process New Expense Type Form    
+  $('#vf_exptype').live('submit', function(){
+    $.post('/business/generic/expenseType',
+            $('#vf_exptype').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEB SUBMIT
+  
   // *********************************************************
   // Process Customer Enrollment Subforms
     
@@ -242,6 +258,23 @@ $(document).ready(function(){
   $('#vf_cphy').live('submit', function(){
     $.post('/customer/physical/new',
             $('#vf_cphy').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEB SUBMIT
+  
+  
+  
+  // Process New Expense
+    
+  $('#vf_expense').live('submit', function(){
+    $.post('/finance/expense/new',
+            $('#vf_expense').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
