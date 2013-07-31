@@ -70,9 +70,9 @@ class Viven_Model_Branch extends Model{
                                                   . $bo . ", "
                                                   . $bc . ", "
                                                   . $remarks . ", "
-                                                  . $_SESSION['un'] . ", "
+                                                  . $this -> eun . ", "
                                                   . "NOW(), "
-                                                  . $_SESSION['un'] . ","
+                                                  . $this -> eun . ","
                                                   . "NOW())";
     
     $qst = "INSERT INTO viv_branch_tmngs_en (_branch_tmngs_name,
@@ -85,7 +85,7 @@ class Viven_Model_Branch extends Model{
                                                         . $bo . ", "
                                                         . $bc . ", "
                                                         . $remarks . ", "
-                                                        . $_SESSION['un'] . ", "
+                                                        . $this -> eun . ", "
                                                         . "NOW())";
     
     if($this -> db -> exec($qs)) {

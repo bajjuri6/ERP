@@ -44,12 +44,12 @@ class Viven_Model_Department extends Model{
                                                   . $db . ", "
                                                   . $dm . ", "
                                                   . $dc . ", "
-                                                  . $_SESSION['un'] . ", "
+                                                  . $this -> eun . ", "
                                                   . "NOW(), "
-                                                  . $_SESSION['un'] . ","
+                                                  . $this -> eun . ","
                                                   . "NOW()) ";
     
-    if($this -> db -> exec($qs)) return 0;
+    if($this -> db -> exec($qs)) return "SUCCESS";
     else return $qs;
   }
   
