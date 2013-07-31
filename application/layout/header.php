@@ -87,7 +87,7 @@
           
           <ul class='stayontop'>
            <li><a class="gn" id="add-employee" onclick="fetchform('Software User','/user/register/new')">User </a></li>
-           <li><a class="gn" id="add-user-role" onclick="fetchform('Software User Role','/user/roles/new')">User Role</a></li>	
+           <!-- <li><a class="gn" id="add-user-role" onclick="fetchform('Software User Role','/user/roles/new')">User Role</a></li>	-->
            <li><a class="gn" id="add-user-role" onclick="fetchform('New Payment Mode','/finance/mode/new')">Payment Mode</a></li>	
            <li><a class="gn" id="add-branch" onclick="fetchform('New Branch','/business/branch/new')">Branch </a></li> 
            <li><a class="gn" id="add-dept" onclick="fetchform('New Department','/business/department/new')">Department </a></li>
