@@ -2,11 +2,8 @@
 
 class Viven_Customer_Model extends Model{
 
-  protected $eun;
   function __construct() {
-    parent::__construct();
-    $this -> eun = $this -> db -> quote($_SESSION['un']);
-    
+    parent::__construct();    
   }  
   
 
