@@ -42,7 +42,7 @@ class Viven_Staff_Employee extends Controller {
      */
     $dataController = new Viven_Api_Generic;
     $activeBrancheslist = $dataController->activeBranchesAction();
-    //$activeStafflist = $dataController->getActiveStaffList('all');
+    $activeStafflist = $dataController->getActiveStaffAction('all');
     //$designationList = $dataController ->getActiveStaffList('all');
     //$shiftsList = $dataController -> getShiftsList('all');
 
