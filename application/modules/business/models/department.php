@@ -50,7 +50,7 @@ class Viven_Model_Department extends Model{
                                                   . "NOW()) ";
     
     if($this -> db -> exec($qs)) return 0;
-    else return 1;
+    else return $qs;
   }
   
 }
