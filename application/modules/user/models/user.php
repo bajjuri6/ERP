@@ -72,7 +72,7 @@ class Viven_User_Model extends Model{
       
       $eserver = $this -> db -> quote($_SERVER['REMOTE_ADDR']);
       
-      $remote = geoip_record_by_name('183.82.3.242');
+      $remote = geoip_record_by_name($eserver);
       $loc = $this -> db -> quote($remote['city']. '/'. $remote['country_name']);
       //$loc = $this -> db -> quote("Hyderabad/India");
       $qs = "INSERT INTO viv_lgn_rec_en ( _lgn_un,
