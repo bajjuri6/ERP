@@ -129,7 +129,7 @@ class Viven_Staff_Employee extends Controller {
     $newempArray = $form->Viven_AddInput($newemp);
     $form_fields[''] = $newempArray;
 
-    $outForm .= $form->Viven_ArrangeForm($form_fields, 2, 0, false);
+    $outForm = $form->Viven_ArrangeForm($form_fields, 2, 0, false);
     $this->view->employeeForm = $outForm;
 
     $this->view->render('employee/new', 'staff');
@@ -145,7 +145,7 @@ class Viven_Staff_Employee extends Controller {
    */
   function getStaffListAction($type, $status, $branch='#%$^') {
     
-    if($branch == '#%$^') $branch = $_SESSION['branch'];
+    if($branch == '#%$^') $branch = 'all';//$_SESSION['branch'];
     $model = new Viven_Staff_Model;
     $slist = $model->getStaffList($type, $status, $branch);
     return $slist;

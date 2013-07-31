@@ -114,7 +114,7 @@ class Viven_Staff_Model extends Model{
       }
     }
     
-    $qs .= " AND _emp_pro_branch = " . $branch;
+    //$qs .= " AND _emp_pro_branch = " . $branch;
     
     if($res = $this -> db -> query($qs)){ 
       $stafflist = $res->fetchAll(PDO::FETCH_ASSOC); 
