@@ -7,99 +7,71 @@ class Viven_Finance_Mode extends Controller{
   }
   
   function newAction(){
-    if(isset($_POST['mde'])){
-      return 0;
-    }
-    else{
-      $form = new Form();
-      $form_fields = array();
+    
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
       
+      if(isset($_POST['pmode'])){
+        
+        require_once MODULES.'/business/models/generic.php';
+        $model = new Viven_Generic_Model;
+        $res = $model -> addPaymentMode($_POST);
+        echo $res;
+        
+      }
+      else{
+        
+        $dataController = new Viven_Api_Generic;
+        $branchlist = $dataController -> activeBranchesAction(); 
+        
+        $form = new Form();
+        $form_fields = array();
+
+
+        $name = array("type" => "text", 
+                    "name" => "name",
+                    "id" => "name",
+                    "size" => "27",
+                    "class" => "none");
+        $cname = $form -> Viven_AddInput($name);
+        $form_fields['Payment Mode Name:'] = $cname;
+        
+
+        $rem = array("type" => "text", 
+                    "name" => "remarks",
+                    "id" => "remarks",
+                    "rows" => "3",
+                    "cols" => "26",
+                    "class" => "none");
+        $remarks = $form -> Viven_AddText($rem);
+        $form_fields['Comments:'] = $remarks;
+        
+
+        $branch = array("name" => "branch[]",
+                    "id" => "branch",
+                    "class" => "none",
+                    "multiple" => "multiple",
+                    "options" => $branchlist
+                      );
+        $ubranch = $form ->Viven_AddSelect($branch);
+        $form_fields['Branch Availability:'] = $ubranch;
+        
+
+        $pmnt = array("type" => "hidden", 
+                     "name" => "pmode",
+                     "value" => "1");
+        $ipmnt = $form -> Viven_AddInput($pmnt);
+        $form_fields[''] = $ipmnt;
+
+        $outForm = '<form id="vf_pmode" class="popform" method="post">';
+        $outForm .= $form -> Viven_ArrangeForm($form_fields,2,1);
+        $outForm .= '</form>';
+
+        echo $outForm;
+
+      } //End Else
       
-      $date = array("type" => "text", 
-                  "name" => "pdate",
-                  "id" => "pdate",
-                  "size" => "27",
-                  "readonly" => "readonly",
-                  "class" => "none datepicker");
-      $pdate = $form -> Viven_AddInput($date);
-      $form_fields['Payment Date:'] = $pdate;
-      
-      
-      $name = array("type" => "text", 
-                  "name" => "name",
-                  "id" => "name",
-                  "size" => "27",
-                  "class" => "none");
-      $cname = $form -> Viven_AddInput($name);
-      $form_fields['Customer Name:'] = $cname;
-      
-      
-      $mode = array("name" => "level",
-                  "id" => "level",
-                  "class" => "none",
-                  "options" => array("Credit/Debit Card" => array("value" => "1"),
-                                     "Cheque" => array("value" => "2"),
-                                     "Cash" => array("value" => "3")
-                                    ));
-      $pmode = $form ->Viven_AddSelect($mode);
-      $form_fields['Payment Mode:'] = $pmode;
-      
-      
-      $details = array("type" => "text", 
-                  "name" => "details",
-                  "id" => "details",
-                  "rows" => "3",
-                  "cols" => "27",
-                  "class" => "none");
-      $pdetails = $form ->Viven_AddText($details);
-      $form_fields['Payment Details:'] = $pdetails;
-      
-      $due = array("type" => "text", 
-                  "name" => "due",
-                  "id" => "due",
-                  "size" => "27",
-                  "class" => "none");
-      $pdue = $form -> Viven_AddInput($due);
-      $form_fields['Payment Due:'] = $pdue;
-      
-      $paid = array("type" => "text", 
-                  "name" => "paid",
-                  "id" => "paid",
-                  "size" => "27",
-                  "class" => "none");
-      $apaid = $form -> Viven_AddInput($paid);
-      $form_fields['Amount Paid:'] = $apaid;
-      
-      
-      $bal = array("type" => "text", 
-                  "name" => "bal",
-                  "id" => "bal",
-                  "size" => "27",
-                  "class" => "none");
-      $balance = $form -> Viven_AddInput($bal);
-      $form_fields['Balance:'] = $balance;
-      
-      
-      $remarks = array("type" => "text", 
-                  "name" => "date",
-                  "id" => "date",
-                  "rows" => "3",
-                  "cols" => "27",
-                  "class" => "none");
-      $aremarks = $form ->Viven_AddText($remarks);
-      $form_fields['Comments:'] = $aremarks;
-      
-      $pmnt = array("type" => "hidden", 
-                   "name" => "pmnt",
-                   "value" => "1");
-      $ipmnt = $form -> Viven_AddInput($pmnt);
-      $form_fields[''] = $ipmnt;
-      
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
-      $this -> view -> newpayment = $outForm;
-      
-    } //End Else
-      $this -> view -> render('revenue/index','finance');
+    } // End XMLHTTPREQUEST check
+    
   } //End newAction()
 
 }
