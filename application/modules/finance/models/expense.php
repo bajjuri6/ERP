@@ -30,7 +30,7 @@ class Viven_Expense_Model extends Model{
                                       _exp_payment_mode,
                                       _exp_payment_mode_details,
                                       _exp_bal,
-                                      _exp_remarks,
+                                      _exp_comments,
                                       _exp_addedby,
                                       _exp_addedon,
                                       _exp_lastmodby,
