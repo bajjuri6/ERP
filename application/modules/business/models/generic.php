@@ -37,7 +37,7 @@ class Viven_Generic_Model extends Model{
     $qs = "INSERT INTO viv_usr_role_en (_usr_role_name,
                                         _usr_role_addedby,
                                         _usr_role_addedon) VALUES (". $ern.", "
-                                                                      . $_SESSION['un'].", "
+                                                                      . $this -> eun .", "
                                                                       . "NOW())";
     if($this -> db -> exec($qs)){
       return "Role added successfully";
