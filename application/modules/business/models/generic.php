@@ -76,5 +76,46 @@ class Viven_Generic_Model extends Model{
     
   }
   
+  function addExpenseType($details){
+    
+    $etn = $this -> db -> quote($details['etn']);
+    $comments = $this -> db -> quote($details['remarks']);
+    $un = $this -> db -> quote($_SESSION['un']);
+    $time = time();
+    
+    $qs = "INSERT INTO viv_exp_type_en (_exp_type_text,
+                                          _exp_type_comments,
+                                          _exp_type_addedby,
+                                          _exp_type_addedon,
+                                          _exp_type_lastmodby,
+                                          _exp_type_lastmodon) VALUES ( ". $etn . ", "
+                                                                          . $comments . ", "
+                                                                          . $this -> eun . ", " 
+                                                                          . $time . ", " 
+                                                                          . $this -> eun . ", " 
+                                                                          . $time . ")";
+      if($this -> db -> exec($qs)){
+        return "SUCCESS";
+      } //End EXEC IF statement
+      else{
+        return $qs;
+      }
+    
+  } // End addExpenseType()
+  
+  
+  function getExpenseTypes(){
+    $qs = "SELECT _exp_type_text from viv_exp_type_en WHERE _exp_type_status = 1";
+    $qr = $this -> db -> query($qs);
+    $res = $qr -> fetchAll(PDO::FETCH_ASSOC);
+    $eta = array();
+    if($res){      
+      foreach($res as $val){
+        $eta[$val['_exp_type_text']] = array("value" => $val['_exp_type_text']);
+      }
+    }
+    return $eta;
+  }
+  
   
 }
