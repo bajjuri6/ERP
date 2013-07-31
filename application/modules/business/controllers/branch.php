@@ -45,13 +45,13 @@ class Viven_Business_Branch extends Controller{
         $form_fields['Branch Address:'] = $baddr;
 
 
-        $bm = array("type" => "text", 
+        /*$bm = array("type" => "text", 
                     "name" => "bm",
                     "id" => "bm",
                     "size" => "27",
                     "class" => "none");
         $bmanager = $form -> Viven_AddInput($bm);      
-        $form_fields['Branch Manager:'] = $bmanager;
+        $form_fields['Branch Manager:'] = $bmanager;*/
 
 
         $bot = array("type" => "text", 

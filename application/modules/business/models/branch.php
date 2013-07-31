@@ -55,7 +55,6 @@ class Viven_Model_Branch extends Model{
     $remarks = $this -> db -> quote($details['remarks']);
     
     $qs = "INSERT INTO viv_branch_en (_branch_name,
-                                      _branch_manager,
                                       _branch_addr,
                                       _branch_ot,
                                       _branch_ct,
@@ -65,7 +64,6 @@ class Viven_Model_Branch extends Model{
                                       _branch_lastmodby,
                                       _branch_lastmodon
                                       ) VALUES (" . $bn . ", "
-                                                  . $bm . ", "
                                                   . $ba . ", "
                                                   . $bo . ", "
                                                   . $bc . ", "
