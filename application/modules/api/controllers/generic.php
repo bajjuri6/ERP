@@ -103,11 +103,20 @@ class Viven_Api_Generic extends Controller{
   
   /**
    * List of Pyament Modes
-   * @param type $type indicates the type of employees you're looking for
    * @return type
    */  
   public function getPaymentModesAction(){
     return;
+  }
+  
+  /**
+   * List of Expense Types
+   * @return type
+   */  
+  public function getExpenseTypesAction(){
+    require_once MODULES . '/business/controllers/generic.php';
+    $businessController = new Viven_Business_Generic;
+    return $businessController -> getExpenseTypesAction();
   }
   
   
@@ -118,8 +127,8 @@ class Viven_Api_Generic extends Controller{
    */  
   public function getDesignationsAction(){
     require_once MODULES.'/business/controllers/generic.php';
-    $customerController = new Viven_Business_Generic;
-    return $customerController -> getDesignationAction();
+    $businessController = new Viven_Business_Generic;
+    return $businessController -> getDesignationAction();
     return;
   }
   
