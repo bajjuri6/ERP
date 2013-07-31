@@ -16,12 +16,7 @@ class Viven_Business_Department extends Controller{
         require_once MODULES . '/business/models/department.php';
         $model = new Viven_Model_Department;
         $res = $model -> addDepartment($_POST);
-        if($res == 0) {
-          echo "SUCCESS";
-        }
-        else {
-          echo "FAIL!";
-        }
+        echo $res;
         
       }
       else{
