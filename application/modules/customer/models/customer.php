@@ -2,8 +2,11 @@
 
 class Viven_Customer_Model extends Model{
 
+  protected $eun;
   function __construct() {
     parent::__construct();
+    $this -> eun = $this -> db -> quote($_SESSION['un']);
+    
   }  
   
 
@@ -30,9 +33,9 @@ class Viven_Customer_Model extends Model{
                                                                     . $edate.", "
                                                                     . $estatus.", "
                                                                     . $eremarks.", "
-                                                                    . $this -> db -> quote($_SESSION['un']).", "
+                                                                    . $this -> eun.", "
                                                                     . "NOW(), "
-                                                                    . $this -> db -> quote($_SESSION['un']).", "
+                                                                    . $this -> eun.", "
                                                                     . "NOW())";
     
     if($this -> db -> exec($qs)){
@@ -81,9 +84,9 @@ class Viven_Customer_Model extends Model{
                                        _cust_fdb_lastmodon) VALUES (". $cn . ", "
                                                                      . $date . ", "
                                                                      . $remarks . ", "
-                                                                     . $this -> db -> quote($_SESSION['un']) . ", "
+                                                                     . $this -> eun . ", "
                                                                      . "NOW(), "
-                                                                     . $this -> db -> quote($_SESSION['un']) . ", "
+                                                                     . $this -> eun . ", "
                                                                      ." NOW())";
     if( $this -> db -> exec($qs) ){
       return "SUCCESS";
@@ -166,9 +169,9 @@ class Viven_Customer_Model extends Model{
                                               $ref . ", " .
                                               $pro . ", " .
                                               $marital . ", " .
-                                              $this -> db -> quote($_SESSION['un']) . ", " .
+                                              $this -> eun . ", " .
                                               time() . ", " .
-                                              $this -> db -> quote($_SESSION['un']) . ", " .
+                                              $this -> eun . ", " .
                                               time() . ")";
     if($this -> db -> exec($qs))
     {
@@ -208,9 +211,9 @@ class Viven_Customer_Model extends Model{
                                               $eem . ", " .
                                               $eaddr . ", " .
                                               $eremarks . ", " .
-                                              $this -> db -> quote($_SESSION['un']) . ", " .
+                                              $this -> eun . ", " .
                                               time() . ", " .
-                                              $this -> db -> quote($_SESSION['un']) . ", " .
+                                              $this -> eun . ", " .
                                               time() . ")";
     if($this -> db -> exec($qs))
     {
@@ -262,9 +265,9 @@ class Viven_Customer_Model extends Model{
                                               $bcp . ", " .
                                               $clf . ", " .
                                               $premarks . ", " .
-                                              $this -> db -> quote($_SESSION['un']) . ", " .
+                                              $this -> eun . ", " .
                                               time() . ", " .
-                                              $this -> db -> quote($_SESSION['un']) . ", " .
+                                              $this -> eun . ", " .
                                               time() . ")";
     if($this -> db -> exec($qs))
     {
@@ -299,9 +302,9 @@ class Viven_Customer_Model extends Model{
                                               $md . ", " .
                                               $smoke . ", " .
                                               $alcohol . ", " .
-                                              $this -> db -> quote($_SESSION['un']) . ", " .
+                                              $this -> eun . ", " .
                                               time() . ", " .
-                                              $this -> db -> quote($_SESSION['un']) . ", " .
+                                              $this -> eun . ", " .
                                               time() . ")";
     if($this -> db -> exec($qs))
     {
