@@ -79,10 +79,10 @@ class Viven_Staff_Employee extends Controller {
     $form_fields['Shift:'] = $shtfType;
 
     $sup = array("name" => "sn",
-        "id" => "sn",
-        "class" => "none",
-        "options" => array_merge(array("Owner" => array("value" => "admin")), 
-                                 $activeStafflist));
+                "id" => "sn",
+                "class" => "none",
+                "options" => array_merge(array("Owner" => array("value" => "admin")), 
+                                         $activeStafflist));
     $supervisor = $form->Viven_AddSelect($sup);
     $form_fields['Supervisor:'] = $supervisor;
 
