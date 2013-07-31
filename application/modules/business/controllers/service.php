@@ -19,6 +19,9 @@ class Viven_Business_Service extends Controller{
       }
       
       else{
+        
+        $dataController = new Viven_Api_Generic;
+        $branchlist = $dataController -> activeBranchesAction(); 
       
         $form = new Form();
         $form_fields = array();
@@ -71,10 +74,6 @@ class Viven_Business_Service extends Controller{
         $form_fields['Service Type:'] = $stype;
 
 
-        $dataController = new Viven_Api_Generic;
-        $branchlist = $dataController -> activeBranchesAction(); 
-        
-        
         $branch = array("name" => "branch[]",
                     "id" => "branch",
                     "class" => "none",
