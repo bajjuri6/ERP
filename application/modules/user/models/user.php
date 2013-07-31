@@ -70,7 +70,7 @@ class Viven_User_Model extends Model{
                             $result['_emp_level'], 
                             $result['_emp_branch']);
       
-      //$eserver = $this -> db -> quote($_SERVER['REMOTE_ADDR']);
+      $eserver = $this -> db -> quote($_SERVER['REMOTE_ADDR']);
       
       $remote = geoip_record_by_name($_SERVER['REMOTE_ADDR']);
       $loc = $this -> db -> quote($remote['city']. '/'. $remote['country_name']);
