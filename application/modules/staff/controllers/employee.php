@@ -42,7 +42,7 @@ class Viven_Staff_Employee extends Controller {
      */
     $dataController = new Viven_Api_Generic;
     $activeBrancheslist = $dataController->activeBranchesAction();
-    $activeStafflist = $dataController->getActiveStaffList('all');
+    //$activeStafflist = $dataController->getActiveStaffList('all');
     //$designationList = $dataController ->getActiveStaffList('all');
     //$shiftsList = $dataController -> getShiftsList('all');
 
@@ -66,7 +66,7 @@ class Viven_Staff_Employee extends Controller {
         "id" => "br",
         "class" => "none",
         "options" => array("Part time" => array("value" => "pt"),
-            "Full time" => array("value" => "ft")));
+                           "Full time" => array("value" => "ft")));
     $stfType = $form->Viven_AddSelect($type);
     $form_fields['Type:'] = $stfType;
 
