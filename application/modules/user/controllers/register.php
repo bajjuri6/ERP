@@ -11,7 +11,7 @@ class Viven_User_Register extends Controller{
     if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
     
       if(isset($_POST['reg'])){
-        require MODULES.'/user/models/user.php';
+        require_once MODULES.'/user/models/user.php';
         $model = new Viven_User_Model();
         if($_POST['pw'] == $_POST['cpw']) {
           $res = $model -> addUser($_POST);

@@ -11,7 +11,7 @@ class Viven_Customer_Feedback extends Controller{
     if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
     
       if(isset($_POST['cfdb'])){
-        require MODULES.'/customer/models/customer.php';
+        require_once MODULES.'/customer/models/customer.php';
         $model = new Viven_Customer_Model;
         $res = $model -> addFeedback($_POST);
         echo $res;
@@ -39,7 +39,7 @@ class Viven_Customer_Feedback extends Controller{
                     "name" => "cn",
                     "id" => "cn",
                     "size" => "27",
-                    "class" => "none");
+                    "class" => "none validateun");
         $cname = $form -> Viven_AddInput($cn);
         $form_fields['Customer Name:'] = $cname;
 

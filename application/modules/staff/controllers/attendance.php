@@ -13,7 +13,7 @@ class Viven_Staff_Attendance extends Controller{
       
       if($_POST['sattn']){
         
-        require MODULES.'/staff/models/staff.php';
+        require_once MODULES.'/staff/models/staff.php';
         $model = new Viven_Staff_Model();
         $res = $model -> addAttendance($_POST);
         echo $res;

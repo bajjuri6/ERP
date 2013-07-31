@@ -12,7 +12,7 @@ class Viven_Business_Branch extends Controller{
       
       if(isset($_POST['brnch'])){
         
-        require MODULES . '/business/models/branch.php';
+        require_once MODULES . '/business/models/branch.php';
         $model = new Viven_Model_Branch;
         $res = $model -> addBranch($_POST);
         echo $res;
@@ -115,7 +115,7 @@ class Viven_Business_Branch extends Controller{
    */
   function getBranchListAction($param = 'all'){
     
-    require MODULES . '/business/models/branch.php';
+    require_once MODULES . '/business/models/branch.php';
     $model = new Viven_Model_Branch;
     
     return $model -> getBranchList($param);

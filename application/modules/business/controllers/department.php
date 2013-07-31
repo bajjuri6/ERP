@@ -13,7 +13,7 @@ class Viven_Business_Department extends Controller{
       if(isset($_POST['dept'])){
       
         //process the enquiry on submit
-        require MODULES . '/business/models/department.php';
+        require_once MODULES . '/business/models/department.php';
         $model = new Viven_Model_Department;
         $res = $model -> addDepartment($_POST);
         if($res == 0) {

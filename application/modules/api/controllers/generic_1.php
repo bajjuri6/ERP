@@ -7,19 +7,19 @@ class Viven_Api_Generic extends Controller{
   }
   
   public function activeBranchesAction(){
-    require_once MODULES.'/business/controllers/branch.php';
+    require MODULES.'/business/controllers/branch.php';
     $branchController = new Viven_Business_Branch;
     return $branchController -> getBranchListAction("active");    
   }
   
   public function inactiveBranchesAction(){
-    require_once MODULES.'/business/controllers/branch.php';
+    require MODULES.'/business/controllers/branch.php';
     $branchController = new Viven_Business_Branch;
     return $branchController -> getBranchListAction("inactive");    
   }
   
   public function allBranchesAction(){
-    require_once MODULES.'/business/controllers/branch.php';
+    require MODULES.'/business/controllers/branch.php';
     $branchController = new Viven_Business_Branch;
     return $branchController -> getBranchListAction("all");
   }
@@ -30,7 +30,7 @@ class Viven_Api_Generic extends Controller{
    * @return type Array List of all User Roles in the Organization
    */
   public function getUserRolesAction(){
-    require_once MODULES.'/user/controllers/roles.php';
+    require MODULES.'/user/controllers/roles.php';
     $rolesController = new Viven_User_Roles;
     return $rolesController ->getRolesAction();
   }
@@ -40,8 +40,8 @@ class Viven_Api_Generic extends Controller{
    * @param type $type indicates the type of employees you're looking for
    * @return type
    */  
-  public function getAllStaffAction($type){
-    require_once MODULES.'/staff/controllers/employee.php';
+  public function getAllStaffList($type){
+    require MODULES.'/staff/controllers/employee.php';
     $employeeController = new Viven_Staff_Employee;
     return $employeeController -> getStaffListAction($type,0);
   }
@@ -51,7 +51,7 @@ class Viven_Api_Generic extends Controller{
    * @param type $type indicates the type of employees you're looking for
    * @return type
    */  
-  public function getActiveStaffAction($type){
+  public function getActiveStaffList($type){
     require_once MODULES.'/staff/controllers/employee.php';
     $employeeController = new Viven_Staff_Employee;
     return $employeeController -> getStaffListAction($type,1);
@@ -62,8 +62,8 @@ class Viven_Api_Generic extends Controller{
    * @param type $type indicates the type of employees you're looking for
    * @return type
    */  
-  public function getInactiveStaffAction($type){
-    require_once MODULES.'/staff/controllers/employee.php';
+  public function getInactiveStaffList($type){
+    require MODULES.'/staff/controllers/employee.php';
     $employeeController = new Viven_Staff_Employee;
     return $employeeController -> getStaffListAction($type,2);
   }
@@ -73,8 +73,8 @@ class Viven_Api_Generic extends Controller{
    * @param type $type indicates the type of employees you're looking for
    * @return type
    */  
-  public function getAllCutomerAction(){
-    require_once MODULES.'/customer/controllers/customer.php';
+  public function getAllCutomerList(){
+    require MODULES.'/customer/controllers/customer.php';
     $customerController = new Viven_Customer_Customer;
     return $customerController -> getCustomerListAction(0);
   }
@@ -84,8 +84,8 @@ class Viven_Api_Generic extends Controller{
    * @param type $type indicates the type of employees you're looking for
    * @return type
    */  
-  public function getActiveCutomerAction(){
-    require_once MODULES.'/customer/controllers/customer.php';
+  public function getActiveCutomerList(){
+    require MODULES.'/customer/controllers/customer.php';
     $customerController = new Viven_Customer_Customer;
     return $customerController -> getCustomerListAction(1);
   }
@@ -95,8 +95,8 @@ class Viven_Api_Generic extends Controller{
    * @param type $type indicates the type of employees you're looking for
    * @return type
    */  
-  public function getInactiveCutomerAction(){
-    require_once MODULES.'/customer/controllers/customer.php';
+  public function getInactiveCutomerList(){
+    require MODULES.'/customer/controllers/customer.php';
     $customerController = new Viven_Customer_Customer;
     return $customerController -> getCustomerListAction(2);
   }
@@ -106,33 +106,7 @@ class Viven_Api_Generic extends Controller{
    * @param type $type indicates the type of employees you're looking for
    * @return type
    */  
-  public function getPaymentModesAction(){
-    return;
-  }
-  
-  
-  
-  /**
-   * List of Designations available in the Org
-   * @return type Associate array of Designations
-   */  
-  public function getDesignationsAction(){
-    require_once MODULES.'/business/controllers/generic.php';
-    $customerController = new Viven_Business_Generic;
-    return $customerController -> getDesignationAction();
-    return;
-  }
-  
-  
-  
-  /**
-   * Validate User Name available in the Org
-   * @return type Associate array of Designations
-   */  
-  public function validateUsernameAction(){
-    require_once MODULES.'/customer/controllers/customer.php';
-    $customerController = new Viven_Customer_Customer;
-    return $customerController -> validateUserName();
+  public function getPaymentModes(){
     return;
   }
   

@@ -3,7 +3,7 @@ $(document).ready(function(){
   function clearpopup(){
     
     setTimeout(function(){
-                 $("#popupbox, #lightbox").fadeOut(400);
+                 $("#popupbox, #lightbox").fadeOut(200);
                }, 2000);
   } //End CLEARPOPUP
   
@@ -136,6 +136,168 @@ $(document).ready(function(){
     return false;
 
   }); //End VF_sfdb SUBMIT
+  
+  // *********************************************************
+  // Process Customer Enrollment Subforms
+    
+  // Process Enrollment Basics Form
+  $('#vf_ceb').live('submit', function(){
+    $.post('/business/enroll/addbasic',
+            $('#vf_ceb').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEB SUBMIT
+  
+    
+  // Process Enrollment Personal Details Form
+  $('#vf_cep').live('submit', function(){
+    $.post('/customer/personal/new',
+            $('#vf_cep').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEP SUBMIT
+  
+    
+  // Process Enrollment Emergency Contact Form
+  $('#vf_cee').live('submit', function(){
+    $.post('/customer/emergency/new',
+            $('#vf_cee').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_sfdb SUBMIT
+  
+    
+  // Process Enrollment Medical Details Form
+  $('#vf_cem').live('submit', function(){
+    $.post('/customer/medical/new',
+            $('#vf_cem').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEM SUBMIT
+  
+    
+  // Process Enrollment Medical Details Form
+  $('#vf_cephy').live('submit', function(){
+    $.post('/customer/physical/new',
+            $('#vf_cephy').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEPHY SUBMIT
+
+// End Processing Customer Enrollment Subforms
+// *********************************************************
+
+
+
+// *********************************************************
+  // Process Revenue Form
+    
+  $('#vf_pmnt').live('submit', function(){
+    $.post('/finance/revenue/new',
+            $('#vf_pmnt').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEB SUBMIT
+  
+    
+  // Process Enrollment Personal Details Form
+  $('#vf_cep').live('submit', function(){
+    $.post('/customer/personal/new',
+            $('#vf_cep').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEP SUBMIT
+  
+    
+  // Process Enrollment Emergency Contact Form
+  $('#vf_cee').live('submit', function(){
+    $.post('/customer/emergency/new',
+            $('#vf_cee').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_sfdb SUBMIT
+  
+    
+  // Process Enrollment Medical Details Form
+  $('#vf_cem').live('submit', function(){
+    $.post('/customer/medical/new',
+            $('#vf_cem').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEM SUBMIT
+  
+    
+  // Process Enrollment Medical Details Form
+  $('#vf_cephy').live('submit', function(){
+    $.post('/customer/physical/new',
+            $('#vf_cephy').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEPHY SUBMIT
+  
+// *********************************************************
+// End Processing Customer Enrollment Subforms
+  
   
   
 }); // End DOCUMENT.READY

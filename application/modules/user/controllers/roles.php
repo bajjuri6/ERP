@@ -10,7 +10,7 @@ class Viven_User_Roles extends Controller{
     if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
     
       if(isset($_POST['role'])){
-        require MODULES.'/user/models/roles.php';
+        require_once MODULES.'/user/models/roles.php';
         $model = new Viven_Roles_Model;
         $res = $model -> addRole($_POST);
         echo $res;
@@ -55,7 +55,7 @@ class Viven_User_Roles extends Controller{
   
   
   public function getRolesAction(){
-    require MODULES . '/user/models/roles.php';
+    require_once MODULES . '/user/models/roles.php';
     $model = new Viven_Roles_Model;
     
     return $model -> getList();

@@ -8,7 +8,7 @@
 <div class="ibar">
 	<div class="nav">	
 		<ul>
-			<li class='dataEntryHead'><a  href='#' id="morebutton" class="gn"><i class="icon-edit icon-white"></i>Business</a>
+			<li class='navbarhead'><a  href='#' id="morebutton" class="gn"><i class="icon-edit icon-white move"></i>Business</a>
 				<ul class='stayontop'>
 					<li><a class="gn" href="/business/enquiry/new"> Enquiry</a></li>
      <li><a class="gn" href="/business/followup/new"> Follow-up</a></li>
@@ -17,7 +17,7 @@
     </ul>
 			</li>
    
-   <li class='customerEntryHead'><a  href='#' id="morebutton" class="gn"><i class="icon-user icon-white"></i>Customer</a>
+   <li class='navbarhead'><a  href='#' id="morebutton" class="gn"><i class="icon-user icon-white move"></i>Customer</a>
 				<ul>
       <li><a class="gn" onclick="fetchform('Customer Attendance','/customer/attendance/new')">Attendance </a></li>
       <li><a class="gn" href="/customer/training/new">Personal Training </a></li>
@@ -30,7 +30,7 @@
 			</li>
    
 						
-			<li class="reportEntry"><a  href='#' id="reports" class="gn"><i class="icon-tasks icon-white"></i>Reports </a>
+			<li class="navbarhead"><a  href='#' id="reports" class="gn"><i class="icon-tasks icon-white move"></i>Reports </a>
 				<ul class='stayontop'>
       
       <!-- Business -->
@@ -53,7 +53,7 @@
 			</li>
    
    
-   <li class="reportEntry"><a  href='#' id="reports" class="gn"><i class="icon-user icon-white"></i>Staff </a>
+   <li class="navbarhead"><a  href='#' id="reports" class="gn"><i class="icon-user icon-white move"></i>Staff </a>
 				<ul class='stayontop'>
       
       <!-- Business -->
@@ -66,7 +66,7 @@
 			</li>
    
 			
-			<li class="manageEntry"><a href="#" id="manage" class="gn"><i class="icon-eye-open icon-white"></i>Manage</a>
+			<li class="navbarhead"><a href="#" id="manage" class="gn"><i class="icon-eye-open icon-white move"></i>Manage</a>
 				<ul class='stayontop'>					
 					<li><a class="gn" href="/business/service/report">Services & Offers</a></li>
      <li><a class="gn" href="/data/user/report">Software Users</a></li>
@@ -74,7 +74,7 @@
      <li><a class="gn" href="/data/logins">Login Records</a></li>
 				</ul>
 			</li>
-			<li><i class="icon-briefcase icon-white"></i> <a id="subs" class="gn" href="/subscribe"> Subscriptions </a> </li>
+			<li class="navbarhead"><i class="icon-briefcase icon-white"></i> <a id="subs" class="gn" href="/subscribe"> Subscriptions </a> </li>
 				
 		</ul>
 	</div>
@@ -83,7 +83,7 @@
 		
 				<ul>
 					
-						<li><a  href='#' id="tinyadd" class="gn"><i class="icon-plus icon-white"></i>Add</a>
+						<li class="navbarhead"><a  href='#' id="tinyadd" class="gn"><i class="icon-plus icon-white move"></i>Add</a>
           
           <ul class='stayontop'>
            <li><a class="gn" id="add-employee" onclick="fetchform('Software User','/user/register/new')">User </a></li>
@@ -94,9 +94,9 @@
           </ul>			
           
       </li>
-      <li><a class="userAccount" onclick="fetchform('User Account','/user/account/password')">
+      <li class="navbarhead"><a class="userAccount" onclick="fetchform('User Account','/user/account/password')">
           <i class="icon-wrench icon-white"></i>Account </a></li>
-      <li><a class="Logout" href="/user/logout"><i class="icon-off icon-white"></i>Logout</a></li>
+      <li class="navbarhead"><a class="Logout" href="/user/logout"><i class="icon-off icon-white move"></i>Logout</a></li>
       
       </ul>
 					</li>
@@ -104,7 +104,9 @@
 	</div>
 </div>
 
-  
+<div class="branding" >
+  <h1> <a href="/user/account/home"> <img src="/public/img/logo.png" height="176"/> </a></h1>
+</div>
 <div id="popupbox">
    <strong>Please wait while we try to load form</strong>    
 </div>

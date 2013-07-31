@@ -37,8 +37,8 @@ class Viven_Followup_Model extends Model{
     $qs = "INSERT INTO viv_usr_role_en (_usr_role_name,
                                         _usr_role_addedby,
                                         _usr_role_addedon) VALUES (". $ern.", "
-                                                                      . $_SESSION['un'].", "
-                                                                      . "NOW())";
+                                                                    . $_SESSION['un'].", "
+                                                                    . "NOW())";
     if($this -> db -> exec($qs)){
       return "Role added successfully";
     } else return $qs;

@@ -9,14 +9,13 @@ class Viven_Service_Model extends Model{
   
   function addService($details){
     
-    //$details = json_encode//
-    
     $sd = $this -> db -> quote($details['sd']);
-    $ed = $this -> db -> quote($details['ed']);
+    $sl = $this -> db -> quote($details['sl']);
     $sn = $this -> db -> quote($details['sn']);
     $sh = $this -> db -> quote($details['sh']);
     $st = $this -> db -> quote($details['st']);
     $remarks = $this -> db -> quote($details['remarks']);
+    $time = time();
     
     foreach($details['branch'] as $val){
       $qs = "INSERT INTO viv_srv_en (_srv_branch,
@@ -24,7 +23,7 @@ class Viven_Service_Model extends Model{
                                     _srv_type,
                                     _srv_name,
                                     _srv_start,
-                                    _srv_end,
+                                    _srv_length,
                                     _srv_tnc,
                                     _srv_addedby,
                                     _srv_addedon,
@@ -34,12 +33,12 @@ class Viven_Service_Model extends Model{
                                                               . $st . ", " 
                                                               . $sn . ", " 
                                                               . $sd . ", " 
-                                                              . $ed . ", " 
+                                                              . $sl . ", " 
                                                               . $remarks . ", " 
                                                               . $_SESSION['un'] . ", " 
-                                                              . "NOW(), " 
+                                                              . $time . ", " 
                                                               . $_SESSION['un'] . ", " 
-                                                              . "NOW())";
+                                                              . $time . ")";
       if(!$this -> db -> exec($qs)){
         return $qs;
       } //End EXEC IF statement
@@ -48,6 +47,61 @@ class Viven_Service_Model extends Model{
     
     return "SUCCESS";
     
+  } //End addService()
+  
+  
+  /**
+   * Add new Subscription - Either when initially enrolling or on later subscription
+   */
+  function addSub($details){
+    
+    $srvId = $this -> db -> quote($details['service']);
+    $serviceDetails = $this -> srvDetails($srvId);
+    $cun = $this -> db -> quote($details['un']);
+    $sdate = time();
+    $edate = $sdate + $serviceDetails['_srv_length'] * 86400 * 1000;
+    
+    $qs = "INSERT INTO viv_srv_sub_en (_srv_sub_unq_id,
+                                       _srv_sub_cust,
+                                       _srv_sub_date,
+                                       _srv_sub_start,
+                                       _srv_sub_end,
+                                       _srv_sub_addedby,
+                                       _srv_sub_addedon,
+                                       _srv_sub_lastmodby,
+                                       _srv_sub_lastmodon) VALUE (" . 
+                                         $srvId . ", " .
+                                         $cun . ", " .
+                                         time() . ", " .           
+                                         $sdate . ", " .
+                                         $edate . ", " .
+                                         $this -> db -> quote($_SESSION['un']) . ", " .
+                                         time() . ", " .
+                                         $this -> db -> quote($_SESSION['un']) . ", " .
+                                         time() . ")";
+    
+    if($this -> db -> exec($qs)){
+      return 1;  // Subscription added successfully
+    }
+    else{
+      //var_dump($qs); Leaving this statement for future debugging requirements
+      return 0;  // Failed adding the subscription
+    }
+  }
+  
+  /**
+   * Get Details of a particular service
+   * @param type $serviceId Unique ID of service
+   * @return type Associative array of 
+   */
+  function srvDetails($serviceId){
+    $sid = $this -> db -> quote($serviceId);
+    $qs = "SELECT * FROM viv_srv_en WHERE _srv_unq_id = 'sdfd' AND _srv_branch = 'Vijayalakshmi'";
+// . $sid;
+    
+    $res = $this -> db -> query($qs);
+    return $res -> fetch(PDO::FETCH_ASSOC);
+    //if(!$ret) return $qs;
   }
   
 }

@@ -9,6 +9,6 @@ class Viven_User_Logout extends Controller{
   public function indexAction(){
     session_unset();
     session_destroy();
-    $this -> view -> render('login/index', 'user');
+    header('location:/');
   }
 }

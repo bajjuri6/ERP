@@ -1,6 +1,6 @@
 <div id='pmnt-form' class='bodyworks'>
 <h1>New Payment</h1>
-  <form method="post" action="/finance/revenue/new">
+  <form id="vf_pmnt" method="post">
   <?php
     echo $this -> newpayment;
   ?>

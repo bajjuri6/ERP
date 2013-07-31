@@ -1,6 +1,6 @@
 <?php
 
-require MODULES.'/install/models/install.php';
+require_once MODULES.'/install/models/install.php';
 
 class Install extends Controller{
 

@@ -110,10 +110,7 @@ class Viven_Business_Followup extends Controller{
       $followup = $form -> Viven_AddInput($flw);
       $form_fields[''] = $followup;
       
-      $outForm = '<form id="vf_flw" class="renderform" method="post" action="/business/followup/new">';
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2,0,false);
-      $outForm .= '</form>';
-      
+      $outForm = $form -> Viven_ArrangeForm($form_fields,2,0,false);     
       $this -> view-> followupform = $outForm;
       
     }
@@ -121,7 +118,7 @@ class Viven_Business_Followup extends Controller{
   }
   
   function getOpenFollowup(){
-    require '/business/models/followup.php';
+    require_once '/business/models/followup.php';
     $model = new Business_Model_Followup;
   }
 

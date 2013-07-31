@@ -7,10 +7,17 @@ class Viven_Customer_Customer extends Controller{
   }
   
   function getCustomerListAction($type){
-    require MODULES . '/customer/models/customer.php';
+    require_once MODULES . '/customer/models/customer.php';
     $model = new Viven_Customer_Model;
     $slist = $model -> getCustomerList($type);
     return $slist;
+  }
+  
+  function validateUserName(){
+    require_once MODULES . '/customer/models/customer.php';
+    $model = new Viven_Customer_Model;
+    
+    echo $model -> validateUserName($_GET['un']);
   }
   
 }

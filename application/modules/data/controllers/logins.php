@@ -8,7 +8,7 @@ class Viven_Data_Logins extends Controller{
   
   function indexAction(){
     
-    require MODULES.'/data/models/logindata.php';
+    require_once MODULES.'/data/models/logindata.php';
     $obj = new Viven_Data_Model();
     $records = $obj -> getRecords('0,100');
     

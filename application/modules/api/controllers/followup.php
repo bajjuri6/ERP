@@ -7,7 +7,7 @@ class Viven_Api_Followup extends Controller{
   }
   
   public function openFollowupAction(){
-    require MODULES.'/business/controllers/followup.php';
+    require_once MODULES.'/business/controllers/followup.php';
     $branchController = new Viven_Business_Followup();
     return $branchController -> getBranchListAction("active");    
   }

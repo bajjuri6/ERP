@@ -10,7 +10,7 @@ class Viven_Staff_Feedback extends Controller{
     if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
       
       if(isset($_POST['sfdb'])){
-        require MODULES.'/staff/models/staff.php';
+        require_once MODULES.'/staff/models/staff.php';
         $model = new Viven_Staff_Model;
         $res = $model -> addFeedback($_POST);
         echo $res;

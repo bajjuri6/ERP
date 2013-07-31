@@ -8,7 +8,10 @@ class Viven_Finance_Revenue extends Controller{
   
   function newAction(){
     if(isset($_POST['pmnt'])){
-      return 0;
+      require_once MODULES . '/finance/models/revenue.php';
+      $revenueModel = new Viven_Revenue_Model;
+
+      echo $revenueModel -> addRevenue($_POST);
     }
     else{
       $form = new Form();
@@ -26,8 +29,8 @@ class Viven_Finance_Revenue extends Controller{
       
       
       $name = array("type" => "text", 
-                  "name" => "name",
-                  "id" => "name",
+                  "name" => "cn",
+                  "id" => "cn",
                   "size" => "27",
                   "class" => "none");
       $cname = $form -> Viven_AddInput($name);
@@ -97,9 +100,29 @@ class Viven_Finance_Revenue extends Controller{
       
       $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
       $this -> view -> newpayment = $outForm;
-      
-    } //End Else
       $this -> view -> render('revenue/index','finance');
+    } //End Else
+      
   } //End newAction()
+  
+  
+  function getRevenueAction($from = -1, $to = -1, $branch = 'all'){
+    
+    require_once MODULES . '/finance/models/revenue.php';
+    $revenueModel = new Viven_Revenue_Model;
+    
+    return $revenueModel -> getRevenues($from, $to, $branch);
+    
+  }
+  
+  
+  function getPendingRevenuesAction($from, $to, $branch){
+    
+    require_once MODULES . '/finance/models/revenue.php';
+    $revenueModel = new Viven_Revenue_Model;
+    
+    return $revenueModel -> getPendingRevenues($from, $to, $branch);
+    return ;
+  }
 
 }

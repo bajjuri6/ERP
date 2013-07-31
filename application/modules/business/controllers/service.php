@@ -11,7 +11,7 @@ class Viven_Business_Service extends Controller{
       
       if($_POST['ns']){
         
-        require MODULES.'/business/models/service.php';
+        require_once MODULES.'/business/models/service.php';
         $model = new Viven_Service_Model;
         $res = $model -> addService($_POST);
         echo $res;
@@ -35,14 +35,13 @@ class Viven_Business_Service extends Controller{
         $sdate = $form -> Viven_AddInput($sd);
         $form_fields['Start Date:'] = $sdate;
 
-        $ed = array("type" => "input", 
-                    "name" => "ed",
-                    "id" => "ed",
+        $sl = array("type" => "input", 
+                    "name" => "sl",
+                    "id" => "sl",
                     "size" => "27",
-                    "readonly" => "readonly",
-                    "class" => "none datepicker");
-        $edate = $form -> Viven_AddInput($ed);
-        $form_fields['End Date:'] = $edate;
+                    "class" => "none");
+        $slength = $form -> Viven_AddInput($sl);
+        $form_fields['Service Length:'] = $slength;
 
 
         $sn = array("type" => "text", 

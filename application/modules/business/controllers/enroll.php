@@ -9,35 +9,16 @@ class Viven_Business_Enroll extends Controller{
   
   
   function newAction(){
-    if (isset($_POST['newemp'])) {
-      foreach ($_POST as $option) {
-        if (!$option) {
-          $error = true;
-          break;
-        }
-      }
-      
-      if (isset($error)) {
-        $this->view->msg = 'All fields are required!';
-      } else {
-        $model = new Viven_Model_Enroll();
-        $res = $model->addCustomer($_POST);
-
-        if ($res) {
-          $this->view->msg = 'Employee added successfully!!';
-        } else {
-          $this->view->msg = 'Error in processing. Please try after sometime.';
-        }
-      }
-    }
+    
     $form = new Form();
-    $form_fields = array();
-
-    $dataController = new Viven_Api_Generic;
-    $activeBrancheslist = $dataController->activeBranchesAction();
+    $form_fields_basics = array();
+    $form_fields_personal = array();
+    $form_fields_emergency = array();
+    $form_fields_medical = array();
+    $form_fields_physical = array();
 
     /**
-     * Basics Sub-Form Elements
+     * Customer Basics Sub-Form
      */
     $cn = array("type" => "text", 
                 "name" => "cn",
@@ -52,7 +33,7 @@ class Viven_Business_Enroll extends Controller{
                 "name" => "un",
                 "id" => "un",
                 "size" => "27",
-                "class" => "none");
+                "class" => "none validateun");
     $uname = $form -> Viven_AddInput($username);      
     $form_fields_basics['Customer ID:'] = $uname;
 
@@ -122,15 +103,56 @@ class Viven_Business_Enroll extends Controller{
     
     
     /**
-     * Emergency Sub-Form Elements
+     * Customer Attachments Sub-Form
      */
-    $cun = array("type" => "text", 
-                "name" => "cun",
-                "id" => "cun",
+    $eaun = array("type" => "text", 
+                "name" => "ecun",
+                "id" => "ecun",
+                "size" => "27",
+                "class" => "none validateun");
+    $eauname = $form -> Viven_AddInput($eaun);      
+    $form_fields_attachments['Customer ID:'] = $eauname;
+
+
+    $fl = array("type" => "file", 
+                "name" => "doc",
+                "id" => "doc",
                 "size" => "27",
                 "class" => "none");
-    $cid = $form -> Viven_AddInput($cun);      
-    $form_fields_emergency['Customer ID:'] = $cid;
+    $file = $form->Viven_AddInput($fl);
+    $form_fields_attachments['Attach:'] = $file;
+    
+    $ac = array("name" => "ac",
+                    "id" => "ac",
+                    "rows" => "2",
+                    "cols" => "26",
+                    "class" => "none");
+    $acomments = $form -> Viven_AddText($ac);      
+    $form_fields_attachments['Comments:'] = $acomments;
+
+    
+    $attach = array("type" => "hidden",
+                  "name" => "attach",
+                  "value" => "1");
+    $attachmenthidden = $form->Viven_AddInput($attach);
+    $form_fields_attachments[''] = $attachmenthidden;
+
+    //Get the First Sub Form of the Enrollment
+    $attachments = $form -> Viven_ArrangeForm($form_fields_attachments,2,0,false);
+    $this -> view -> attachments = $attachments;
+    
+    
+    
+    /**
+     * Emergency Sub-Form Elements
+     */
+    $ecun = array("type" => "text", 
+                "name" => "ecun",
+                "id" => "ecun",
+                "size" => "27",
+                "class" => "none validateun");
+    $ecuname = $form -> Viven_AddInput($ecun);      
+    $form_fields_emergency['Customer ID:'] = $ecuname;
 
 
     $en = array("type" => "text", 
@@ -151,27 +173,27 @@ class Viven_Business_Enroll extends Controller{
     $form_fields_emergency['Contact Number:'] = $ephone;
     
     $eem = array("type" => "text", 
-                "name" => "eaddr",
-                "id" => "eaddr",
+                "name" => "eem",
+                "id" => "eem",
                 "size" => "27",
                 "class" => "none");
     $eemail = $form->Viven_AddInput($eem);
     $form_fields_emergency['Email Address:'] = $eemail;
     
-    $eaddr = array("name" => "eem",
-                    "id" => "eem",
+    $eaddr = array("name" => "eaddr",
+                    "id" => "eaddr",
                     "rows" => "3",
                     "cols" => "26",
                     "class" => "none");
     $eaddress = $form -> Viven_AddText($eaddr);      
     $form_fields_emergency['Contact Address:'] = $eaddress;
 
-    $erem = array("type" => "input", 
-                "name" => "eremarks",
-                "id" => "eremarks",
-                "size" => "27",
-                "class" => "none");
-    $eremarks = $form -> Viven_AddInput($erem);
+    $erem = array("name" => "eremarks",
+                  "id" => "eremarks",
+                  "rows" => "3",
+                  "cols" => "26",
+                  "class" => "none");
+    $eremarks = $form -> Viven_AddText($erem);
     $form_fields_emergency['Contact Notes:'] = $eremarks;
     
     $emer = array("type" => "hidden",
@@ -192,7 +214,7 @@ class Viven_Business_Enroll extends Controller{
                 "name" => "pcun",
                 "id" => "pcun",
                 "size" => "27",
-                "class" => "none");
+                "class" => "none validateun");
     $pcuname = $form -> Viven_AddInput($pcun);      
     $form_fields_personal['Customer ID:'] = $pcuname;
 
@@ -263,9 +285,18 @@ class Viven_Business_Enroll extends Controller{
                 "name" => "mcun",
                 "id" => "mcun",
                 "size" => "27",
-                "class" => "none");
+                "class" => "none validateun");
     $mcuname = $form -> Viven_AddInput($mcun);      
     $form_fields_medical['Customer ID:'] = $mcuname;
+
+   $md = array("type" => "text", 
+                "name" => "md",
+                "id" => "md",
+                "size" => "27",
+                "readonly" => "readonly",
+                "class" => "none datepicker");
+    $mdate = $form -> Viven_AddInput($md);      
+    $form_fields_medical['Date of Medical Check:'] = $mdate;
 
    $smoke = array("name" => "smoke",
                     "id" => "smoke",
@@ -291,8 +322,7 @@ class Viven_Business_Enroll extends Controller{
     $med = array("type" => "hidden",
                     "name" => "medical",
                     "value" => "1");
-    $medicahidden = $form->Viven_AddInput($med);
-    $form_fields[''] = $medicahidden;
+    $medicalhidden = $form->Viven_AddInput($med);
     $form_fields_medical[''] = $medicalhidden;
     
 
@@ -303,16 +333,24 @@ class Viven_Business_Enroll extends Controller{
     
     /**
      * Physical Sub-Form Elements
-     */
-    
+     */    
 
     $phycun = array("type" => "text", 
                 "name" => "phycunun",
                 "id" => "phycun",
                 "size" => "27",
-                "class" => "none");
+                "class" => "none validateun");
     $phyuname = $form -> Viven_AddInput($phycun);      
     $form_fields_physical['Customer ID:'] = $phyuname;
+
+   $pd = array("type" => "text", 
+                "name" => "pd",
+                "id" => "pd",
+                "size" => "27",
+                "readonly" => "readonly",
+                "class" => "none datepicker");
+    $phydate = $form -> Viven_AddInput($pd);      
+    $form_fields_physical['Date of Physical:'] = $phydate;
 
    $wt = array("type" => "text", 
                 "name" => "wt",
@@ -377,16 +415,6 @@ class Viven_Business_Enroll extends Controller{
     $form_fields_physical['Calf:'] = $calf;
 
     
-    $pdate = array("type" => "text", 
-                "name" => "pdate",
-                "id" => "pdate",
-                "size" => "27",
-                "readonly" => "readonly",
-                "class" => "none datepicker");
-    $phydate = $form -> Viven_AddInput($pdate);      
-    $form_fields_physical['Date of Physical:'] = $phydate;
-
-    
     $premarks = array("type" => "text", 
                 "name" => "premarks",
                 "id" => "premarks",
@@ -401,8 +429,6 @@ class Viven_Business_Enroll extends Controller{
                     "name" => "physical",
                     "value" => "1");
     $phyhidden = $form->Viven_AddInput($phy);
-    $form_fields[''] = $phyhidden;
-    
     $form_fields_physical[''] = $phyhidden;
 
     //Get the First Sub Form of the Enrollment
@@ -411,5 +437,64 @@ class Viven_Business_Enroll extends Controller{
       
     $this -> view -> render('enroll/index','business');
   } //End newAction
+  
+  
+  
+  /**
+   * Add Basic Customer Details
+   * @return type Status update
+   */
+  function addbasicAction(){
+    
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
+      
+      if (isset($_POST['basics'])) {
+
+        /**
+         * Verify that all required fields are set
+         */
+        foreach ($_POST as $option) {
+          if (!$option) {
+            echo "All fields are required";
+            return;
+          }
+        }
+
+        require_once MODULES . '/business/models/enroll.php';
+        $model = new Viven_Enroll_Model;
+        $res = $model -> addCustomer($_POST);
+
+        if ($res) {
+
+          /**
+           * If basic information is successfully added, add a subscription to the service
+           */
+          require_once MODULES . '/business/models/service.php';
+          $srvModel = new Viven_Service_Model;
+          if($srvModel -> addSub($_POST)){
+            echo 'Employee Basics added successfully!!';
+            return;
+          } 
+          else {
+            echo 'Added customer details, but could not add service subscription. Contact Admin';
+            return;
+          }        
+
+        }
+
+        else {
+          echo 'Could not add customer. Contact Admin.';
+          return;
+        } //End Else for checking return of addCustomer()
+
+      } // End checking BASICS hidden element  
+      
+    } //End XMLHTTPREQUEST check
+    
+    else{
+      header('location:/');
+    }
+    
+  } // End addBasic()
 
 }

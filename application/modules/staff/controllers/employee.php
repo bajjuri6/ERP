@@ -1,6 +1,6 @@
 <?php
 
-require MODULES . '/staff/models/staff.php';
+require_once MODULES . '/staff/models/staff.php';
 
 class Viven_Staff_Employee extends Controller {
 
@@ -8,9 +8,11 @@ class Viven_Staff_Employee extends Controller {
     parent::__construct();
   }
 
-  //Add new employee
+  /**
+   * Add New Employee
+   */
   function newAction() {
-    
+
     if (isset($_POST['newemp'])) {
       foreach ($_POST as $option) {
         if (!$option) {
@@ -18,7 +20,7 @@ class Viven_Staff_Employee extends Controller {
           break;
         }
       }
-      
+
       if (isset($error)) {
         $this->view->msg = 'All fields are required!';
       } else {
@@ -31,9 +33,18 @@ class Viven_Staff_Employee extends Controller {
           $this->view->msg = 'Error in processing. Please try after sometime.';
         }
       }
-    } 
+    }
     $form = new Form();
     $form_fields = array();
+    
+    /**
+     * All Data Lists required to render this form
+     */
+    $dataController = new Viven_Api_Generic;
+    $activeBrancheslist = $dataController->activeBranchesAction();
+    $activeStafflist = $dataController->getActiveStaffList('all');
+    //$designationList = $dataController ->getActiveStaffList('all');
+    //$shiftsList = $dataController -> getShiftsList('all');
 
     $name = array("type" => "text",
         "name" => "en",
@@ -42,13 +53,6 @@ class Viven_Staff_Employee extends Controller {
         "size" => "27");
     $ename = $form->Viven_AddInput($name);
     $form_fields['Employee Name:'] = $ename;
-
-
-    $dataController = new Viven_Api_Generic;
-    $activeBrancheslist = $dataController->activeBranchesAction();
-    $activeStafflist = $dataController->getActiveStaffList('all');
-    //$designationList = $dataController ->getActiveStaffList('all');
-    //$shiftsList = $dataController -> getShiftsList('all');
 
 
     $br = array("name" => "br",
@@ -77,7 +81,8 @@ class Viven_Staff_Employee extends Controller {
     $sup = array("name" => "sn",
         "id" => "sn",
         "class" => "none",
-        "options" => array_merge(array("Owner" => array("value" => "admin")), $activeStafflist));
+        "options" => array_merge(array("Owner" => array("value" => "admin")), 
+                                 $activeStafflist));
     $supervisor = $form->Viven_AddSelect($sup);
     $form_fields['Supervisor:'] = $supervisor;
 
@@ -129,10 +134,20 @@ class Viven_Staff_Employee extends Controller {
 
     $this->view->render('employee/new', 'staff');
   }
-
-  function getStaffListAction($type, $status) {
+  
+  
+  /**
+   * Get List of all employees in a branch
+   * @param type $type Employee Designation
+   * @param type $status Employee Status (Active/Inactive/Suspended)
+   * @param type $branch Branch of the employees
+   * @return type
+   */
+  function getStaffListAction($type, $status, $branch='#%$^') {
+    
+    if($branch == '#%$^') $branch = $_SESSION['branch'];
     $model = new Viven_Staff_Model;
-    $slist = $model->getStaffList($type, $status);
+    $slist = $model->getStaffList($type, $status, $branch);
     return $slist;
   }
 

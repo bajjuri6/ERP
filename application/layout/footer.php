@@ -1,6 +1,7 @@
 <script src="/public/js/jquery/jquery-ui.min.js"></script>
 <script src="/public/js/popup.js"></script>
-<script src="/public/js/popsubmit.js"></script>
+<script src="/public/js/asyncsubmit.js"></script>
+<script src="/public/js/validate.js"></script>
 <script type="text/javascript">
   /**
    * Datepicker script. To set a field for datepicker, set the class to 'datepicker'
@@ -15,6 +16,18 @@
   });
   
   
+  /**
+   * Username Validation. To set a field for username and have it validated with the backend, set the class to 'validateun'
+   **/
+  $('.validateun').live('blur', function(){
+    $.get('/api/generic/validateUsername?un='+$(this).val(),
+            function(data){
+              if(parseInt(data) == 1){
+               alert("Username Exists");
+              }
+            }); 
+  });
+  
   
   /**
   * Hide active popup and lightbox when lightbox area is clicked
@@ -23,8 +36,6 @@
     $("#popupbox").fadeOut(200);
     $("#lightbox").fadeOut(400);
   });
-    
-  $('input[readonly="readonly"]').each(function(){$(this).attr('tabindex','-1');});
 </script>
 
 <link rel="stylesheet" type="text/css" href="/public/css/jquery-ui-1.9.2.custom.css">

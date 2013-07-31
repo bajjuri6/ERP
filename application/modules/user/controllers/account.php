@@ -80,6 +80,66 @@ class Viven_User_Account extends Controller{
       $outform .= '</form>';
       echo $outform;
       
+    }//end ELSE
+    
+  } //end passwordAction()
+  
+  
+  /**
+   * Populate the Home Page to show critical reports based on login information
+   * If the Owner has logged in, show Payments Received/Receivable, New Enrollments, New Enquiries
+   */
+  function homeAction(){
+    
+    switch($_POST['level']){
+      
+      case 'Admin':
+        require_once MODULES.'/finance/controllers/revenue.php';
+        require_once MODULES.'/business/controllers/enroll.php';
+        
+        /**
+         * Get Cash Receipts from Finance Module
+         */
+        $cr = new Viven_Finance_Revenue();
+        $records = $obj -> getRecords('0,100');
+        
+        $this -> view -> data1 = $records;
+        $this -> view -> data2 = $records;
+        $this -> view -> data3 = $records;
+        $this -> view -> data4 = $records;
+        $this -> view -> render('account/home','user');
+        break;
+  
+      case 'Manager':
+        require_once MODULES.'/data/models/logindata.php';
+        $obj = new Viven_Data_Model();
+        $records = $obj -> getRecords('0,100');
+
+        $this -> view -> data1 = $records;
+        $this -> view -> data2 = $records;
+        $this -> view -> data3 = $records;
+        $this -> view -> data4 = $records;
+        $this -> view -> render('account/home','user');
+        break;
+  
+      case 'Standard':        
+      default:
+        require_once MODULES.'/data/models/logindata.php';
+        $obj = new Viven_Data_Model();
+        $records = $obj -> getRecords('0,100');
+
+        $this -> view -> data1 = $records;
+        $this -> view -> data2 = $records;
+        $this -> view -> data3 = $records;
+        $this -> view -> data4 = $records;
+        $this -> view -> render('account/home','user');
+        break;
+      
     }
+    
+    require_once MODULES . '/';
+    
+    
   }
+  
 }

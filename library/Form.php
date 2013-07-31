@@ -105,7 +105,7 @@ class Form {
      */
     $optArr = $arr['options'];
     
-    if(!$arr["multiple"]){
+    if(!isset($arr["multiple"])){
       $ret .= $this -> opt_open;
       $ret .= 'value="0"';
       $ret .= $this -> simpl_close;

@@ -1,9 +1,9 @@
-<div id="login-records-box" >
+<div class="bodyworks">
   <h1> Login Records for Your ERP</h1>
   <table class="reports-table">
     <?php
       //var_dump($this -> data);
-      require 'library/headers.php';
+      require_once 'library/headers.php';
       
       foreach($TH as $k){
         $tmp = explode(',' ,$k);

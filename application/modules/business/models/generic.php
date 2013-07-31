@@ -1,96 +1,48 @@
 <?php
 
-class Viven_Business_Department extends Controller{
+class Viven_Generic_Model extends Model{
 
   function __construct() {
     parent::__construct();
   }
   
-  function newAction(){
+  public function getDesignationAction(){
     
-    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
+    $qs = "SELECT _inq_id FROM viv_usr_role_en WHERE 1";
+    $res = $this -> db -> query($qs); 
+    $roleslist = $res->fetchAll(PDO::FETCH_ASSOC); 
     
-      if(isset($_POST['dept'])){
-      
-        //process the enquiry on submit
-        require MODULES . '/business/models/department.php';
-        $model = new Viven_Model_Department;
-        $res = $model -> addDepartment($_POST);
-        if($res == 0) {
-          echo "SUCCESS";
-        }
-        else {
-          echo "FAIL!";
-        }
-        
+    /**
+     * Generate associative list to be returned
+     */
+    $rla = array();
+    if($roleslist){      
+      foreach($roleslist as $val){
+        $rla[$val['_usr_role_name']] = array("value" => $val['_usr_role_name']);
       }
-      else{
-
-        $form = new Form();
-        $form_fields = array();
-
-        /**
-         * Enquiry Form Elements
-         */
-        $dn = array("type" => "text",
-                    "name" => "dn",
-                    "id" => "dn",
-                    "size" => "27",
-                    "class" => "none");
-        $dname = $form -> Viven_AddInput($dn);
-        $form_fields['Department Name:'] = $dname;
-
-
-        $branch = array("type" => "input", 
-                    "name" => "db",
-                    "id" => "db",
-                    "size" => "27",
-                    "class" => "none");
-        $nbranch = $form -> Viven_AddInput($branch);
-        $form_fields['Branch Name:'] = $nbranch;
-
-
-        $dm = array("type" => "text", 
-                    "name" => "dm",
-                    "id" => "dm",
-                    "size" => "27",
-                    "class" => "none");
-        $dmanager = $form -> Viven_AddInput($dm);      
-        $form_fields['Department Manager:'] = $dmanager;
-
-
-        $remarks = array("type" => "input", 
-                    "name" => "dc",
-                    "id" => "dc",
-                    "rows" => "2",          
-                    "cols" => "25",
-                    "class" => "none");
-        $bremarks = $form -> Viven_AddText($remarks);
-        $form_fields['Comments:'] = $bremarks;
-
-        $dept = array("type" => "hidden", 
-                     "name" => "dept",
-                     "value" => "1");
-        $newdept = $form -> Viven_AddInput($dept);
-        $form_fields[''] = $newdept;
-
-        $outForm = '<form id="vf_dept" class="popform" method="post">';
-        $outForm .= $form -> Viven_ArrangeForm($form_fields, 2, 1, false);
-        $outForm .= '</form>';
-
-        echo $outForm;
-        //$this -> view -> form = $outForm;
-        //$this -> view -> render('department/index','business');
-      } //End else
+    }
+    return $rla;
+  }
+  
+  function addRole($details){
     
-      //$this -> view -> render('branch/index','business');
-      
-    } //END XMLREQUEST CHECK
-    else{
-      header('location:/');
+    $ern = $this -> db -> quote($details['rn']);
+    
+    $qsc = "SELECT _usr_role_name FROM viv_usr_role_en WHERE _usr_role_name = " . $ern;    
+    $res = $this -> db -> query($qsc);
+    if($res -> fetchAll(PDO::FETCH_ASSOC)){
+      return "Role exists. Cannot add duplicates.";
     }
     
+    $qs = "INSERT INTO viv_usr_role_en (_usr_role_name,
+                                        _usr_role_addedby,
+                                        _usr_role_addedon) VALUES (". $ern.", "
+                                                                      . $_SESSION['un'].", "
+                                                                      . "NOW())";
+    if($this -> db -> exec($qs)){
+      return "Role added successfully";
+    } else return $qs;
     
-  } //End newAction()
+  }
   
 }

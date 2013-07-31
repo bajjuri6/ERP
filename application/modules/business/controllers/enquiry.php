@@ -19,7 +19,7 @@ class Viven_Business_Enquiry extends Controller{
         $this -> view -> msg = 'All fields are required!';
       }
       else{
-        require MODULES . '/business/models/enquiry.php';
+        require_once MODULES . '/business/models/enquiry.php';
         $model = new Viven_Model_Enquiry();
         $res = $model -> addEnquiry($_POST);
         
@@ -34,6 +34,17 @@ class Viven_Business_Enquiry extends Controller{
     
     $form = new Form();
     $form_fields = array();
+    
+    /**
+     * All Data Lists required to render this form
+     */
+    
+    $dataController = new Viven_Api_Generic;
+    $activeStafflist = $dataController->getActiveStaffAction('all');
+    //$designationList = $dataController ->getActiveDesignationList('all');
+    //$shiftsList = $dataController -> getShiftsList('all');
+    
+    //$activeStafflist
 
     /**
      * Enquiry Form Elements
@@ -100,16 +111,16 @@ class Viven_Business_Enquiry extends Controller{
                 "class" => "none datepicker");
     $fdate = $form -> Viven_AddInput($fd);      
     $form_fields['Follow Up Date:'] = $fdate;
-
-    $inc = array("type" => "text", 
-                "name" => "incharge",
-                "id" => "incharge",
-                "size" => "27",
-                "class" => "none");
-    $incharge = $form -> Viven_AddInput($inc);
+    
+    
+    $inc = array("name" => "sn",
+        "id" => "sn",
+        "class" => "none",
+        "options" => $activeStafflist);
+    $incharge = $form->Viven_AddSelect($inc);
     $form_fields['Follow Up Incharge:'] = $incharge;
 
-
+    
     $remarks = array("type" => "input", 
                 "name" => "remarks",
                 "id" => "remarks",
@@ -119,6 +130,7 @@ class Viven_Business_Enquiry extends Controller{
     $aremarks = $form ->Viven_AddText($remarks);
     $form_fields['Followup Comments:'] = $aremarks;
 
+    
     $enq = array("type" => "hidden", 
                  "name" => "enq",
                  "value" => "1");
