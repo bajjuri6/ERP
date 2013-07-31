@@ -235,56 +235,13 @@ $(document).ready(function(){
 
   }); //End VF_CEB SUBMIT
   
-    
-  // Process Enrollment Personal Details Form
-  $('#vf_cep').live('submit', function(){
-    $.post('/customer/personal/new',
-            $('#vf_cep').serialize(),
-            function(data){
-              $("#popupbox, #lightbox").fadeIn(200);
-              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
-              clearpopup();
-            });       
-
-    return false;
-
-  }); //End VF_CEP SUBMIT
   
-    
-  // Process Enrollment Emergency Contact Form
-  $('#vf_cee').live('submit', function(){
-    $.post('/customer/emergency/new',
-            $('#vf_cee').serialize(),
-            function(data){
-              $("#popupbox, #lightbox").fadeIn(200);
-              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
-              clearpopup();
-            });       
-
-    return false;
-
-  }); //End VF_sfdb SUBMIT
   
+  // Process Customer Physical Form
     
-  // Process Enrollment Medical Details Form
-  $('#vf_cem').live('submit', function(){
-    $.post('/customer/medical/new',
-            $('#vf_cem').serialize(),
-            function(data){
-              $("#popupbox, #lightbox").fadeIn(200);
-              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
-              clearpopup();
-            });       
-
-    return false;
-
-  }); //End VF_CEM SUBMIT
-  
-    
-  // Process Enrollment Medical Details Form
-  $('#vf_cephy').live('submit', function(){
+  $('#vf_cphy').live('submit', function(){
     $.post('/customer/physical/new',
-            $('#vf_cephy').serialize(),
+            $('#vf_cphy').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
@@ -293,10 +250,10 @@ $(document).ready(function(){
 
     return false;
 
-  }); //End VF_CEPHY SUBMIT
+  }); //End VF_CEB SUBMIT
   
-// *********************************************************
-// End Processing Customer Enrollment Subforms
+
+
   
   
   
