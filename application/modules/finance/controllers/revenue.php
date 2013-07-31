@@ -37,8 +37,8 @@ class Viven_Finance_Revenue extends Controller{
       $form_fields['Customer Name:'] = $cname;
       
       
-      $mode = array("name" => "level",
-                  "id" => "level",
+      $mode = array("name" => "mode",
+                  "id" => "mode",
                   "class" => "none",
                   "options" => array("Credit/Debit Card" => array("value" => "1"),
                                      "Cheque" => array("value" => "2"),
@@ -84,8 +84,8 @@ class Viven_Finance_Revenue extends Controller{
       
       
       $remarks = array("type" => "text", 
-                  "name" => "date",
-                  "id" => "date",
+                  "name" => "remarks",
+                  "id" => "remarks",
                   "rows" => "3",
                   "cols" => "27",
                   "class" => "none");
@@ -106,6 +106,13 @@ class Viven_Finance_Revenue extends Controller{
   } //End newAction()
   
   
+  /**
+   * Get Revenue Information
+   * @param type $from
+   * @param type $to
+   * @param type $branch
+   * @return type
+   */
   function getRevenueAction($from = -1, $to = -1, $branch = 'all'){
     
     require_once MODULES . '/finance/models/revenue.php';
@@ -116,6 +123,13 @@ class Viven_Finance_Revenue extends Controller{
   }
   
   
+  /**
+   * Get Pending Revenue Information
+   * @param type $from
+   * @param type $to
+   * @param type $branch
+   * @return type
+   */
   function getPendingRevenuesAction($from, $to, $branch){
     
     require_once MODULES . '/finance/models/revenue.php';
