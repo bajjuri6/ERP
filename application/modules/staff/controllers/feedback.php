@@ -16,6 +16,10 @@ class Viven_Staff_Feedback extends Controller{
         echo $res;
       }
       else{
+        
+        $dataController = new Viven_Api_Generic;
+        //$activeBrancheslist = $dataController->activeBranchesAction();
+        $activeStafflist = $dataController->getActiveStaffAction('all');
 
         $form = new Form();
         $form_fields = array();
@@ -33,15 +37,14 @@ class Viven_Staff_Feedback extends Controller{
         $form_fields['Date:'] = $adate;
 
 
-        $sn = array("type" => "text", 
-                    "name" => "sn",
+        $sn = array("name" => "sn",
                     "id" => "sn",
-                    "size" => "27",
-                    "class" => "none");
-        $sname = $form -> Viven_AddInput($sn);
+                    "class" => "none",
+                    "options" => $activeStafflist);
+        $sname = $form->Viven_AddSelect($sn);
         $form_fields['Staff Name:'] = $sname;
-
-
+          
+    
         $remarks = array("type" => "input", 
                     "name" => "remarks",
                     "id" => "remarks",
