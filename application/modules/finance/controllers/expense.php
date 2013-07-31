@@ -8,16 +8,24 @@ class Viven_Finance_Expense extends Controller{
   
   
   function newAction(){
-    if(isset($_POST['expense'])){
-      require_once MODULES . '/finance/models/expense.php';
-      $expenseModel = new Viven_Expense_Model;
+    
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
+      
+      
+      if(isset($_POST['expense'])){
+        require_once MODULES . '/finance/models/expense.php';
+        $expenseModel = new Viven_Expense_Model;
 
-      echo $expenseModel -> addExpense($_POST);
+        echo $expenseModel -> addExpense($_POST);
+      }
+      
     }
+    
     else{
       
       $dataController = new Viven_Api_Generic;
       $expensetypelist = $dataController -> getExpenseTypesAction();
+      $branchlist = $dataController -> activeBranchesAction();
       
       $form = new Form();
       $form_fields = array();
@@ -33,6 +41,14 @@ class Viven_Finance_Expense extends Controller{
       $form_fields['Expense Date:'] = $edate;
       
       
+      $branch = array("name" => "branch",
+                  "id" => "branch",
+                  "class" => "none",
+                  "options" => $branchlist);
+      $ebranch = $form ->Viven_AddSelect($branch);
+      $form_fields['Branch:'] = $ebranch;
+      
+      
       $type = array("name" => "type",
                   "id" => "type",
                   "class" => "none",
@@ -41,13 +57,13 @@ class Viven_Finance_Expense extends Controller{
       $form_fields['Expense Type:'] = $etype;
       
       
-      $name = array("type" => "text", 
-                  "name" => "cn",
-                  "id" => "cn",
+      $pt = array("type" => "text", 
+                  "name" => "pt",
+                  "id" => "pt",
                   "size" => "27",
                   "class" => "none");
-      $cname = $form -> Viven_AddInput($name);
-      $form_fields['Paid To:'] = $cname;
+      $pto = $form -> Viven_AddInput($pt);
+      $form_fields['Paid To:'] = $pto;
       
       $pn = array("type" => "text", 
                   "name" => "pn",
@@ -55,7 +71,7 @@ class Viven_Finance_Expense extends Controller{
                   "size" => "27",
                   "class" => "none");
       $pnumber = $form -> Viven_AddInput($pn);
-      $form_fields['Contact To:'] = $pnumber;
+      $form_fields['Contact Number:'] = $pnumber;
       
       $amt = array("type" => "text", 
                    "name" => "amt",
@@ -76,6 +92,15 @@ class Viven_Finance_Expense extends Controller{
       $form_fields['Payment Mode:'] = $pmode;
       
       
+      $pdet = array("name" => "details",
+                    "id" => "details",
+                    "rows" => "3",
+                    "cols" => "26",
+                    "class" => "none");
+      $pdetail = $form ->Viven_AddText($pdet);
+      $form_fields['Payment Mode Details:'] = $pdetail;
+      
+      
       $bal = array("type" => "text", 
                   "name" => "bal",
                   "id" => "bal",
@@ -86,8 +111,8 @@ class Viven_Finance_Expense extends Controller{
       
       
       $remarks = array("type" => "text", 
-                  "name" => "date",
-                  "id" => "date",
+                  "name" => "remarks",
+                  "id" => "remarks",
                   "rows" => "3",
                   "cols" => "27",
                   "class" => "none");

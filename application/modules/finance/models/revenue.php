@@ -18,8 +18,6 @@ class Viven_Revenue_Model extends Model{
     $bal = $this -> db -> quote($details['bal']);
     $remarks = $this -> db -> quote($details['remarks']);
     
-    $branch = $this -> db -> quote($_SESSION["branch"]);
-    $un = $this -> db -> quote($_SESSION["un"]);
     $time = time();
     $qs = 'INSERT INTO viv_payment_en (_payment_branch,
                                       _payment_un,
@@ -33,17 +31,17 @@ class Viven_Revenue_Model extends Model{
                                       _payment_addedon,
                                       _payment_lastmodby,
                                       _payment_lastmodon) VALUES ( '
-                                                         . $branch .', '
+                                                         . $this -> ebranch .', '
                                                          . $cn .', '
                                                          . $pdate .', '
                                                          . $paid .', '
                                                          . $mode .', '
-                                                         . $un .', '
+                                                         . $this -> eun .', '
                                                          . $details .', '
                                                          . $remarks .', '
-                                                         . $un .', '
+                                                         . $this -> eun .', '
                                                          . $time .', '
-                                                         . $un .', '
+                                                         . $this -> eun .', '
                                                          . $time .')';
     
     if($this -> db -> exec($qs)) return "Success";

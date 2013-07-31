@@ -1,49 +1,53 @@
 <?php 
 
-class Viven_Revenue_Model extends Model{
+class Viven_Expense_Model extends Model{
 
   function __construct() {
     parent::__construct();
   }
   
   
-  function addRevenue($details){
+  function addExpense($details){
     
-    $pdate = $this -> db -> quote($details['pdate']);
-    $cn = $this -> db -> quote($details['cn']);
+    $edate = $this -> db -> quote($details['edate']);
+    $ebranch = $this -> db -> quote($details['branch']);
+    $type = $this -> db -> quote($details['type']);
+    $pt = $this -> db -> quote($details['pt']);
+    $pn = $this -> db -> quote($details['pn']);
+    $amt = $this -> db -> quote($details['amt']);
     $mode = $this -> db -> quote($details['mode']);
     $details = $this -> db -> quote($details['details']);
-    $due = $this -> db -> quote($details['due']);
-    $paid = $this -> db -> quote($details['paid']);
     $bal = $this -> db -> quote($details['bal']);
     $remarks = $this -> db -> quote($details['remarks']);
     
-    $branch = $this -> db -> quote($_SESSION["branch"]);
-    $un = $this -> db -> quote($_SESSION["un"]);
     $time = time();
-    $qs = 'INSERT INTO viv_payment_en (_payment_branch,
-                                      _payment_un,
-                                      _payment_date,
-                                      _payment_amt,
-                                      _payment_mode,
-                                      _payment_rcvdby,
-                                      _payment_det,
-                                      _payment_comments,
-                                      _payment_addedby,
-                                      _payment_addedon,
-                                      _payment_lastmodby,
-                                      _payment_lastmodon) VALUES ( '
-                                                         . $branch .', '
-                                                         . $cn .', '
-                                                         . $pdate .', '
-                                                         . $paid .', '
+    $qs = 'INSERT INTO viv_exp_det_en (_exp_date,
+                                      _exp_branch,
+                                      _exp_type,
+                                      _exp_paid_to,
+                                      _exp_phone_number,
+                                      _exp_amount,
+                                      _exp_payment_mode,
+                                      _exp_payment_mode_details,
+                                      _exp_bal,
+                                      _exp_remarks,
+                                      _exp_addedby,
+                                      _exp_addedon,
+                                      _exp_lastmodby,
+                                      _exp_lastmodon) VALUES ( '
+                                                         . $edate .', '
+                                                         . $ebranch .', '
+                                                         . $type .', '
+                                                         . $pt .', '
+                                                         . $pn .', '
+                                                         . $amt .', '
                                                          . $mode .', '
-                                                         . $un .', '
                                                          . $details .', '
+                                                         . $bal .', '
                                                          . $remarks .', '
-                                                         . $un .', '
+                                                         . $this -> eun .', '
                                                          . $time .', '
-                                                         . $un .', '
+                                                         . $this -> eun .', '
                                                          . $time .')';
     
     if($this -> db -> exec($qs)) return "Success";

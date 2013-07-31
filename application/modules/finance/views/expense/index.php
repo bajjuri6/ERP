@@ -1,8 +1,8 @@
-<div id='pmnt-form' class='bodyworks'>
-<h1>New Payment</h1>
-  <form id="vf_pmnt" method="post">
+<div id='expense-form' class='bodyworks'>
+<h1>New Expense</h1>
+  <form id="vf_expense" method="post">
   <?php
-    echo $this -> newpayment;
+    echo $this -> newexpense;
   ?>
   </form> 
 </div>
