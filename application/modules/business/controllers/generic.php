@@ -25,12 +25,13 @@ class Viven_Business_Generic extends Controller{
   
   function expenseTypeAction(){
     
-    require_once MODULES . '/business/models/generic.php';
-    $model = new Viven_Generic_Model;
-    
     if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
       
       if(isset($_POST['exptype'])){
+        require_once MODULES . '/business/models/generic.php';
+        $model = new Viven_Generic_Model;
+    
+    
         echo $model -> addExpenseType($_POST);
       }
       else{
