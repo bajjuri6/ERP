@@ -15,6 +15,8 @@ class Viven_Service_Model extends Model{
     $sh = $this -> db -> quote($details['sh']);
     $st = $this -> db -> quote($details['st']);
     $remarks = $this -> db -> quote($details['remarks']);
+    
+    $un = $this -> db -> quote($_SESSION['un']);
     $time = time();
     
     foreach($details['branch'] as $val){
@@ -35,9 +37,9 @@ class Viven_Service_Model extends Model{
                                                               . $sd . ", " 
                                                               . $sl . ", " 
                                                               . $remarks . ", " 
-                                                              . $_SESSION['un'] . ", " 
+                                                              . $un . ", " 
                                                               . $time . ", " 
-                                                              . $_SESSION['un'] . ", " 
+                                                              . $un . ", " 
                                                               . $time . ")";
       if(!$this -> db -> exec($qs)){
         return $qs;
@@ -60,7 +62,7 @@ class Viven_Service_Model extends Model{
     $cun = $this -> db -> quote($details['un']);
     $sdate = time();
     $edate = $sdate + $serviceDetails['_srv_length'] * 86400 * 1000;
-    
+    $un = $this -> db -> quote($_SESSION['un']);
     $qs = "INSERT INTO viv_srv_sub_en (_srv_sub_unq_id,
                                        _srv_sub_cust,
                                        _srv_sub_date,
@@ -75,9 +77,9 @@ class Viven_Service_Model extends Model{
                                          time() . ", " .           
                                          $sdate . ", " .
                                          $edate . ", " .
-                                         $this -> db -> quote($_SESSION['un']) . ", " .
+                                         $un . ", " .
                                          time() . ", " .
-                                         $this -> db -> quote($_SESSION['un']) . ", " .
+                                         $un . ", " .
                                          time() . ")";
     
     if($this -> db -> exec($qs)){
