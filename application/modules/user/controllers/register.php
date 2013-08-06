@@ -19,6 +19,10 @@ class Viven_User_Register extends Controller{
         echo $res;
       }
       else{
+        
+        $dataController = new Viven_Api_Generic;
+        $rolelist = $dataController ->getUserRolesAction();
+
         $form = new Form();
         $form_fields = array();
 
@@ -50,9 +54,6 @@ class Viven_User_Register extends Controller{
                     "class" => "none");
         $cpword = $form ->Viven_AddInput($cpw);      
         $form_fields['Confirm Password:'] = $cpword;
-
-        $dataController = new Viven_Api_Generic;
-        $rolelist = $dataController ->getUserRolesAction();
 
         $ul = array("name" => "level",
                     "id" => "level",
