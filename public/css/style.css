@@ -541,11 +541,13 @@ dd{
 }
 
 .bodyworks h1{
+  color: #333;
   margin:0;
   text-align: left;
   background-color: #EAEAEA;
   border-bottom: 1px solid #D4D4DD;
   padding: 16px;
+  text-shadow: 1px 2px 2px rgba(196, 196, 196, 0.7);
 }
 
 #reg-form, #lgn-form{
@@ -577,7 +579,7 @@ form table tr td{
 }
 
 .reports-table{
-  margin: 0px auto;
+  margin: 24px auto;
   border: 1px solid #CCC;
 }
 
