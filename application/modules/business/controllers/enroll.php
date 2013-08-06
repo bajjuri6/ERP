@@ -10,6 +10,10 @@ class Viven_Business_Enroll extends Controller{
   
   function newAction(){
     
+    $dataController = new Viven_Api_Generic;
+    $activeStafflist = $dataController->getActiveStaffAction('all');
+    $activeServicesList = $dataController->getActiveServicesAction();
+    
     $form = new Form();
     $form_fields_basics = array();
     $form_fields_personal = array();
@@ -83,13 +87,20 @@ class Viven_Business_Enroll extends Controller{
     $service = array("name" => "service",
                     "id" => "service",
                     "class" => "none",
-                    "options" => array("service one" => array("value" => "1"),
-                                       "service two" => array("value" => "2")
-                                      ));
+                    "options" => $activeServicesList);
     $iservice = $form ->Viven_AddSelect($service);
     $form_fields_basics['Service:'] = $iservice;
     
     
+    $tn = array("name" => "tn",
+                "id" => "tn",
+                "class" => "none",
+                "options" => $activeStafflist);
+    $tname = $form -> Viven_AddSelect($tn);
+    $form_fields_basics['Customer Incharge:'] = $tname;
+
+
+
     $bas = array("type" => "hidden",
                   "name" => "basics",
                   "value" => "1");
