@@ -11,7 +11,7 @@ class Viven_Staff_Attendance extends Controller{
     
     if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
       
-      if($_POST['sattn']){
+      if(isset($_POST['sattn'])){
         
         require_once MODULES.'/staff/models/staff.php';
         $model = new Viven_Staff_Model();
@@ -21,6 +21,10 @@ class Viven_Staff_Attendance extends Controller{
       }
       
       else{
+        
+        $dataController = new Viven_Api_Generic;
+        $activeStafflist = $dataController->getActiveStaffAction('all');
+
         $form = new Form();
         $form_fields = array();
 
@@ -30,9 +34,9 @@ class Viven_Staff_Attendance extends Controller{
         $un = array("type" => "text", 
                     "name" => "un",
                     "id" => "un",
-                    "size" => "27",
-                    "class" => "none");
-        $uname = $form -> Viven_AddInput($un);
+                    "class" => "none",
+                    "options" => $activeStafflist);
+        $uname = $form -> Viven_AddSelect($un);
         $form_fields['Staff Name:'] = $uname;
         
 
@@ -56,8 +60,7 @@ class Viven_Staff_Attendance extends Controller{
         $astatus = $form ->Viven_AddSelect($status);
         $form_fields['Attendance:'] = $astatus;
 
-
-        $remarks = array("type" => "input", 
+$remarks = array("type" => "input", 
                     "name" => "remarks",
                     "id" => "remarks",
                     "rows" => "3",
