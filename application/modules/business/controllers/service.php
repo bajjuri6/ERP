@@ -9,7 +9,7 @@ class Viven_Business_Service extends Controller{
   function newAction(){
     if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
       
-      if($_POST['ns']){
+      if(isset($_POST['ns'])){
         
         require_once MODULES.'/business/models/service.php';
         $model = new Viven_Service_Model;
@@ -27,7 +27,7 @@ class Viven_Business_Service extends Controller{
         $form_fields = array();
 
         /**
-         * Enquiry Form Elements
+         * Add New Service Form
          */
         $sd = array("type" => "input", 
                     "name" => "sd",
@@ -110,5 +110,116 @@ class Viven_Business_Service extends Controller{
     } // End XMLHTTPREQUEST check
     
   }  //End newAction()
+  
+  
+  
+ 
+    function subAction(){
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
+      
+      if(isset($_POST['nsub'])){
+        
+        require_once MODULES.'/business/models/service.php';
+        $model = new Viven_Service_Model;
+        $res = $model -> addSub($_POST);
+        echo $res;
+        
+      }
+      else{
+        
+        $dataController = new Viven_Api_Generic;
+        $activeStafflist = $dataController->getActiveStaffAction('all');
+        /*$activeServicesList = $dataController->getActiveServicesAction();*/
+        
+        $activeServicesList = $this -> getServiceTypesAction();
+        
+        
+        $form = new Form();
+        $form_fields = array();
+
+        /**
+         * Personal Training Subscription Form 
+         */
+                    
+        $cun = array("type" => "input", 
+                    "name" => "un",
+                    "id" => "un",
+                    "size" => "27",
+                    "class" => "none validateun");
+        $cuname = $form -> Viven_AddInput($cun);
+        $form_fields['Customer ID:'] = $cuname;
+
+
+        $sn = array("type" => "text", 
+                    "name" => "service",
+                    "id" => "service",
+                    "class" => "none",
+                    "options" => $activeServicesList);
+        $sname = $form -> Viven_AddSelect($sn);
+        $form_fields['Service Name:'] = $sname;
+        
+        
+        $ss = array("type" => "text", 
+                    "name" => "ss",
+                    "id" => "ss",
+                    "size" => "27",
+                    "readonly" => "readonly",
+                    "class" => "none datepicker");
+        $sstart = $form -> Viven_AddInput($ss);
+        $form_fields['Service Start Date:'] = $sstart;
+
+
+        $tn = array("name" => "tn",
+                    "id" => "tn",
+                    "class" => "none",
+                    "options" => $activeStafflist);
+        $tname = $form -> Viven_AddSelect($tn);
+        $form_fields['Subscription Incharge:'] = $tname;
+
+
+        $remarks = array("type" => "input", 
+                    "name" => "remarks",
+                    "id" => "remarks",
+                    "rows" => "3",          
+                    "cols" => "26",
+                    "class" => "none");
+        $aremarks = $form ->Viven_AddText($remarks);
+        $form_fields['Comments:'] = $aremarks;
+
+        $ns = array("type" => "hidden", 
+                     "name" => "nsub",
+                     "value" => "1");
+        $nsub = $form -> Viven_AddInput($ns);
+        $form_fields[''] = $nsub;
+
+        $outForm = '<form id="vf_nsub" class="popform" method="post">';
+        $outForm .= $form -> Viven_ArrangeForm($form_fields,2,1,true);
+        $outForm .= '</form>';
+
+        echo $outForm;
+
+      } //End Else    
+      
+    } // End XMLHTTPREQUEST Check
+    
+  } //End subAction()
+  
+  
+  
+  /**
+   * Get a list of All Active Services
+   * @return type
+   */
+  function getServiceTypesAction($branch = null, $status = 1){
+    
+    require_once MODULES . '/business/models/service.php';
+    $model = new Viven_Service_Model;
+    
+    if(!isset($branch)){
+      $branch = $_SESSION['branch'];
+    }
+    return $model -> getServicesList($branch, $status);    
+    
+  }
   
 } //End Class

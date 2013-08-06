@@ -61,13 +61,15 @@ class Viven_Service_Model extends Model{
     $serviceDetails = $this -> srvDetails($srvId);
     $cun = $this -> db -> quote($details['un']);
     $sdate = time();
-    $edate = $sdate + $serviceDetails['_srv_length'] * 86400 * 1000;
+    $edate = $sdate + $serviceDetails['_srv_length'] * 86400;
     $un = $this -> db -> quote($_SESSION['un']);
+    $incharge = $this -> db -> quote($details['tn']);
     $qs = "INSERT INTO viv_srv_sub_en (_srv_sub_unq_id,
                                        _srv_sub_cust,
                                        _srv_sub_date,
                                        _srv_sub_start,
                                        _srv_sub_end,
+                                       _srv_sub_incharge,
                                        _srv_sub_addedby,
                                        _srv_sub_addedon,
                                        _srv_sub_lastmodby,
@@ -77,17 +79,18 @@ class Viven_Service_Model extends Model{
                                          time() . ", " .           
                                          $sdate . ", " .
                                          $edate . ", " .
+                                         $incharge . ", " .
                                          $un . ", " .
                                          time() . ", " .
                                          $un . ", " .
                                          time() . ")";
     
     if($this -> db -> exec($qs)){
-      return 1;  // Subscription added successfully
+      return "SUCCESS";  // Subscription added successfully
     }
     else{
       //var_dump($qs); Leaving this statement for future debugging requirements
-      return 0;  // Failed adding the subscription
+      return $qs;  // Failed adding the subscription
     }
   }
   
@@ -105,5 +108,32 @@ class Viven_Service_Model extends Model{
     return $res -> fetch(PDO::FETCH_ASSOC);
     //if(!$ret) return $qs;
   }
+  
+  
+  /**
+   * Get list of services available
+   * @param type $status Active/Inactive status (0 -> inactive; 1 -> active; 2 -> both)
+   * @param type $branch The branch from which services must be fetched
+   * @return type List of services available at a branch
+   */
+  function getServicesList($branch, $status){
+    $branch = $this -> db -> quote($branch);
+    $status = $this -> db -> quote($status);
+    
+    $qs = "SELECT _srv_name FROM  viv_srv_en WHERE  _srv_branch = $branch AND _srv_status = $status";
+    
+    if($res = $this -> db -> query($qs)){ 
+      $serviceslist = $res->fetchAll(PDO::FETCH_ASSOC); 
+      $sla = array();
+      if($serviceslist){
+        foreach($serviceslist as $val){
+          $sla[$val['_srv_name']] = array("value" => $val['_srv_name']);
+        }
+      }
+      return $sla;
+    }else return array();
+      
+  }
+  
   
 }
