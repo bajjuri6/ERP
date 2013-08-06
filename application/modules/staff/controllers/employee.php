@@ -74,7 +74,7 @@ class Viven_Staff_Employee extends Controller {
         "id" => "br",
         "class" => "none",
         "options" => array("Morning" => array("value" => "m"),
-            "Evening" => array("value" => "e")));
+                           "Evening" => array("value" => "e")));
     $shtfType = $form->Viven_AddSelect($shft);
     $form_fields['Shift:'] = $shtfType;
 
