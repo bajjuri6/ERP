@@ -302,6 +302,24 @@ $(document).ready(function(){
 
   }); //End VF_SUB SUBMIT
   
+  
+  
+  // Process New Enquiry Form
+    
+  $('#vf_enq').live('submit', function(){
+    console.log($('#vf_enq').serializeArray());
+    $.post('/business/enquiry/new',
+            $('#vf_enq').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_ENQ SUBMIT
+  
 
 
   
