@@ -20,7 +20,7 @@
    <li class='navbarhead'><a  href='#' id="morebutton" class="gn"><i class="icon-user icon-white move"></i>Customer</a>
 				<ul>
       <li><a class="gn" onclick="fetchform('Customer Attendance','/customer/attendance/new')">Attendance </a></li>
-      <li><a class="gn" href="/customer/training/new">Personal Training </a></li>
+      <li><a class="gn" onclick="fetchform('Service Subscription','/business/service/sub')">New Subscription </a></li>
       <li><a class="gn" href="/business/enroll/new">Enrollment</a></li>
       <li><a class="gn" href="/finance/revenue/new">Payment </a></li>
       <li><a class="gn" href="/customer/physical/new">Physical </a></li>
