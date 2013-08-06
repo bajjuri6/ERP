@@ -119,6 +119,26 @@ class Viven_Api_Generic extends Controller{
     return $businessController -> getExpenseTypesAction();
   }
   
+  /**
+   * List of Active Services Available at a Branch
+   * @return type
+   */  
+  public function getActiveServicesAction($branch = null){
+    require_once MODULES . '/business/controllers/service.php';
+    $businessController = new Viven_Business_Service;
+    return $businessController -> getServiceTypesAction($branch, 1);
+  }
+  
+  /**
+   * List of All Services Available at a Branch
+   * @return type
+   */  
+  public function getAllServicesAction($branch){
+    require_once MODULES . '/business/controllers/service.php';
+    $businessController = new Viven_Business_Service;
+    return $businessController -> getServiceTypesAction($branch, 2);
+  }
+  
   
   
   /**

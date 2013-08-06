@@ -7,17 +7,90 @@ class Viven_Customer_Personal extends Controller{
   }
   
   function newAction(){
-    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
-      
-      if(isset($_POST['per'])){
-        require_once MODULES . '/customer/models/customer.php';
-        $model = new Viven_Customer_Model;
-        echo $model -> addPersonal($_POST);
-        return;
     
-        } //End Form Processing
+    if(isset($_POST['per'])){
       
-    } //End XMLHTTPREQUEST check
+      require_once MODULES . '/customer/models/customer.php';
+      $model = new Viven_Customer_Model;
+      echo $model -> addPersonal($_POST);
+      return;
+
+    } //End Form Processing
+    
+    else{
+      $form = new Form();
+      $form_fields = array();
+      
+      $pcun = array("type" => "text", 
+                "name" => "pcun",
+                "id" => "pcun",
+                "size" => "27",
+                "class" => "none validateun");
+      $pcuname = $form -> Viven_AddInput($pcun);      
+      $form_fields['Customer ID:'] = $pcuname;
+
+     $dob = array("type" => "input", 
+                  "name" => "dob",
+                  "id" => "dob",
+                  "size" => "27",
+                  "readonly" => "readonly",
+                  "class" => "none datepicker");
+      $dobirth = $form -> Viven_AddInput($dob);
+      $form_fields['Date of Birth:'] = $dobirth;
+
+
+      $marital = array("name" => "marital",
+                      "id" => "marital",
+                      "class" => "none",
+                      "options" => array("Single" => array("value" => "S"),
+                                         "Married" => array("value" => "M"),
+                                         "Separated" => array("value" => "D")
+                                        ));
+      $imarital = $form ->Viven_AddSelect($marital);
+      $form_fields['Marital Status:'] = $imarital;
+
+      $gender = array("name" => "gender",
+                      "id" => "gender",
+                      "class" => "none",
+                      "options" => array("Male" => array("value" => "M"),
+                                         "Female" => array("value" => "F")
+                                        ));
+      $igender = $form ->Viven_AddSelect($gender);
+      $form_fields['Gender:'] = $igender;
+
+
+      $pro = array("type" => "text", 
+                  "name" => "pro",
+                  "id" => "pro",
+                  "size" => "27",
+                  "class" => "none");
+      $profession = $form -> Viven_AddInput($pro);      
+      $form_fields['Profession:'] = $profession;
+
+
+      $ref = array("type" => "text", 
+                  "name" => "ref",
+                  "id" => "ref",
+                  "size" => "27",
+                  "class" => "none");
+      $reference = $form -> Viven_AddInput($ref);      
+      $form_fields['Referred By:'] = $reference;
+
+
+
+      $per = array("type" => "hidden",
+                    "name" => "per",
+                    "value" => "1");
+      $personalhidden = $form->Viven_AddInput($per);
+      $form_fields[''] = $personalhidden;
+
+      //Get the PERSONAL DETAILS Sub Form of the Enrollment
+      $personal = $form -> Viven_ArrangeForm($form_fields,2,0,false);
+      $this -> view -> personal = $personal;
+
+
+      $this -> view -> render('personal/index','customer');
+    }
   }
   
 }
