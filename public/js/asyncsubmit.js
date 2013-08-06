@@ -285,6 +285,23 @@ $(document).ready(function(){
 
   }); //End VF_CEB SUBMIT
   
+  
+  
+  // Process New Service Subscription
+    
+  $('#vf_nsub').live('submit', function(){
+    $.post('/business/service/sub',
+            $('#vf_nsub').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_SUB SUBMIT
+  
 
 
   
