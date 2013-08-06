@@ -79,6 +79,11 @@ class Viven_Business_Generic extends Controller{
   } //End GetDesignationsAction()
   
   
+  
+  /**
+   * Get a list of All available expense types
+   * @return type
+   */
   function getExpenseTypesAction(){
     
     require_once MODULES . '/business/models/generic.php';
@@ -87,6 +92,7 @@ class Viven_Business_Generic extends Controller{
     return $model -> getExpenseTypes();    
     
   }
+  
   
   
 }
