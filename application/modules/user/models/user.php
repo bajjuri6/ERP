@@ -38,14 +38,7 @@ class Viven_User_Model extends Model{
     
   }
   
-  
-  /**
-   * 
-   * @param type $un - Username
-   * @param type $pw - Password
-   * @return int - 0 => NON-EXISTANT, 1 => LOGIN SUCCESS but LOGIN RECORD FAILED, 2 => SUCCESS
-   */
-  public function loginUser($un, $pw){
+  function getUser($un, $pw){
     
     /**
      * Escape the input before performing db operations
@@ -59,9 +52,22 @@ class Viven_User_Model extends Model{
                                   $epw.
                                   " AND _emp_status > 0"
                                 );
-    $result = $temp -> fetch(PDO::FETCH_ASSOC);
+    return $temp -> fetch(PDO::FETCH_ASSOC);
     
-    if($result){
+  }
+  
+  
+  /**
+   * 
+   * @param type $un - Username
+   * @param type $pw - Password
+   * @return int - 0 => NON-EXISTANT, 1 => LOGIN SUCCESS but LOGIN RECORD FAILED, 2 => SUCCESS
+   */
+  public function loginUser($un, $pw){
+    
+    
+    
+    if($result = $this -> getUser($un, $pw)){
       
       /**
        * Store identifiers for the current session
@@ -100,38 +106,38 @@ class Viven_User_Model extends Model{
   /**
    * 
    * @param type $un - UserName to be affected
+   * @param type $opw - Original Password for the User
    * @param type $pw - New Password for the User
    * @param type $level - New User Level
    * @param type $status - New User Status
    * @return boolean - True => SUCCESS, False => FAILURE
    * 
    */
-  public function updateUser($un, $pw, $level=-9, $status=-9){
-    
+  public function updateUser($un, $opw, $pw, $level=-9, $status=-9){
     /**
      * Escape supplied input before performing db operations
      */
     $eun = $this -> db -> quote($un);
     $epw = $this -> db -> quote(md5($pw));
     
-    if($level != -9) $elevel = $this -> db -> quote($level);
-    else $elevel = '_emp_level';
+    if($result = $this -> getUser($un, $opw)){
     
-    if($status != -9) $estatus = $this -> db -> quote($status);
-    else $estatus = '_emp_status';
-    
-    $qs = "UPDATE viv_emp_en SET _emp_pw = ". $epw .", 
-                                 _emp_level = ". $elevel . ", 
-                                 _emp_status - ". $estatus. " WHERE _emp_un = ".$eun;
+      if($level != -9) $elevel = $this -> db -> quote($level);
+      else $elevel = '_emp_level';
 
-    var_dump($qs);
-    
-    /**
-     * Return 2 indicates LOGIN AND RECORDING SUCCESSFUL
-     * Return 1 indicates LOGIN SUCCESS, BUT RECORDING FAIL
-     */
-    if($this -> db -> exec($qs)) return true;
-    else return false;
+      if($status != -9) $estatus = $this -> db -> quote($status);
+      else $estatus = '_emp_status';
+
+      $qs = "UPDATE viv_emp_en SET _emp_pw = ". $epw .", 
+                                   _emp_level = ". $elevel . ", 
+                                   _emp_status = ". $estatus. " WHERE _emp_un = ".$eun;
+
+
+      if($this -> db -> exec($qs)) return "SUCCESS";
+      else return $qs;
+      
+    } else return "Current Password is incorrect";
     
   }
+  
 }
