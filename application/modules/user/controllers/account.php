@@ -6,81 +6,79 @@ class Viven_User_Account extends Controller{
     parent::__construct();
   }
   
-  public function passwordAction(){
-    //$this -> view -> LoginStatus = "Initialized";
-    if(isset($_POST['lgn'])){
-      $model = new Viven_User_Model();
-      $res = $model ->updateUser($_POST['un'], $_POST['pw']);
-      $result = "Update: ";
-      switch($res){
-        case 0:
-          $result .= "FAILURE";
-          break;
-        case 1:
-          $result .= "PARTIAL SUCCESS";
-          break;
-        case 2:
-          $result .= "SUCCESS !!";
-          header("location:/data/logins");
-          break;
-      }
-       $this -> view -> LoginStatus = $result;
-    }else{
-      $form = new Form();
-      //$form_fields = array();
-      //$form_fields_info = array();
-      
-      /**
-       * Current Account Info
-       */
-      $form_fields_info['User Name: '] = $_SESSION['un'];
-      $form_fields_info['User Level: '] = $_SESSION['level'];
-      $infoform = $form -> Viven_ArrangeForm($form_fields_info,0,0,FALSE);
-      
-      /**
-       * Change Password Form Elements
-       */
-      $cp = array("type" => "text", 
-                  "name" => "cp",
-                  "id" => "cp",
-                  "size" => "25",
-                  "class" => "none");
-      $cpassword = $form -> Viven_AddInput($cp);
-      
-      $form_fields['Current Password:'] = $cpassword;
-      
-      $pw = array("type" => "password", 
-                  "name" => "pw",
-                  "id" => "pw",
-                  "size" => "25",
-                  "class" => "none");
-      $pword = $form -> Viven_AddInput($pw);
-      
-      $form_fields['New Password:'] = $pword;
+  public function updateAction(){
+    
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
       
       
-      $cnp = array("type" => "password", 
-                  "name" => "cnp",
-                  "id" => "cnp",
-                  "size" => "25",
-                  "class" => "none");
-      $cnpassword = $form -> Viven_AddInput($cnp);
+      //$this -> view -> LoginStatus = "Initialized";
+      if(isset($_POST['np'])){
       
-      $form_fields['Confirm New Password:'] = $cnpassword;
+        if($_POST['pw'] == $_POST['cnp']){
+          require_once MODULES . '/user/models/user.php';
+          $model = new Viven_User_Model();
+          $res = $model -> updateUser($_SESSION['un'], $_POST['cp'], $_POST['pw']);
+          echo $res;
+        }
+        else echo "Passwords failed to match";
+
+      }else{
+        
+        $form = new Form();
+
+        /**
+         * Current Account Info
+         */
+        $form_fields_info['User Name: '] = $_SESSION['un'];
+        $form_fields_info['User Level: '] = $_SESSION['level'];
+        $infoform = $form -> Viven_ArrangeForm($form_fields_info,0,0,FALSE);
+
+        /**
+         * Change Password Form Elements
+         */
+        $cp = array("type" => "password", 
+                    "name" => "cp",
+                    "id" => "cp",
+                    "size" => "25",
+                    "class" => "none");
+        $cpassword = $form -> Viven_AddInput($cp);
+
+        $form_fields['Current Password:'] = $cpassword;
+
+        $pw = array("type" => "password", 
+                    "name" => "pw",
+                    "id" => "pw",
+                    "size" => "25",
+                    "class" => "none");
+        $pword = $form -> Viven_AddInput($pw);
+
+        $form_fields['New Password:'] = $pword;
+
+
+        $cnp = array("type" => "password", 
+                    "name" => "cnp",
+                    "id" => "cnp",
+                    "size" => "25",
+                    "class" => "none");
+        $cnpassword = $form -> Viven_AddInput($cnp);
+
+        $form_fields['Confirm New Password:'] = $cnpassword;
+
+        $np = array("type" => "hidden", 
+                     "name" => "np",
+                     "value" => "1");
+        $npass = $form -> Viven_AddInput($np);
+        $form_fields[''] = $npass;
+
+        $outform = '<form id="vf_pass" method="post">';
+        $outform .= $infoform;
+        $outform .= $form -> Viven_ArrangeForm($form_fields,2,1);
+        $outform .= '</form>';
+        echo $outform;
+
+      }//end ELSE
       
-      $np = array("type" => "hidden", 
-                   "name" => "np",
-                   "value" => "1");
-      $npass = $form -> Viven_AddInput($np);
-      $form_fields[''] = $npass;
-            
-      $outform = '<form action="/user/account/update">';
-      $outform .= $infoform;
-      $outform .= $form -> Viven_ArrangeForm($form_fields,2,1);
-      $outform .= '</form>';
-      echo $outform;
-      
-    }//end ELSE
+    } //end XMLHTTPREQUEST check
     
   } //end passwordAction()
   
@@ -91,7 +89,7 @@ class Viven_User_Account extends Controller{
    */
   function homeAction(){
     
-    switch($_POST['level']){
+    switch($_SESSION['level']){
       
       case 'Admin':
         require_once MODULES.'/finance/controllers/revenue.php';
@@ -100,13 +98,18 @@ class Viven_User_Account extends Controller{
         /**
          * Get Cash Receipts from Finance Module
          */
-        $cr = new Viven_Finance_Revenue();
-        $records = $obj -> getRecords('0,100');
+        $cr = new Viven_Finance_Revenue;
+        $creceipts = $cr -> getRevenueAction();
         
-        $this -> view -> data1 = $records;
-        $this -> view -> data2 = $records;
-        $this -> view -> data3 = $records;
-        $this -> view -> data4 = $records;
+        $er = new Viven_Finance_Expense;
+        $ereports = $er -> getExpensesAction();
+        
+        $ne = new Viven_Business_Enroll;
+        $nenrollments = $ne -> getEnrollmentsAction();
+        
+        $this -> view -> revenue = $creceipts;
+        $this -> view -> expense = $ereports;
+        $this -> view -> enrollment = $nenrollments;
         $this -> view -> render('account/home','user');
         break;
   
@@ -135,10 +138,7 @@ class Viven_User_Account extends Controller{
         $this -> view -> render('account/home','user');
         break;
       
-    }
-    
-    require_once MODULES . '/';
-    
+    }    
     
   }
   
