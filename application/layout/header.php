@@ -95,7 +95,7 @@
           </ul>			
           
       </li>
-      <li class="navbarhead"><a class="userAccount" onclick="fetchform('User Account','/user/account/password')">
+      <li class="navbarhead"><a class="userAccount" onclick="fetchform('Change Password','/user/account/update')">
           <i class="icon-wrench icon-white"></i>Account </a></li>
       <li class="navbarhead"><a class="Logout" href="/user/logout"><i class="icon-off icon-white move"></i>Logout</a></li>
       
