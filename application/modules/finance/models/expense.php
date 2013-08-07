@@ -57,21 +57,31 @@ class Viven_Expense_Model extends Model{
   
   
   function getExpenses($from, $to, $branch){
-    $qs = 'SELECT * FROM viv_exp_det_en ';
-    if($from == -1 || $to == -1){
-      
-      if($branch == 'all'){
-        $qs .= 'WHERE 1';
-      }
-      else{
-        $qs .= 'WHERE _exp_branch = ' . $branch;
-      }
-      
+    
+    $qs = 'SELECT * FROM viv_exp_det_en WHERE _exp_status = 1 AND ';
+    
+    if($branch != 'all'){
+      $qs .= '_exp_branch = ' . $branch . ' AND';
     }
-    else{
-      
-      $qs .= 'WHERE _exp_date BETWEEN ' . $from . ' AND ' . $to;
+    
+    $qs .= '_exp_date BETWEEN ' . $from . ' AND ' . $to;
+    
+    $qr = $this -> db -> query($qs);
+    return $qr -> fetchAll(PDO::FETCH_ASSOC);
+  }
+  
+  
+  
+  
+  function getPendingExpenses($from, $to, $branch){
+    
+    $qs = 'SELECT * FROM viv_exp_det_en WHERE _exp_status = 0 AND ';
+    
+    if($branch != 'all'){
+      $qs .= '_exp_branch = ' . $branch . ' AND';
     }
+    
+    $qs .= '_exp_date BETWEEN ' . $from . ' AND ' . $to;
     
     $qr = $this -> db -> query($qs);
     return $qr -> fetchAll(PDO::FETCH_ASSOC);

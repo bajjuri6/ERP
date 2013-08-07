@@ -51,7 +51,7 @@ class Viven_Revenue_Model extends Model{
   
   
   function getRevenues($from, $to, $branch){
-    $qs = 'SELECT * FROM viv_payment_en ';
+    $qs = 'SELECT * FROM viv_payment_en WHERE ';
     if($from == -1 || $to == -1){
       
       if($branch == 'all'){
