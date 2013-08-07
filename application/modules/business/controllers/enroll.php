@@ -507,5 +507,20 @@ class Viven_Business_Enroll extends Controller{
     }
     
   } // End addBasic()
+  
+  
+  function getEnrollmentsAction($from, $to, $branch){
+    
+    $qs = 'SELECT * FROM viv_cust_en ';
+    
+    if($branch != 'all'){
+      $qs .= 'WHERE _exp_branch = ' . $branch . ' AND';
+    }
+    
+    $qs .= 'WHERE _exp_date BETWEEN ' . $from . ' AND ' . $to;
+    
+    $qr = $this -> db -> query($qs);
+    return $qr -> fetchAll(PDO::FETCH_ASSOC);
+  }
 
 }
