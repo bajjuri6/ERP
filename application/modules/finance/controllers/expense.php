@@ -132,5 +132,22 @@ class Viven_Finance_Expense extends Controller{
       
   } //End newAction()
   
+  
+  /**
+   * Get Expense Information
+   * @param type $from date
+   * @param type $to date
+   * @param type $branch branch name
+   * @return type
+   */
+  function getExpensesAction($from = -1, $to = -1, $branch = 'all'){
+    
+    require_once MODULES . '/finance/models/expense.php';
+    $expenseModel = new Viven_Expense_Model;
+    
+    return $expenseModel -> getExpenses($from, $to, $branch);
+    
+  }
+  
 
 }

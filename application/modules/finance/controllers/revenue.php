@@ -108,9 +108,9 @@ class Viven_Finance_Revenue extends Controller{
   
   /**
    * Get Revenue Information
-   * @param type $from
-   * @param type $to
-   * @param type $branch
+   * @param type $from date
+   * @param type $to date
+   * @param type $branch branch name
    * @return type
    */
   function getRevenueAction($from = -1, $to = -1, $branch = 'all'){
@@ -125,12 +125,12 @@ class Viven_Finance_Revenue extends Controller{
   
   /**
    * Get Pending Revenue Information
-   * @param type $from
-   * @param type $to
-   * @param type $branch
+   * @param type $from date
+   * @param type $to date
+   * @param type $branch branchname
    * @return type
    */
-  function getPendingRevenuesAction($from, $to, $branch){
+  function getPendingRevenuesAction($from = -1, $to = -1, $branch = 'all'){
     
     require_once MODULES . '/finance/models/revenue.php';
     $revenueModel = new Viven_Revenue_Model;
