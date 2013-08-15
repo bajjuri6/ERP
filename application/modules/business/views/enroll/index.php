@@ -45,3 +45,10 @@
   </form> 
 </div>
 
+<script type="text/javascript">
+  $(document).ready(function(){
+      $(".enrollbun").blur(function(){
+        $(".populateun").val($(".enrollbun").val());
+      });
+  });
+</script>
