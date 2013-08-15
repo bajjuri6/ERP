@@ -24,6 +24,16 @@ class Viven_Api_Generic extends Controller{
     return $branchController -> getBranchListAction("all");
   }
   
+  /**
+   * Get a list of Active Payment Modes for the Branch
+   * @return type
+   */
+  public function activeModesAction(){
+    require_once MODULES.'/finance/controllers/mode.php';
+    $financeController = new Viven_Finance_Mode;
+    return $financeController -> getModeListAction("active");    
+  }
+  
   
   /**
    * Get a List of User Roles in the Org
