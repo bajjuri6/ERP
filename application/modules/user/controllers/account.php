@@ -29,8 +29,8 @@ class Viven_User_Account extends Controller{
         /**
          * Current Account Info
          */
-        $form_fields_info['User Name: '] = $_SESSION['un'];
-        $form_fields_info['User Level: '] = $_SESSION['level'];
+        $form_fields_info['User Name: '] = "<strong>". strtoupper($_SESSION['un'])."</strong>";
+        $form_fields_info['User Level: '] = "<strong>". strtoupper($_SESSION['level'])."</strong>";
         $infoform = $form -> Viven_ArrangeForm($form_fields_info,0,0,FALSE);
 
         /**
@@ -93,6 +93,7 @@ class Viven_User_Account extends Controller{
       
       case 'Admin':
         require_once MODULES.'/finance/controllers/revenue.php';
+        require_once MODULES.'/finance/controllers/expense.php';
         require_once MODULES.'/business/controllers/enroll.php';
         
         /**
