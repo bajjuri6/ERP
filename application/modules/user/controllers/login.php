@@ -53,10 +53,11 @@ class Viven_User_Login extends Controller{
           break;
         case 1:
           $result .= "PARTIAL SUCCESS";
+          header("location:/user/account/home");
           break;
         case 2:
           $result .= "SUCCESS !!";
-          header("location:/data/logins");
+          header("location:/user/account/home");
           break;
       }
        $this -> view -> LoginStatus = $result;
