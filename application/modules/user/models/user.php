@@ -28,7 +28,7 @@ class Viven_User_Model extends Model{
                                   _emp_pw,
                                   _emp_level,
                                   _emp_status) VALUES (".$this -> db -> quote($details['branch']).",".
-                                                        $this -> db -> quote($details['un']).",".
+                                                        $this -> db -> quote($details['un'] . '&@^#948sRUn&36#7ej').",".
                                                         $this -> db -> quote(md5($details['pw'])).",".
                                                         $this -> db -> quote($details['level']).",".
                                                         "1".")";
@@ -44,7 +44,7 @@ class Viven_User_Model extends Model{
      * Escape the input before performing db operations
      */
     $eun = $this -> db -> quote($un);
-    $epw = $this -> db -> quote(md5($pw));    
+    $epw = $this -> db -> quote(md5($pw . '&@^#948sRUn&36#7ej'));    
     
     $temp = $this -> db -> query("SELECT _emp_level, _emp_branch FROM viv_emp_en WHERE _emp_un =". 
                                   $eun.
@@ -66,7 +66,7 @@ class Viven_User_Model extends Model{
   public function loginUser($un, $pw){
     
     
-    
+    $eun = $this -> db -> quote($un);
     if($result = $this -> getUser($un, $pw)){
       
       /**
@@ -93,7 +93,7 @@ class Viven_User_Model extends Model{
        * Return 1 indicates LOGIN SUCCESS, BUT RECORDING FAIL
        */
       if($this -> db -> exec($qs)) return 2;
-      else return 1;
+      else return $qs;
     }
     
     /**
