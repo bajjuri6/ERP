@@ -26,6 +26,7 @@ class Viven_Finance_Expense extends Controller{
       $dataController = new Viven_Api_Generic;
       $expensetypelist = $dataController -> getExpenseTypesAction();
       $branchlist = $dataController -> activeBranchesAction();
+      $modelist = $dataController -> activeModesAction();
       
       $form = new Form();
       $form_fields = array();
@@ -41,12 +42,13 @@ class Viven_Finance_Expense extends Controller{
       $form_fields['Expense Date:'] = $edate;
       
       
-      $branch = array("name" => "branch",
-                  "id" => "branch",
-                  "class" => "none",
-                  "options" => $branchlist);
-      $ebranch = $form ->Viven_AddSelect($branch);
-      $form_fields['Branch:'] = $ebranch;
+      $tn = array("type" => "text", 
+                  "name" => "tn",
+                  "id" => "tn",
+                  "size" => "27",
+                  "class" => "none");
+      $tnumber = $form -> Viven_AddInput($tn);
+      $form_fields['Transaction ID:'] = $tnumber;
       
       
       $type = array("name" => "type",
@@ -84,10 +86,7 @@ class Viven_Finance_Expense extends Controller{
       $mode = array("name" => "mode",
                   "id" => "mode",
                   "class" => "none",
-                  "options" => array("Credit/Debit Card" => array("value" => "1"),
-                                     "Cheque" => array("value" => "2"),
-                                     "Cash" => array("value" => "3")
-                                    ));
+                  "options" => $modelist);
       $pmode = $form ->Viven_AddSelect($mode);
       $form_fields['Payment Mode:'] = $pmode;
       
@@ -99,15 +98,6 @@ class Viven_Finance_Expense extends Controller{
                     "class" => "none");
       $pdetail = $form ->Viven_AddText($pdet);
       $form_fields['Payment Mode Details:'] = $pdetail;
-      
-      
-      $bal = array("type" => "text", 
-                  "name" => "bal",
-                  "id" => "bal",
-                  "size" => "27",
-                  "class" => "none");
-      $balance = $form -> Viven_AddInput($bal);
-      $form_fields['Balance:'] = $balance;
       
       
       $remarks = array("type" => "text", 
@@ -125,7 +115,7 @@ class Viven_Finance_Expense extends Controller{
       $expense = $form -> Viven_AddInput($exp);
       $form_fields[''] = $expense;
       
-      $outForm .= $form -> Viven_ArrangeForm($form_fields,2);
+      $outForm .= $form -> Viven_ArrangeForm($form_fields,2,0,false);
       $this -> view -> newexpense = $outForm;
       $this -> view -> render('expense/index','finance');
     } //End Else
@@ -144,6 +134,11 @@ class Viven_Finance_Expense extends Controller{
     
     require_once MODULES . '/finance/models/expense.php';
     $expenseModel = new Viven_Expense_Model;
+    
+    if($from == -1 || $to == -1){
+      $from = strtotime(date('Y-m-d',time() - 3*86400));
+      $to = strtotime(date('Y-m-d',time()+ 3*86400));
+    }
     
     return $expenseModel -> getExpenses($from, $to, $branch);
     
