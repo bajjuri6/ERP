@@ -45,36 +45,6 @@ class Viven_Generic_Model extends Model{
     
   }
   
-  function addPaymentMode($details){
-    
-    $name = $this -> db -> quote($details['name']);
-    $comments = $this -> db -> quote($details['remarks']);
-    $un = $this -> db -> quote($_SESSION['un']);
-    $time = time();
-    
-    foreach($details['branch'] as $val){
-      $qs = "INSERT INTO viv_srv_en (_payment_md_branch,
-                                    _payment_md_name,
-                                    _payment_md_comments,
-                                    _payment_md_addedby,
-                                    _payment_md_addedon,
-                                    _payment_md_lastmodby,
-                                    _payment_md_lastmodon) VALUES ( ". $this -> db -> quote($val) . ", "
-                                                                    . $name . ", "
-                                                                    . $comments . ", " 
-                                                                    . $un . ", " 
-                                                                    . $time . ", " 
-                                                                    . $un . ", " 
-                                                                    . $time . ")";
-      if(!$this -> db -> exec($qs)){
-        return $qs;
-      } //End EXEC IF statement
-      
-    } //End FOREACH loop
-    
-    return "SUCCESS";
-    
-  }
   
   function addExpenseType($details){
     
