@@ -53,7 +53,7 @@ class Viven_Model_Branch extends Model{
     $bo = $this -> db -> quote($details['bot']);
     $bc = $this -> db -> quote($details['bct']);
     $remarks = $this -> db -> quote($details['remarks']);
-    
+    $rtime = time();
     $qs = "INSERT INTO viv_branch_en (_branch_name,
                                       _branch_addr,
                                       _branch_ot,
@@ -69,9 +69,9 @@ class Viven_Model_Branch extends Model{
                                                   . $bc . ", "
                                                   . $remarks . ", "
                                                   . $this -> eun . ", "
-                                                  . "NOW(), "
+                                                  . $rtime . ", "
                                                   . $this -> eun . ","
-                                                  . "NOW())";
+                                                  . $rtime . ")";
     
     $qst = "INSERT INTO viv_branch_tmngs_en (_branch_tmngs_name,
                                             _branch_tmngs_ot,
@@ -84,7 +84,7 @@ class Viven_Model_Branch extends Model{
                                                         . $bc . ", "
                                                         . $remarks . ", "
                                                         . $this -> eun . ", "
-                                                        . "NOW())";
+                                                        . $rtime . ")";
     
     if($this -> db -> exec($qs)) {
       if($this -> db -> exec($qst)){
