@@ -18,16 +18,16 @@ class Viven_User_Model extends Model{
     /**
      * Check if the username exists before adding user to the db
      */
-    $cu = $this -> db -> query("SELECT _emp_un FROM viv_emp_en WHERE _emp_un = ".
+    $cu = $this -> db -> query("SELECT _usr_un FROM viv_usr_en WHERE _usr_un = ".
                                   $this -> db -> quote($details['un']));
     $valid = $cu -> fetchAll(PDO::FETCH_ASSOC);
-    if($valid) return "User Name <strong>".$valid[0]['_emp_un']."</strong> exists. Please select a unique one.";
+    if($valid) return "User Name <strong>".$valid[0]['_usr_un']."</strong> exists. Please select a unique one.";
     
-    $qs = "INSERT INTO viv_emp_en (_emp_branch,
-                                  _emp_un,
-                                  _emp_pw,
-                                  _emp_level,
-                                  _emp_status) VALUES (".$this -> db -> quote($details['branch']).",".
+    $qs = "INSERT INTO viv_usr_en (_usr_branch,
+                                  _usr_un,
+                                  _usr_pw,
+                                  _usr_level,
+                                  _usr_status) VALUES (".$this -> db -> quote($details['branch']).",".
                                                         $this -> db -> quote($details['un'] . '&@^#948sRUn&36#7ej').",".
                                                         $this -> db -> quote(md5($details['pw'])).",".
                                                         $this -> db -> quote($details['level']).",".
@@ -46,11 +46,11 @@ class Viven_User_Model extends Model{
     $eun = $this -> db -> quote($un);
     $epw = $this -> db -> quote(md5($pw . '&@^#948sRUn&36#7ej'));    
     
-    $temp = $this -> db -> query("SELECT _emp_level, _emp_branch FROM viv_emp_en WHERE _emp_un =". 
+    $temp = $this -> db -> query("SELECT _usr_level, _usr_branch FROM viv_usr_en WHERE _usr_un =". 
                                   $eun.
-                                  " AND _emp_pw =".
+                                  " AND _usr_pw =".
                                   $epw.
-                                  " AND _emp_status > 0"
+                                  " AND _usr_status > 0"
                                 );
     return $temp -> fetch(PDO::FETCH_ASSOC);
     
@@ -73,8 +73,8 @@ class Viven_User_Model extends Model{
        * Store identifiers for the current session
        */
       VivenAuth::setSession($un, 
-                            $result['_emp_level'], 
-                            $result['_emp_branch']);
+                            $result['_usr_level'], 
+                            $result['_usr_branch']);
       
       $eserver = $this -> db -> quote($_SERVER['REMOTE_ADDR']);
       
@@ -123,14 +123,14 @@ class Viven_User_Model extends Model{
     if($result = $this -> getUser($un, $opw)){
     
       if($level != -9) $elevel = $this -> db -> quote($level);
-      else $elevel = '_emp_level';
+      else $elevel = '_usr_level';
 
       if($status != -9) $estatus = $this -> db -> quote($status);
-      else $estatus = '_emp_status';
+      else $estatus = '_usr_status';
 
-      $qs = "UPDATE viv_emp_en SET _emp_pw = ". $epw .", 
-                                   _emp_level = ". $elevel . ", 
-                                   _emp_status = ". $estatus. " WHERE _emp_un = ".$eun;
+      $qs = "UPDATE viv_usr_en SET _usr_pw = ". $epw .", 
+                                   _usr_level = ". $elevel . ", 
+                                   _usr_status = ". $estatus. " WHERE _usr_un = ".$eun;
 
 
       if($this -> db -> exec($qs)) return "SUCCESS";
