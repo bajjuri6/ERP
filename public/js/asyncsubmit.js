@@ -153,6 +153,22 @@ $(document).ready(function(){
 
   }); //End VF_CEB SUBMIT
   
+  
+  // Process New Payment Mode Form    
+  $('#vf_pmode').live('submit', function(){
+    $.post('/finance/mode/new',
+            $('#vf_pmode').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_CEB SUBMIT
+  
+  
   // *********************************************************
   // Process Customer Enrollment Subforms
     
@@ -307,9 +323,25 @@ $(document).ready(function(){
   // Process New Enquiry Form
     
   $('#vf_enq').live('submit', function(){
-    console.log($('#vf_enq').serializeArray());
     $.post('/business/enquiry/new',
             $('#vf_enq').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });       
+
+    return false;
+
+  }); //End VF_ENQ SUBMIT
+  
+  
+  
+  // Process Change Password Form
+    
+  $('#vf_pass').live('submit', function(){
+    $.post('/user/account/update',
+            $('#vf_pass').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
