@@ -12,8 +12,8 @@ class Viven_Finance_Mode extends Controller{
       
       if(isset($_POST['pmode'])){
         
-        require_once MODULES.'/business/models/generic.php';
-        $model = new Viven_Generic_Model;
+        require_once MODULES.'/finance/models/mode.php';
+        $model = new Viven_Mode_Model;
         $res = $model -> addPaymentMode($_POST);
         echo $res;
         
@@ -73,5 +73,15 @@ class Viven_Finance_Mode extends Controller{
     } // End XMLHTTPREQUEST check
     
   } //End newAction()
+  
+  
+  function getModeListAction($param = "active"){
+    
+    require_once MODULES . '/finance/models/mode.php';
+    $model = new Viven_Mode_Model;
+    
+    return $model -> getPaymentModes($param);
+    
+  }
 
 }
