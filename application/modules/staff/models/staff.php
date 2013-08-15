@@ -176,7 +176,21 @@ class Viven_Staff_Model extends Model{
   }
   
   function addEmployee($data){
-    $timeCreated = time();
+    $timeCreated = $this -> db -> quote(time());
+    $eun = $this -> db -> quote($_SESSION['un']);
+    
+    $qs = "INSER INTO viv_emp_en (_emp_name,
+                                  _emp_branch,
+                                  _emp_un,
+                                  _emp_addedby,
+                                  _emp_addedon) VALUES (" 
+                                          . $this -> db -> quote($data['en']) . ","
+                                          . $this -> db -> quote($data['branch']).","
+                                          . $this -> db -> quote($data['id']).","
+                                          . $eun . ","
+                                          . $timeCreated . ")";
+    
+    
     $query = "INSERT INTO `viv_emp_pro_en` (_emp_pro_un, 
                                             _emp_pro_branch, 
                                             _emp_pro_shift,
@@ -190,19 +204,19 @@ class Viven_Staff_Model extends Model{
                                             _emp_pro_addedon,
                                             _emp_pro_lastmodby,
                                             _emp_pro_lastmodon) VALUES (" 
-                                                      . $this -> db -> quote($data['en']) . ","
-                                                      . $this -> db -> quote($data['br']).","
-                                                      . $this -> db -> quote($data['sft']).","
-                                                      . $this -> db -> quote($data['type']).","
-                                                      . $this -> db -> quote($data['sn']).","
-                                                      . $this -> db -> quote($data['doj']).","
-                                                      . $this -> db -> quote($data['dsg']).","
-                                                      . $this -> db -> quote($data['sal']).","
-                                                      . $this -> db -> quote($data['rm']).","
-                                                      . $this -> db -> quote($_SESSION['un']).","
-                                                      . $this -> db -> quote($timeCreated).","
-                                                      . $this -> db -> quote($_SESSION['un']).","
-                                                      . $this -> db -> quote($timeCreated).")";
+                                                  . $this -> db -> quote($data['id']) . ","
+                                                  . $this -> db -> quote($data['branch']).","
+                                                  . $this -> db -> quote($data['sft']).","
+                                                  . $this -> db -> quote($data['type']).","
+                                                  . $this -> db -> quote($data['sn']).","
+                                                  . $this -> db -> quote(strtotime($data['doj'])).","
+                                                  . $this -> db -> quote($data['dsg']).","
+                                                  . $this -> db -> quote($data['sal']).","
+                                                  . $this -> db -> quote($data['rm']).","
+                                                  . $eun . ","
+                                                  . $timeCreated . ","
+                                                  . $eun . ","
+                                                  . $timeCreated . ")";
     
     return $this -> db -> exec($query);
   }
