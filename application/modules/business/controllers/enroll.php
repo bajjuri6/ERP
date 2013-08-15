@@ -37,7 +37,7 @@ class Viven_Business_Enroll extends Controller{
                 "name" => "un",
                 "id" => "un",
                 "size" => "27",
-                "class" => "none validateun");
+                "class" => "none validateun enrollbun");
     $uname = $form -> Viven_AddInput($username);      
     $form_fields_basics['Customer ID:'] = $uname;
 
@@ -120,7 +120,7 @@ class Viven_Business_Enroll extends Controller{
                 "name" => "ecun",
                 "id" => "ecun",
                 "size" => "27",
-                "class" => "none validateun");
+                "class" => "none populateun");
     $eauname = $form -> Viven_AddInput($eaun);      
     $form_fields_attachments['Customer ID:'] = $eauname;
 
@@ -161,7 +161,7 @@ class Viven_Business_Enroll extends Controller{
                 "name" => "ecun",
                 "id" => "ecun",
                 "size" => "27",
-                "class" => "none validateun");
+                "class" => "none populateun");
     $ecuname = $form -> Viven_AddInput($ecun);      
     $form_fields_emergency['Customer ID:'] = $ecuname;
 
@@ -225,7 +225,7 @@ class Viven_Business_Enroll extends Controller{
                 "name" => "pcun",
                 "id" => "pcun",
                 "size" => "27",
-                "class" => "none validateun");
+                "class" => "none populateun");
     $pcuname = $form -> Viven_AddInput($pcun);      
     $form_fields_personal['Customer ID:'] = $pcuname;
 
@@ -296,7 +296,7 @@ class Viven_Business_Enroll extends Controller{
                 "name" => "mcun",
                 "id" => "mcun",
                 "size" => "27",
-                "class" => "none validateun");
+                "class" => "none populateun");
     $mcuname = $form -> Viven_AddInput($mcun);      
     $form_fields_medical['Customer ID:'] = $mcuname;
 
@@ -350,7 +350,7 @@ class Viven_Business_Enroll extends Controller{
                 "name" => "phycunun",
                 "id" => "phycun",
                 "size" => "27",
-                "class" => "none validateun");
+                "class" => "none populateun");
     $phyuname = $form -> Viven_AddInput($phycun);      
     $form_fields_physical['Customer ID:'] = $phyuname;
 
@@ -475,27 +475,19 @@ class Viven_Business_Enroll extends Controller{
         $model = new Viven_Enroll_Model;
         $res = $model -> addCustomer($_POST);
 
-        if ($res) {
+        if ($res == "SUCCESS") {
 
           /**
            * If basic information is successfully added, add a subscription to the service
            */
           require_once MODULES . '/business/models/service.php';
           $srvModel = new Viven_Service_Model;
-          if($srvModel -> addSub($_POST)){
-            echo 'Employee Basics added successfully!!';
-            return;
-          } 
-          else {
-            echo 'Added customer details, but could not add service subscription. Contact Admin';
-            return;
-          }        
+          echo $srvModel -> addSub($_POST);
 
         }
 
         else {
-          echo 'Could not add customer. Contact Admin.';
-          return;
+          echo $res;
         } //End Else for checking return of addCustomer()
 
       } // End checking BASICS hidden element  
@@ -509,18 +501,17 @@ class Viven_Business_Enroll extends Controller{
   } // End addBasic()
   
   
-  function getEnrollmentsAction($from, $to, $branch){
+  function getEnrollmentsAction($from = -1, $to = -1, $branch = 'all'){
     
-    $qs = 'SELECT * FROM viv_cust_en ';
+    require_once MODULES . '/business/models/enroll.php';
+    $model = new Viven_Enroll_Model;
     
-    if($branch != 'all'){
-      $qs .= 'WHERE _exp_branch = ' . $branch . ' AND';
+    if($from == -1 || $to == -1) {
+      $from = strtotime(date('Y-m-d',time() - 10*86400));
+      $to = strtotime(date('Y-m-d',time()+86400));
     }
     
-    $qs .= 'WHERE _exp_date BETWEEN ' . $from . ' AND ' . $to;
-    
-    $qr = $this -> db -> query($qs);
-    return $qr -> fetchAll(PDO::FETCH_ASSOC);
+    return $model -> getEnrollments($from, $to, $branch);
   }
 
 }
