@@ -55,8 +55,17 @@ class Viven_Staff_Employee extends Controller {
     $form_fields['Employee Name:'] = $ename;
 
 
-    $br = array("name" => "br",
-        "id" => "br",
+    $id = array("type" => "text",
+        "name" => "id",
+        "id" => "id",
+        "class" => "none",
+        "size" => "27");
+    $eid = $form->Viven_AddInput($id);
+    $form_fields['Employee ID (No Spaces):'] = $eid;
+
+
+    $br = array("name" => "branch",
+        "id" => "branch",
         "class" => "none",
         "options" => $activeBrancheslist);
     $branch = $form->Viven_AddSelect($br);
