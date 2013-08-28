@@ -670,7 +670,7 @@ ALTER TABLE `viv_emp_att_en`
   ADD CONSTRAINT `viv_emp_att_en_ibfk_1` FOREIGN KEY (`_emp_att_un`) REFERENCES `viv_emp_en` (`_emp_un`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `viv_emp_emer_en`
-  ADD CONSTRAINT `viv_emp_emer_en_ibfk_8` FOREIGN KEY (`_emp_emer_status`) REFERENCES `viv_emp_en` (`_emp_status`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `viv_emp_emer_en_ibfk_7` FOREIGN KEY (`_emp_emer_un`) REFERENCES `viv_emp_en` (`_emp_un`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 ALTER TABLE `viv_emp_en`
   ADD CONSTRAINT `viv_emp_en_ibfk_1` FOREIGN KEY (`_emp_branch`) REFERENCES `viv_branch_en` (`_branch_name`) ON DELETE NO ACTION ON UPDATE CASCADE;
