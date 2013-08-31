@@ -24,6 +24,9 @@
       <li><a class="gn" href="/business/enroll/new">Enrollment</a></li>
       <li><a class="gn" href="/finance/revenue/new">Payment </a></li>
       <li><a class="gn" href="/customer/physical/new">Physical </a></li>
+      <li><a class="gn" href="/customer/medical/new">Medical </a></li>
+      <li><a class="gn" onclick="fetchform('Customer Attachments','/customer/attachments/new')"c>Attachments </a></li>
+      <li><a class="gn" href="/customer/personal/new">Personal Info </a></li>
      <li><a class="gn" onclick="fetchform('Forgot ID','/customer/account/forgot')">Forgot ID </a></li>
      <li><a class="gn" onclick="fetchform('Customer Feedback','/customer/feedback/new')">Feedback </a></li>
 				</ul>
