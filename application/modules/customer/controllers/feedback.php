@@ -35,13 +35,13 @@ class Viven_Customer_Feedback extends Controller{
         $form_fields['Date:'] = $adate;
 
 
-        $cn = array("type" => "text", 
-                    "name" => "cn",
-                    "id" => "cn",
+        $cid = array("type" => "text", 
+                    "name" => "cid",
+                    "id" => "cid",
                     "size" => "27",
-                    "class" => "none validateun");
-        $cname = $form -> Viven_AddInput($cn);
-        $form_fields['Customer Name:'] = $cname;
+                    "class" => "none getud");
+        $cidentity = $form -> Viven_AddInput($cid);
+        $form_fields['Customer ID:'] = $cidentity;
 
 
         $remarks = array("type" => "input", 

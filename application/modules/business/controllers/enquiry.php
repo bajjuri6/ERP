@@ -23,7 +23,7 @@ class Viven_Business_Enquiry extends Controller{
         }
         else{
           require_once MODULES . '/business/models/enquiry.php';
-          $model = new Viven_Model_Enquiry();
+          $model = new Viven_Enquiry_Model;
           $res = $model -> addEnquiry($_POST);
 
           echo $res;
@@ -147,5 +147,22 @@ class Viven_Business_Enquiry extends Controller{
     } //End ELSE
   
   } //End newAction()
+  
+  
+  function getListAction($type = 1){
+    
+    require_once APP_PATH . '/modules/business/models/enquiry.php';
+    $enquiryModel = new Viven_Enquiry_Model;
+    return $enquiryModel -> getEnquiryList($type);
+  }
+  
+  
+  function getDetailsAction(){
+    
+    $id = $_POST['eid'];
+    require_once APP_PATH . '/modules/business/models/enquiry.php';
+    $enquiryModel = new Viven_Enquiry_Model;
+    echo $enquiryModel -> getEnquiryDetails($id);
+  }
   
 } //End Class

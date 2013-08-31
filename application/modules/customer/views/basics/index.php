@@ -1,9 +1,9 @@
-<div id='phy-form' class='bodyworks'>
+<div id='bas-form' class='bodyworks'>
   <h1>Customer Physical</h1>
       
-  <form method="post" id="vf_cphy">
+  <form id="vf_ceb" method="post">
     <?php
-      echo $this -> physical;
+      echo $this -> basics;
     ?>
   </form> 
 </div>

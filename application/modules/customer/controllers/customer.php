@@ -13,11 +13,20 @@ class Viven_Customer_Customer extends Controller{
     return $slist;
   }
   
-  function validateUserName(){
+  
+  function validateCustomerIdAction(){
     require_once MODULES . '/customer/models/customer.php';
     $model = new Viven_Customer_Model;
     
-    echo $model -> validateUserName($_GET['un']);
+    echo $model -> validateCustomerId($_POST['cid']);
+  }
+  
+  
+  function getCustomerDetailsAction(){
+    require_once MODULES . '/customer/models/customer.php';
+    $model = new Viven_Customer_Model;
+    
+    echo $model -> getCustomerDetails($_POST['cid']);
   }
   
 }

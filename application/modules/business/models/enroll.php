@@ -11,6 +11,12 @@ class Viven_Enroll_Model extends Model{
     $etc = $this -> db -> quote($timeCreated);
     $eun = $this -> db -> quote($_SESSION['un']);
     
+    $cs = "SELECT _cust_un FROM viv_cust_en WHERE _cust_un = " . $this -> db -> quote($data['cid']);
+    $cr = $this -> db -> query($cs);
+    if($cr -> fetch(PDO::FETCH_ASSOC)){
+      return "Duplicate Customer ID. Please assign a unique ID";
+    }
+    
     $qs = "INSERT INTO `viv_cust_en` (`_cust_un`, 
                                       `_cust_name`,
                                       `_cust_branch`,
@@ -19,7 +25,7 @@ class Viven_Enroll_Model extends Model{
                                       `_cust_addedon`, 
                                       `_cust_lastmodby`, 
                                       `_cust_lastmodon`) 
-                                      VALUES (".$this -> db -> quote($data['un']).","
+                                      VALUES (".$this -> db -> quote($data['cid']).","
                                               .$this -> db -> quote($data['cn']).","
                                               .$this -> db -> quote($_SESSION['branch']).","
                                               .$this -> db -> quote($_POST['service']).","
@@ -40,7 +46,7 @@ class Viven_Enroll_Model extends Model{
                                               `_cust_det_addedon`, 
                                               `_cust_det_lastmodby`, 
                                               `_cust_det_lastmodon`) 
-                                              VALUES (".$this -> db -> quote($data['un']).","
+                                              VALUES (".$this -> db -> quote($data['cid']).","
                                                       .$this -> db -> quote($data['pn']).","
                                                       .$this -> db -> quote($data['addrss']).","
                                                       .$this -> db -> quote($data['em']).","

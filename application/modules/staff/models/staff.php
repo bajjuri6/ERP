@@ -70,58 +70,52 @@ class Viven_Staff_Model extends Model{
   
   
   /**
-   * Get Get Information of Employees
-   * @param type $param
+   * Get Get Information of an Employee
+   * @param type $id
    * @return type
    */  
-  function getStaffInfo($param){
-    
-    return;
+  function getStaffInfo($id){
+    $qs = "SELECT * FROM viv_emp_en LEFT JOIN viv_emp_pro_en ON _emp_un = _emp_pro_un 
+                                    LEFT JOIN viv_emp_per_en PN _emp_un = _emp_per_un
+                                    WHERE viv_emp_en = " . $id;
+    if($res = $this -> db -> query($qs)){ 
+      return $res->fetchAll(PDO::FETCH_ASSOC); 
+    }
+    else{
+      return $qs;
+    }
     
   }
   
   
   /**
    * Get Get List of Employees
-   * @param type $param Designation of employee
-   * @param status $param Employement Status 
-   * @param branch $param Branch of the employees in the list
+   * @param type $dsg Designation of employee
+   * @param status $status Employement Status 
+   * @param branch $branch Branch of the employees in the list
    * @return type Associate array (Username => Username)
    */  
-  function getStaffList($type, $status, $branch='temp'){
-    $etype = $this -> db -> quote($type);
+  function getStaffList($dsg, $status, $branch){
+    $edsg = $this -> db -> quote($dsg);
     $estatus = $this -> db -> quote($status);
+    $ebranch = $this -> db -> quote($branch);
     
-    $qs = "SELECT _emp_pro_un FROM viv_emp_pro_en WHERE ";
+    $qs = "SELECT _emp_name, _emp_pro_un FROM viv_emp_pro_en INNER JOIN viv_emp_en ON _emp_un = _emp_pro_un WHERE _emp_pro_branch = " . $ebranch;
     
-    if($type == 'all'){
-      
-      if($estatus == 0){
-        $qs .= "1";
-      }
-      else{
-        $qs .= "_emp_pro_status = " . $estatus;
-      }
-      
+    if(strcmp($dsg, 'all') != 0){
+      $qs .= ' AND _emp_pro_designation = ' . $edsg;
     }
-    else{
-      
-      if($estatus == 0){
-       $qs .= "_emp_pro_designation = " . $etype;
-      }
-      else{
-      $qs .= "_emp_pro_designation = " . $etype . " AND _emp_pro_status = 1";
-      }
+   
+    if($estatus != 2){
+      $qs .= " AND _emp_pro_status = " . $status;
     }
-    
-    //$qs .= " AND _emp_pro_branch = " . $branch;
-    
+      
     if($res = $this -> db -> query($qs)){ 
       $stafflist = $res->fetchAll(PDO::FETCH_ASSOC); 
       $sla = array();
       if($stafflist){
         foreach($stafflist as $val){
-          $sla[$val['_emp_pro_un']] = array("value" => $val['_emp_pro_un']);
+          $sla[$val['_emp_pro_un'].' - '.$val['_emp_name']] = array("value" => $val['_emp_pro_un']);
         }
       }
       return $sla;    
@@ -175,23 +169,24 @@ class Viven_Staff_Model extends Model{
     
   }
   
-  function addEmployee($data){
+  function addEmployeeBasics($data){
     $timeCreated = $this -> db -> quote(time());
     $eun = $this -> db -> quote($_SESSION['un']);
     
-    $qs = "INSER INTO viv_emp_en (_emp_name,
+    $qs = "INSERT INTO viv_emp_en (_emp_name,
                                   _emp_branch,
                                   _emp_un,
                                   _emp_addedby,
                                   _emp_addedon) VALUES (" 
                                           . $this -> db -> quote($data['en']) . ","
                                           . $this -> db -> quote($data['branch']).","
-                                          . $this -> db -> quote($data['id']).","
+                                          . $this -> db -> quote($data['eid']).","
                                           . $eun . ","
                                           . $timeCreated . ")";
     
-    
-    $query = "INSERT INTO `viv_emp_pro_en` (_emp_pro_un, 
+    if($this -> db -> exec($qs)){
+      
+      $qsd = "INSERT INTO `viv_emp_pro_en` (_emp_pro_un, 
                                             _emp_pro_branch, 
                                             _emp_pro_shift,
                                             _emp_pro_type,
@@ -204,7 +199,7 @@ class Viven_Staff_Model extends Model{
                                             _emp_pro_addedon,
                                             _emp_pro_lastmodby,
                                             _emp_pro_lastmodon) VALUES (" 
-                                                  . $this -> db -> quote($data['id']) . ","
+                                                  . $this -> db -> quote($data['eid']) . ","
                                                   . $this -> db -> quote($data['branch']).","
                                                   . $this -> db -> quote($data['sft']).","
                                                   . $this -> db -> quote($data['type']).","
@@ -217,7 +212,156 @@ class Viven_Staff_Model extends Model{
                                                   . $timeCreated . ","
                                                   . $eun . ","
                                                   . $timeCreated . ")";
+
+      if($this -> db -> exec($qsd)){
+        return 'SUCCESS';
+      } // All izz well
+      else{
+        return $qsd;
+      } //viv_emp_pro_en failed
+      
+    }
+    else{
+      return $qs; //viv_emp_en failed
+    }
     
-    return $this -> db -> exec($query);
-  }
+    
+  } // End EMPLOYEE BASICS
+  
+  
+  
+  function addEmployeeAttachments($data){
+    $timeCreated = $this -> db -> quote(time());
+    $eun = $this -> db -> quote($_SESSION['un']);
+    $empun = $this -> db -> quote($data['en']);
+    
+    
+    $allowedExts = array("jpeg", "jpg", "png", "doc", "docx", "odt", "pdf");
+    $uploadName = explode(".", $_FILES["doc"]["tmp_name"]);
+    $extension = strtolower(end($uploadName)); //Ignore Case by converting the extension into lower case
+    
+    if(!in_array($extension, $allowedExts)) {
+      return var_dump($_FILES["doc"]["tmp_name"]);
+      return "Invalid File Type";
+      
+    }
+    
+    $fname = $empun . rand() . $extension;
+    if ($_FILES["doc"]["error"] > 0)
+    {
+      return "Error: " . $_FILES["doc"]["error"] . "<br>";
+    }
+    else
+    {
+      move_uploaded_file($_FILES['doc']['tmp_name'], APP_PATH . '/../attachments/' . $fname);
+    }
+
+    
+    $qs = "INSERT INTO viv_emp_attach_en (_emp_attach_un,
+                                          _emp_attach_url,
+                                          _emp_attach_addedby,
+                                          _emp_attach_addedon) VALUES (" 
+                                                  . $empun . ","
+                                                  . $this -> db -> quote($fname).","
+                                                  . $eun . ","
+                                                  . $timeCreated . ")";
+    
+    if($this -> db -> exec($qs)){
+
+      return 'SUCCESS';
+      
+    } // All izz well
+    
+    else{
+      
+      return $qs; //viv_emp_en failed
+      
+    }
+    
+  } // End EMPLOYEE ATTACHMENTS
+  
+  
+  
+  function addEmployeeEmergency($data){
+    $timeCreated = $this -> db -> quote(time());
+    $eun = $this -> db -> quote($_SESSION['un']);
+    
+    $qs = "INSERT INTO viv_emp_emer_en (_emp_emer_un,
+                                        _emp_emer_name,
+                                        _emp_emer_phone,
+                                        _emp_emer_email,
+                                        _emp_emer_address,
+                                        _emp_emer_remarks,
+                                        _emp_emer_addedby,
+                                        _emp_emer_addedon,
+                                        _emp_emer_lastmodby,
+                                        _emp_emer_lastmodon) VALUES (" 
+                                                . $this -> db -> quote($data['eeun']) . ","
+                                                . $this -> db -> quote($data['ecn']) . ","
+                                                . $this -> db -> quote($data['pn']).","
+                                                . $this -> db -> quote($data['eem']).","
+                                                . $this -> db -> quote($data['eaddr']).","
+                                                . $this -> db -> quote($data['eremarks']).","
+                                                . $eun . ","
+                                                . $timeCreated . ","
+                                                . $eun . ","
+                                                . $timeCreated . ")";
+    
+    if($this -> db -> exec($qs)){
+
+      return 'SUCCESS';
+      
+    } // All izz well
+    
+    else{
+      
+      return $qs; //viv_emp_en failed
+      
+    }
+    
+  } // End EMPLOYEE ATTACHMENTS
+  
+  
+  
+  function addEmployeePersonals($data){
+    $timeCreated = $this -> db -> quote(time());
+    $eun = $this -> db -> quote($_SESSION['un']);
+    $edob = strtotime($data['epdob']);//$this -> db -> quote($data['epdob'])
+    
+    $qs = "INSERT INTO viv_emp_per_en (_emp_per_un,
+                                       _emp_per_sex,
+                                       _emp_per_marital,
+                                       _emp_per_dob,
+                                       _emp_per_address,
+                                       _emp_per_phone,
+                                       _emp_per_addedby,
+                                       _emp_per_addedon,
+                                       _emp_per_lastmodby,
+                                       _emp_per_lastmodon) VALUES (" 
+                                              . $this -> db -> quote($data['epun']) . ","
+                                              . $this -> db -> quote($data['epgender']) . ","
+                                              . $this -> db -> quote($data['epmarital']) . ","
+                                              . $edob .","
+                                              . $this -> db -> quote($data['epaddr']).","
+                                              . $this -> db -> quote($data['eppn']).","
+                                              . $eun . ","
+                                              . $timeCreated . ","
+                                              . $eun . ","
+                                              . $timeCreated . ")";
+    
+    if($this -> db -> exec($qs)){
+
+      return 'SUCCESS';
+      
+    } // All izz well
+    
+    else{
+      
+      return $qs; //viv_emp_en failed
+      
+    }
+    
+  } // End EMPLOYEE ATTACHMENTS
+  
+  
 }

@@ -1,10 +1,61 @@
 <?php
 
-class Viven_Customer_Attendance extends Controller{
+class Viven_Customer_Attachments extends Controller{
 
   function __construct() {
     parent::__construct();
   }
+  
+  
+  public function getForm(){
+    
+    $form = new Form();
+    $form_fields = array();
+    
+    $cid = array("type" => "text", 
+                "name" => "cid",
+                "id" => "cid",
+                "size" => "27",
+                "class" => "none populateun");
+    $cidentity = $form -> Viven_AddInput($cid);      
+    $form_fields['Customer ID:'] = $cidentity;
+
+
+    $fl = array("type" => "file", 
+                "name" => "doc",
+                "id" => "doc",
+                "size" => "27",
+                "class" => "none");
+    $file = $form->Viven_AddInput($fl);
+    $form_fields['Attach:'] = $file;
+    
+    $ac = array("name" => "ac",
+                    "id" => "ac",
+                    "rows" => "2",
+                    "cols" => "26",
+                    "class" => "none");
+    $acomments = $form -> Viven_AddText($ac);      
+    $form_fields['Comments:'] = $acomments;
+
+    
+    $attach = array("type" => "hidden",
+                  "name" => "attach",
+                  "value" => "1");
+    $attachmenthidden = $form->Viven_AddInput($attach);
+    $form_fields[''] = $attachmenthidden;
+
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
+      $attachments = $form -> Viven_ArrangeForm($form_fields,2,1,false);
+    }
+    else{
+      $attachments = $form -> Viven_ArrangeForm($form_fields,2,0,false);
+    }
+    
+    return $attachments;
+    
+  }
+  
+  
   
   function newAction(){
    
@@ -19,58 +70,9 @@ class Viven_Customer_Attendance extends Controller{
         
       }
       else{
-        $form = new Form();
-        $form_fields = array();
-
-        /**
-         * Attendance Form Elements
-         */
-        $cn = array("type" => "text", 
-                    "name" => "cn",
-                    "id" => "cn",
-                    "size" => "27",
-                    "class" => "none validateun");
-        $cname = $form -> Viven_AddInput($cn);
-
-        $form_fields['Customer Name:'] = $cname;
-
-        $date = array("type" => "input", 
-                    "name" => "date",
-                    "id" => "date",
-                    "size" => "27",
-                    "readonly" => "readonly",
-                    "class" => "none datepicker");
-        $adate = $form -> Viven_AddInput($date);
-        $form_fields['Date:'] = $adate;
-
-
-        $status = array("name" => "status",
-                    "id" => "status",
-                    "class" => "none",
-                    "options" => array("Present" => array("value" => "1"),
-                                       "Absent" => array("value" => "2")
-                      ));
-        $astatus = $form ->Viven_AddSelect($status);
-        $form_fields['Attendance:'] = $astatus;
-
-
-        $remarks = array("type" => "input", 
-                    "name" => "remarks",
-                    "id" => "remarks",
-                    "rows" => "3",
-                    "cols" => "26",
-                    "class" => "none");
-        $aremarks = $form ->Viven_AddText($remarks);
-        $form_fields['Comments:'] = $aremarks;
-
-        $attn = array("type" => "hidden", 
-                     "name" => "cattn",
-                     "value" => "1");
-        $cattn = $form -> Viven_AddInput($attn);
-        $form_fields[''] = $cattn;
-
-        $outForm = '<form id="vf_cattn" class="popform" method="post">';
-        $outForm .= $form -> Viven_ArrangeForm($form_fields,2,1);
+        
+        $outForm = '<form id="vf_cea" class="popform" method="post">';
+        $outForm .= $this -> getForm();
         $outForm .= '</form>';
 
         echo $outForm;

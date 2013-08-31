@@ -50,7 +50,6 @@ class Viven_Generic_Model extends Model{
     
     $etn = $this -> db -> quote($details['etn']);
     $comments = $this -> db -> quote($details['remarks']);
-    $un = $this -> db -> quote($_SESSION['un']);
     $time = time();
     
     $qs = "INSERT INTO viv_exp_type_en (_exp_type_text,

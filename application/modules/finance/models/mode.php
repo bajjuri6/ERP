@@ -9,21 +9,20 @@ class Viven_Mode_Model extends Model{
   function addPaymentMode($details){
     
     $name = $this -> db -> quote(strtolower($details['name']));
-    $modeid = $this -> db -> quote(strtolower($details['name']) . "_viven");
+    //$modeid = $this -> db -> quote(strtolower($details['name']) . "_viven");   _payment_md_un,
     $comments = $this -> db -> quote($details['remarks']);
     $un = $this -> db -> quote($_SESSION['un']);
     $time = time();
     
     foreach($details['branch'] as $val){
       $qs = "INSERT INTO viv_payment_md_en (_payment_md_branch,
-                                            _payment_md_un,
                                             _payment_md_name,
                                             _payment_md_comments,
                                             _payment_md_addedby,
                                             _payment_md_addedon,
                                             _payment_md_lastmodby,
                                             _payment_md_lastmodon) VALUES ( ". $this -> db -> quote($val) . ", "
-                                                                            . $modeid . ", "
+                                                                            //. $modeid . ", "
                                                                             . $name . ", "
                                                                             . $comments . ", " 
                                                                             . $un . ", " 

@@ -47,35 +47,35 @@ class Viven_Api_Generic extends Controller{
   
   /**
    * UserName List of Active & Inactive (suspended, resigned) Staff
-   * @param type $type indicates the type of employees you're looking for
+   * @param type $dsg indicates the designation of employees you're looking for
    * @return type
    */  
-  public function getAllStaffAction($type){
+  public function getAllStaffAction(){
     require_once MODULES.'/staff/controllers/employee.php';
     $employeeController = new Viven_Staff_Employee;
-    return $employeeController -> getStaffListAction($type,0);
+    return $employeeController -> getStaffListAction('all', 2, $_SESSION['branch']);
   }
   
   /**
-   * UserName List of Active (suspended, resigned) Staff
-   * @param type $type indicates the type of employees you're looking for
+   * UserName List of Active/Current Staff
+   * @param type $dsg indicates the designation of employees you're looking for
    * @return type
    */  
-  public function getActiveStaffAction($type){
+  public function getActiveStaffAction($dsg = 'all'){
     require_once MODULES.'/staff/controllers/employee.php';
     $employeeController = new Viven_Staff_Employee;
-    return $employeeController -> getStaffListAction($type,1);
+    return $employeeController -> getStaffListAction($dsg, 1, $_SESSION['branch']);
   }
   
   /**
    * UserName List of Inactive (suspended, resigned) Staff
-   * @param type $type indicates the type of employees you're looking for
+   * @param type $dsg indicates the designation of employees you're looking for
    * @return type
    */  
-  public function getInactiveStaffAction($type){
+  public function getInactiveStaffAction($dsg = 'all'){
     require_once MODULES.'/staff/controllers/employee.php';
     $employeeController = new Viven_Staff_Employee;
-    return $employeeController -> getStaffListAction($type,2);
+    return $employeeController -> getStaffListAction($dsg, 0, $_SESSION['branch']);
   }
   
   /**

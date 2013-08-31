@@ -20,30 +20,39 @@ class Viven_Service_Model extends Model{
     $time = time();
     
     foreach($details['branch'] as $val){
-      $qs = "INSERT INTO viv_srv_en (_srv_branch,
-                                    _srv_unq_id,
-                                    _srv_type,
-                                    _srv_name,
-                                    _srv_start,
-                                    _srv_length,
-                                    _srv_tnc,
-                                    _srv_addedby,
-                                    _srv_addedon,
-                                    _srv_lastmodby,
-                                    _srv_lastmodon) VALUES ( ". $this -> db -> quote($val) . ", "
-                                                              . $sh . ", "
-                                                              . $st . ", " 
-                                                              . $sn . ", " 
-                                                              . $sd . ", " 
-                                                              . $sl . ", " 
-                                                              . $remarks . ", " 
-                                                              . $un . ", " 
-                                                              . $time . ", " 
-                                                              . $un . ", " 
-                                                              . $time . ")";
-      if(!$this -> db -> exec($qs)){
-        return $qs;
-      } //End EXEC IF statement
+      $cs = "SELECT _srv_unq_id FROM viv_srv_en WHERE _srv_unq_id = " . $sh . 
+                                                  "AND _srv_branch = " . $this -> db -> quote($val);
+      $cr = $this -> db -> query($cs);
+      if($cr -> fetchAll(PDO::FETCH_ASSOC)){
+        continue;
+      }else{
+      
+        $qs = "INSERT INTO viv_srv_en (_srv_branch,
+                                      _srv_unq_id,
+                                      _srv_type,
+                                      _srv_name,
+                                      _srv_start,
+                                      _srv_length,
+                                      _srv_tnc,
+                                      _srv_addedby,
+                                      _srv_addedon,
+                                      _srv_lastmodby,
+                                      _srv_lastmodon) VALUES ( ". $this -> db -> quote($val) . ", "
+                                                                . $sh . ", "
+                                                                . $st . ", " 
+                                                                . $sn . ", " 
+                                                                . $sd . ", " 
+                                                                . $sl . ", " 
+                                                                . $remarks . ", " 
+                                                                . $un . ", " 
+                                                                . $time . ", " 
+                                                                . $un . ", " 
+                                                                . $time . ")";
+        if(!$this -> db -> exec($qs)){
+          return $qs;
+        } //End EXEC IF statement
+        
+      } // End Duplication check
       
     } //End FOREACH loop
     
@@ -120,14 +129,14 @@ class Viven_Service_Model extends Model{
     $branch = $this -> db -> quote($branch);
     $status = $this -> db -> quote($status);
     
-    $qs = "SELECT _srv_name FROM  viv_srv_en WHERE  _srv_branch = $branch AND _srv_status = $status";
+    $qs = "SELECT _srv_name, _srv_unq_id FROM  viv_srv_en WHERE  _srv_branch = $branch AND _srv_status = $status";
     
     if($res = $this -> db -> query($qs)){ 
       $serviceslist = $res->fetchAll(PDO::FETCH_ASSOC); 
       $sla = array();
       if($serviceslist){
         foreach($serviceslist as $val){
-          $sla[$val['_srv_name']] = array("value" => $val['_srv_name']);
+          $sla[$val['_srv_name']] = array("value" => $val['_srv_unq_id']);
         }
       }
       return $sla;

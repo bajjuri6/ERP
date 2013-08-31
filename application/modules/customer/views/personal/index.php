@@ -1,7 +1,7 @@
 <div id='per-form' class='bodyworks'>
   <h1>Customer Personal Information</h1>
       
-  <form method="post" id="vf_cp">
+  <form id="vf_cep" method="post">
     <?php
       echo $this -> personal;
     ?>

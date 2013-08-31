@@ -16,37 +16,70 @@ class Viven_Expense_Model extends Model{
     $pt = $this -> db -> quote($details['pt']);
     $pn = $this -> db -> quote($details['pn']);
     $amt = $this -> db -> quote($details['amt']);
-    $mode = $this -> db -> quote($details['mode']);
+    $mode = $this -> db -> quote(strtolower($details['mode']));
     $det = $this -> db -> quote($details['details']);
     $remarks = $this -> db -> quote($details['remarks']);
     
     $time = time();
     
-    $qs = 'INSERT INTO viv_exp_en (_exp_tn,
-                                  _exp_owed_to,
-                                  _exp_branch,
-                                  _exp_type,
-                                  _exp_amount,
-                                  _exp_date,
-                                  _exp_remarks,
-                                  _exp_addedby,
-                                  _exp_addedon,
-                                  _exp_lastmodby,
-                                  _exp_lastmodon) VALUES ('
-                                                  . $etn .', '
-                                                  . $pt .', '
-                                                  . $ebranch .', '
-                                                  . $type .', '
-                                                  . $amt .', '
-                                                  . $edate .', '
-                                                  . $remarks .', '
-                                                  . $this -> eun .', '
-                                                  . $time .', '
-                                                  . $this -> eun .', '
-                                                  . $time .')';
+    $cs = "SELECT _exp_tn FROM viv_exp_en WHERE _exp_tn = " . $etn;
+    $res = $this -> db -> query($cs);
+    if($res -> fetchAll(PDO::FETCH_ASSOC)){
+      return "Transaction Number exists. Please check again.";
+    }
+    
+    if($mode == "'credit'"){
+      $qs = 'INSERT INTO viv_exp_en (_exp_tn,
+                                    _exp_owed_to,
+                                    _exp_branch,
+                                    _exp_type,
+                                    _exp_amount,
+                                    _exp_date,
+                                    _exp_status,
+                                    _exp_remarks,
+                                    _exp_addedby,
+                                    _exp_addedon,
+                                    _exp_lastmodby,
+                                    _exp_lastmodon) VALUES ('
+                                                    . $etn .', '
+                                                    . $pt .', '
+                                                    . $ebranch .', '
+                                                    . $type .', '
+                                                    . $amt .', '
+                                                    . $edate .', '
+                                                    . '1, '
+                                                    . $remarks .', '
+                                                    . $this -> eun .', '
+                                                    . $time .', '
+                                                    . $this -> eun .', '
+                                                    . $time .')';
+    }else{
+      $qs = 'INSERT INTO viv_exp_en (_exp_tn,
+                                    _exp_owed_to,
+                                    _exp_branch,
+                                    _exp_type,
+                                    _exp_amount,
+                                    _exp_date,
+                                    _exp_remarks,
+                                    _exp_addedby,
+                                    _exp_addedon,
+                                    _exp_lastmodby,
+                                    _exp_lastmodon) VALUES ('
+                                                    . $etn .', '
+                                                    . $pt .', '
+                                                    . $ebranch .', '
+                                                    . $type .', '
+                                                    . $amt .', '
+                                                    . $edate .', '
+                                                    . $remarks .', '
+                                                    . $this -> eun .', '
+                                                    . $time .', '
+                                                    . $this -> eun .', '
+                                                    . $time .')';
+    }
     
     if($this -> db -> exec($qs)){
-      $qsdet = 'INSERT INTO viv_exp_det_en (_exp_det_fk,
+      $qsdet = 'INSERT INTO viv_exp_det_en (_exp_det_tn,
                                             _exp_det_phone_number,
                                             _exp_det_payment_mode,
                                             _exp_det_payment_mode_details,
@@ -66,7 +99,7 @@ class Viven_Expense_Model extends Model{
                                                                . $time .')';
 
       if($this -> db -> exec($qsdet)) {
-        return "Success";
+        return "SUCCESS";
       }
       else {
         return $qsdet;//"Partial Success";
@@ -81,7 +114,7 @@ class Viven_Expense_Model extends Model{
   
   function getExpenses($from, $to, $branch){
     
-    $qs = 'SELECT * FROM viv_exp_en WHERE _exp_status = 1 AND ';
+    $qs = 'SELECT * FROM viv_exp_en WHERE _exp_status = 0 AND ';
     
     if($branch != 'all'){
       $qs .= '_exp_branch = ' . $branch . ' AND ';
@@ -99,7 +132,7 @@ class Viven_Expense_Model extends Model{
   
   function getPendingExpenses($from, $to, $branch){
     
-    $qs = 'SELECT * FROM viv_exp_det_en WHERE _exp_status = 0 AND ';
+    $qs = 'SELECT * FROM viv_exp_det_en WHERE _exp_status = 1 AND ';
     
     if($branch != 'all'){
       $qs .= '_exp_branch = ' . $branch . ' AND';

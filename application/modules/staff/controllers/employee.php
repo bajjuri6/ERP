@@ -13,30 +13,9 @@ class Viven_Staff_Employee extends Controller {
    */
   function newAction() {
 
-    if (isset($_POST['newemp'])) {
-      foreach ($_POST as $option) {
-        if (!$option) {
-          $error = true;
-          break;
-        }
-      }
-
-      if (isset($error)) {
-        $this->view->msg = 'All fields are required!';
-      } else {
-        $model = new Viven_Staff_Model();
-        $res = $model->addEmployee($_POST);
-
-        if ($res) {
-          $this->view->msg = 'Employee added successfully!!';
-        } else {
-          $this->view->msg = 'Error in processing. Please try after sometime.';
-        }
-      }
-    }
     $form = new Form();
     $form_fields = array();
-    
+
     /**
      * All Data Lists required to render this form
      */
@@ -56,9 +35,9 @@ class Viven_Staff_Employee extends Controller {
 
 
     $id = array("type" => "text",
-        "name" => "id",
-        "id" => "id",
-        "class" => "none",
+        "name" => "eid",
+        "id" => "eid",
+        "class" => "none picknpush validateun",
         "size" => "27");
     $eid = $form->Viven_AddInput($id);
     $form_fields['Employee ID (No Spaces):'] = $eid;
@@ -133,30 +112,333 @@ class Viven_Staff_Employee extends Controller {
     $form_fields['Remarks:'] = $aremarks;
 
     $newemp = array("type" => "hidden",
-        "name" => "newemp",
+        "name" => "empbas",
         "value" => "1");
     $newempArray = $form->Viven_AddInput($newemp);
     $form_fields[''] = $newempArray;
 
     $outForm = $form->Viven_ArrangeForm($form_fields, 2, 0, false);
-    $this->view->employeeForm = $outForm;
+    $this->view->basics = $outForm;
 
-    $this->view->render('employee/new', 'staff');
+
+    /**
+    * Customer Attachments Sub-Form
+    */
+   $eaun = array("type" => "text", 
+               "name" => "ecun",
+               "id" => "ecun",
+               "size" => "27",
+               "class" => "none populateun");
+   $eauname = $form -> Viven_AddInput($eaun);      
+   $form_fields_attachments['Employee ID:'] = $eauname;
+
+
+   $fl = array("type" => "file", 
+               "name" => "doc",
+               "id" => "doc",
+               "size" => "27",
+               "class" => "none");
+   $file = $form->Viven_AddInput($fl);
+   $form_fields_attachments['Attach:'] = $file;
+
+   $ac = array("name" => "ac",
+                   "id" => "ac",
+                   "rows" => "2",
+                   "cols" => "26",
+                   "class" => "none");
+   $acomments = $form -> Viven_AddText($ac);      
+   $form_fields_attachments['Comments:'] = $acomments;
+
+
+   $attach = array("type" => "hidden",
+                 "name" => "empattach",
+                 "value" => "1");
+   $attachmenthidden = $form->Viven_AddInput($attach);
+   $form_fields_attachments[''] = $attachmenthidden;
+
+   //Get the First Sub Form of the Enrollment
+   $attachments = $form -> Viven_ArrangeForm($form_fields_attachments,2,0,false);
+   $this -> view -> attachments = $attachments;
+
+
+
+   /**
+    * Emergency Sub-Form Elements
+    */
+   $eeun = array("type" => "text", 
+               "name" => "eeun",
+               "id" => "eeun",
+               "size" => "27",
+               "class" => "none populateun");
+   $eeuname = $form -> Viven_AddInput($eeun);      
+   $form_fields_emergency['Employee ID:'] = $eeuname;
+
+
+   $ecn = array("type" => "text", 
+               "name" => "ecn",
+               "id" => "ecn",
+               "size" => "27",
+               "class" => "none");
+   $ecname = $form -> Viven_AddInput($ecn);
+   $form_fields_emergency['Emer Contact Name:'] = $ecname;
+
+
+   $ep = array("type" => "text", 
+               "name" => "ep",
+               "id" => "ep",
+               "size" => "27",
+               "class" => "none");
+   $ephone = $form -> Viven_AddInput($ep);      
+   $form_fields_emergency['Emer Contact Number:'] = $ephone;
+
+   $eem = array("type" => "text", 
+               "name" => "eem",
+               "id" => "eem",
+               "size" => "27",
+               "class" => "none");
+   $eemail = $form->Viven_AddInput($eem);
+   $form_fields_emergency['Email Address:'] = $eemail;
+
+   $eaddr = array("name" => "eaddr",
+                   "id" => "eaddr",
+                   "rows" => "3",
+                   "cols" => "26",
+                   "class" => "none");
+   $eaddress = $form -> Viven_AddText($eaddr);      
+   $form_fields_emergency['Contact Address:'] = $eaddress;
+
+   $erem = array("name" => "eremarks",
+                 "id" => "eremarks",
+                 "rows" => "3",
+                 "cols" => "26",
+                 "class" => "none");
+   $eremarks = $form -> Viven_AddText($erem);
+   $form_fields_emergency['Contact Notes:'] = $eremarks;
+
+   $emer = array("type" => "hidden",
+                 "name" => "empemer",
+                 "value" => "1");
+   $emergencyhidden = $form->Viven_AddInput($emer);
+   $form_fields_emergency[''] = $emergencyhidden;
+
+   //Get the First Sub Form of the Enrollment
+   $emergency = $form -> Viven_ArrangeForm($form_fields_emergency,2,0,false);
+   $this -> view -> emergency = $emergency;
+
+
+   /**
+    * Personal Sub-Form Elements
+    */
+   $epun = array("type" => "text", 
+               "name" => "epun",
+               "id" => "epun",
+               "size" => "27",
+               "class" => "none populateun");
+   $epuname = $form -> Viven_AddInput($epun);
+   $form_fields_personal['Employee ID:'] = $epuname;
+
+  $dob = array("type" => "input", 
+               "name" => "epdob",
+               "id" => "epdob",
+               "size" => "27",
+               "readonly" => "readonly",
+               "class" => "none datepicker");
+   $dobirth = $form -> Viven_AddInput($dob);
+   $form_fields_personal['Date of Birth:'] = $dobirth;
+
+
+   $marital = array("name" => "epmarital",
+                   "id" => "epmarital",
+                   "class" => "none",
+                   "options" => array("Single" => array("value" => "S"),
+                                      "Married" => array("value" => "M"),
+                                      "Separated" => array("value" => "D")
+                                     ));
+   $imarital = $form ->Viven_AddSelect($marital);
+   $form_fields_personal['Marital Status:'] = $imarital;
+
+   $gender = array("name" => "epgender",
+                   "id" => "epgender",
+                   "class" => "none",
+                   "options" => array("Male" => array("value" => "M"),
+                                      "Female" => array("value" => "F")
+                                     ));
+   $igender = $form ->Viven_AddSelect($gender);
+   $form_fields_personal['Gender:'] = $igender;
+
+
+   $eppn = array("type" => "text",
+                "name" => "eppn",
+                "id" => "eppn",
+                "rows" => "3",
+                "cols" => "26",
+                "class" => "none");
+   $epphnumber = $form -> Viven_AddInput($eppn);      
+   $form_fields_personal['Phone Number:'] = $epphnumber;
+
+
+   $addr = array("name" => "epaddr",
+                "id" => "epaddr",
+                "rows" => "3",
+                "cols" => "26",
+                "class" => "none");
+   $address = $form -> Viven_AddText($addr);      
+   $form_fields_personal['Address:'] = $address;
+   
+   
+   $per = array("type" => "hidden",
+                 "name" => "empper",
+                 "value" => "1");
+   $personalhidden = $form->Viven_AddInput($per);
+   $form_fields_personal[''] = $personalhidden;
+
+   //Get the PERSONAL DETAILS Sub Form of the Enrollment
+   $personal = $form -> Viven_ArrangeForm($form_fields_personal,2,0,false);
+   $this -> view -> personals = $personal;
+
+
+  $this->view->render('employee/new', 'staff');
+  }
+  
+  
+  
+  /**
+   * 
+   */
+  function basicsAction(){
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
+      
+      if (isset($_POST['empbas'])) {
+        foreach ($_POST as $option) {
+          if (!$option) {
+            $error = true;
+            break;
+          }
+        }
+
+        if (isset($error)) {
+
+          echo 'All fields are required!';
+
+        } 
+
+        else {
+          $model = new Viven_Staff_Model();
+          $res = $model->addEmployeeBasics($_POST);
+          echo $res;
+
+        } //End form processing
+
+      } // End hidden field check
+      
+    } // End XMLHTTPREQUEST check
+    
+  }
+  
+  
+  function attachmentsAction(){
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
+      if(isset($_POST['empattach'])) {
+        foreach ($_POST as $option) {
+          if (!$option) {
+            $error = true;
+            break;
+          }
+        }
+
+        if (isset($error)) {
+
+          echo 'All fields are required!';
+
+        } 
+
+        else {
+          $model = new Viven_Staff_Model();
+          $res = $model->addEmployeeAttachments($_POST);
+          echo $res;
+
+        } //End form processing
+
+      } // End hidden field check
+      
+    } // End XMLHTTPREQUEST check
+    
+  }
+  
+  
+  function emergencyAction(){
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
+      
+      if (isset($_POST['empemer'])) {
+        foreach ($_POST as $option) {
+          if (!$option) {
+            $error = true;
+            break;
+          }
+        }
+
+        if (isset($error)) {
+
+          echo 'All fields are required!';
+
+        } 
+
+        else {
+          $model = new Viven_Staff_Model();
+          $res = $model->addEmployeeEmergency($_POST);
+          echo $res;
+
+        } //End form processing
+
+      } // End hidden field check
+      
+    } // End XMLHTTPREQUEST check
+    
+  }
+  
+  
+  function personalsAction(){
+    if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'){
+      
+      if (isset($_POST['empper'])) {
+        foreach ($_POST as $option) {
+          if (!$option) {
+            $error = true;
+            break;
+          }
+        }
+
+        if (isset($error)) {
+
+          echo 'All fields are required!';
+
+        } 
+
+        else {
+          $model = new Viven_Staff_Model();
+          $res = $model->addEmployeePersonals($_POST);
+          echo $res;
+
+        } //End form processing
+
+      } // End hidden field check
+      
+    } // End XMLHTTPREQUEST check
+    
   }
   
   
   /**
    * Get List of all employees in a branch
-   * @param type $type Employee Designation
+   * @param type $dsg Employee Designation
    * @param type $status Employee Status (Active/Inactive/Suspended)
    * @param type $branch Branch of the employees
    * @return type
    */
-  function getStaffListAction($type, $status, $branch='#%$^') {
+  function getStaffListAction($dsg, $status, $branch) {
     
-    if($branch == '#%$^') $branch = 'all';//$_SESSION['branch'];
     $model = new Viven_Staff_Model;
-    $slist = $model->getStaffList($type, $status, $branch);
+    $slist = $model->getStaffList($dsg, $status, $branch);
     return $slist;
   }
 

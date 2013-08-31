@@ -6,43 +6,43 @@ class Viven_Followup_Model extends Model{
     parent::__construct();
   }
   
-  public function getOpen(){
-    
-    $qs = "SELECT _inq_id FROM viv_usr_role_en WHERE 1";
-    $res = $this -> db -> query($qs); 
-    $roleslist = $res->fetchAll(PDO::FETCH_ASSOC); 
-    
-    /**
-     * Generate associative list to be returned
-     */
-    $rla = array();
-    if($roleslist){      
-      foreach($roleslist as $val){
-        $rla[$val['_usr_role_name']] = array("value" => $val['_usr_role_name']);
-      }
-    }
-    return $rla;
-  }
   
-  function addRole($details){
+  public function addFollowup($details){
+    $eid = $this -> db -> quote($details['eid']);
+    $efb = $this -> db -> quote($details['fb']);
+    $edate = $this -> db -> quote(strtotime($details['date']));
+    $efr = $this -> db -> quote($details['fr']);
+    $eremarks = $this -> db -> quote($details['remarks']);
+    $timeCreated = $this -> db -> quote(time());
+    $eun = $this -> db -> quote($details['un']);
     
-    $ern = $this -> db -> quote($details['rn']);
-    
-    $qsc = "SELECT _usr_role_name FROM viv_usr_role_en WHERE _usr_role_name = " . $ern;    
-    $res = $this -> db -> query($qsc);
-    if($res -> fetchAll(PDO::FETCH_ASSOC)){
-      return "Role exists. Cannot add duplicates.";
-    }
-    
-    $qs = "INSERT INTO viv_usr_role_en (_usr_role_name,
-                                        _usr_role_addedby,
-                                        _usr_role_addedon) VALUES (". $ern.", "
-                                                                    . $_SESSION['un'].", "
-                                                                    . "NOW())";
+    $qs = "INSERT INTO viv_inq_flw_en ( _inq_flw_inq_id,
+                                        _inq_flw_emp_un,
+                                        _inq_flw_date,
+                                        _inq_flw_status,
+                                        _inq_flw_cmnts,
+                                        _inq_flw_addedby,
+                                        _inq_flw_addedon,
+                                        _inq_flw_lastmodby,
+                                        _inq_flw_lastmodon) VALUES ("
+                                            . $eid .", "
+                                            . $efb .", "
+                                            . $edate .", "
+                                            . $efr .", "
+                                            . $eremarks .", "
+                                            . $eun .", "
+                                            . $timeCreated .", "
+                                            . $eun .", "
+                                            . $timeCreated . ")";
     if($this -> db -> exec($qs)){
-      return "Role added successfully";
-    } else return $qs;
-    
+      $qsd = "UPDATE viv_inq_en SET _inq_status = 0 WHERE _inq_id = " . $eid;
+      if($this -> db -> exec($qsd)){
+        return "SUCCESS";
+      }else return $qsd;
+    }
+    else{
+      return $qs;//"FAILED";
+    }
   }
   
 }

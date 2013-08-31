@@ -14,7 +14,7 @@ class Viven_Customer_Model extends Model{
    */
   function addAttendance($details){
     
-    $eun = $this -> db -> quote($details['cn']);
+    $eun = $this -> db -> quote($details['cid']);
     $edate = $this -> db -> quote($details['date']);
     $estatus = $this -> db -> quote($details['status']);
     $eremarks = $this -> db -> quote($details['remarks']);
@@ -68,7 +68,7 @@ class Viven_Customer_Model extends Model{
    */
   function addFeedback($details){
     
-    $cn = $this -> db -> quote($details['cn']);
+    $cn = $this -> db -> quote($details['cid']);
     $date = $this -> db -> quote($details['date']);
     $remarks = $this -> db -> quote($details['remarks']);
     
@@ -96,41 +96,11 @@ class Viven_Customer_Model extends Model{
   
   
   /**
-   * Get List of Customers
-   * @param type $type All, Active, Inactive
-   * @return string Success/Failure status
-   */
-  function getCustomerList($type){
-    
-    $etype = $this -> db -> quote($type);
-    $qs = "SELECT _cust_un, _cust_name FROM viv_cust_en WHERE ";
-    
-    if($type == 0){
-      $qs .= "1";
-    }
-    else{
-      $qs .= "_cust_status = " . $etype;
-    }
-    
-    $res = $this -> db -> query($qs); 
-    $custlist = $res->fetchAll(PDO::FETCH_ASSOC); 
-    $sla = array();
-    if($custlist){
-      foreach($custlist as $val){
-        $sla[$val['_cust_name']] = array("value" => $val['_cust_un']);
-      }
-    }
-    return $sla;    
-    
-  } // End GetCustomerList()
-  
-  
-  /**
    * Add Personal Details of a Customer
    * @param type $details Associate array, perhaps $_POST variable
    */
   function addPersonal($details){
-    $un = $this -> db -> quote($details['pcun']);
+    $un = $this -> db -> quote($details['cid']);
     $dob = $this -> db -> quote($details['dob']);
     switch($details['marital']){
       case "S":
@@ -185,7 +155,7 @@ class Viven_Customer_Model extends Model{
    * @param type $details Associate array, perhaps $_POST variable
    */
   function addEmergency($details){
-    $un = $this -> db -> quote($details['ecun']);
+    $un = $this -> db -> quote($details['cid']);
     $en = $this -> db -> quote($details['en']);
     $ep = $this -> db -> quote($details['ep']);
     $eaddr = $this -> db -> quote($details['eaddr']);
@@ -227,7 +197,7 @@ class Viven_Customer_Model extends Model{
    * @param type $details Associate array, perhaps $_POST variable
    */
   function addPhysical($details){
-    $un = $this -> db -> quote($details['phycun']);
+    $un = $this -> db -> quote($details['cid']);
     $wt = $this -> db -> quote($details['wt']);
     $ht = $this -> db -> quote($details['ht']);
     $chst = $this -> db -> quote($details['chst']);
@@ -281,7 +251,7 @@ class Viven_Customer_Model extends Model{
    * @param type $details Associate array, perhaps $_POST variable
    */
   function addMedical($details){
-    $un = $this -> db -> quote($details['mcun']);
+    $un = $this -> db -> quote($details['cid']);
     $md = $this -> db -> quote($details['md']);
     $smoke = $this -> db -> quote($details['smoke']);
     $alcohol = $this -> db -> quote($details['alcohol']);
@@ -314,17 +284,72 @@ class Viven_Customer_Model extends Model{
   
   
   /**
-   * Verify if the UserName is valid and exists in the DB
-   * @param type $un UserName to be validated
+   * Get List of Customers
+   * @param type $type All, Active, Inactive
+   * @return string Success/Failure status
    */
-  function validateUserName($un){
-    $un = $this -> db -> quote($un);
+  function getCustomerList($type){
     
-    $qs = "SELECT _cust_un FROM viv_cust_en WHERE _cust_un = " . $un;
+    $etype = $this -> db -> quote($type);
+    $qs = "SELECT _cust_un, _cust_name FROM viv_cust_en WHERE ";
+    
+    if($type == 0){
+      $qs .= "1";
+    }
+    else{
+      $qs .= "_cust_status = " . $etype;
+    }
+    
+    $res = $this -> db -> query($qs); 
+    $custlist = $res->fetchAll(PDO::FETCH_ASSOC); 
+    $sla = array();
+    if($custlist){
+      foreach($custlist as $val){
+        $sla[$val['_cust_name']] = array("value" => $val['_cust_un']);
+      }
+    }
+    return $sla;    
+    
+  } // End GetCustomerList()
+  
+  
+  /**
+   * Verify if the Customer ID exists
+   * @param type $cid Customer ID
+   * @return int
+   */
+  function validateCustomerId($cid){
+    
+    $ecid = $this -> db -> quote($cid);    
+    $qs = "SELECT _cust_un FROM viv_cust_en WHERE _cust_un = " . $ecid;
     $qr = $this -> db -> query($qs);
-    $qd = $qr -> fetch(PDO::FETCH_ASSOC);
-    if($qd) return 1;
-    else return 0;
-  }
+    
+    if($qd = $qr -> fetch(PDO::FETCH_ASSOC)){
+      return 1;
+    }
+    else {
+      return 0;
+    }
+    
+  } //End validateCustomerId()
+  
+  
+  /**
+   * Get Basic Details of a particular Customer
+   * @param type $cid Customer ID
+   * @return string
+   */
+  function getCustomerDetails($cid){
+    
+    $ecid = $this -> db -> quote($cid);
+    $qs = "SELECT * FROM viv_cust_en WHERE _cust_un = " . $ecid;
+    $res = $this -> db -> query($qs); 
+    
+    if($custdet = $res->fetch(PDO::FETCH_ASSOC)){
+      return json_encode($custdet);
+    } else return "Invalid";
+    
+    
+  } // End GetCustomerDetails()
   
 }
