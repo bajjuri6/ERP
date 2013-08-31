@@ -16,16 +16,27 @@
   });
   
   
+
+  
+  
   /**
-   * Username Validation. To set a field for username and have it validated with the backend, set the class to 'validateun'
+   * Get Customer Details based on Cust ID.
    **/
-  $('.validateun').live('blur', function(){
-    $.get('/api/generic/validateUsername?un='+$(this).val(),
-            function(data){
-              if(parseInt(data) == 1){
-               alert("Username Exists");
-              }
-            }); 
+  $('.getud').live('blur', function(){
+  
+    $.post('/api/generic/validateUsername',
+          $(this).val().serialize(),
+          function(data){
+            
+            if(parseInt(data) == 1){
+            
+              alert("Username Exists");
+             return false;
+            
+            }
+            
+          }); 
+  
   });
   
   
