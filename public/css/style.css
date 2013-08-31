@@ -480,6 +480,7 @@ dd{
   background-color: #FFF;
   display:none;
   top:10px !important;
+  margin: 0 auto;
   position:fixed;
   z-index:10;
   -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -593,7 +594,7 @@ form table tr td{
   padding:8px;
 }
 
-#enr-form form {
+#enr-form form, #emp-form form {
   padding-bottom: 35px;
   border-bottom: 1px solid #E4E4E4;
 }
