@@ -9,8 +9,9 @@ $(document).ready(function(){
   
 
   /**
-   * All the events from here on are responsible for AJAX processing of popup forms
+   * All the events from here on are responsible for AJAX processing of forms
    */
+  
   
   // Process New Department Form
   $('#vf_dept').live('submit', function(){
@@ -18,6 +19,7 @@ $(document).ready(function(){
     $.post('/business/department/new',
             $('#vf_dept').serialize(),
             function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
               clearpopup();
             });
@@ -31,6 +33,7 @@ $(document).ready(function(){
     $.post('/business/branch/new',
             $('#vf_brnch').serialize(),
             function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
               clearpopup();
             });       
@@ -45,6 +48,7 @@ $(document).ready(function(){
     $.post('/user/register/new',
             $('#vf_register').serialize(),
             function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
               clearpopup();
             });       
@@ -59,6 +63,7 @@ $(document).ready(function(){
     $.post('/user/roles/new',
             $('#vf_role').serialize(),
             function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
               clearpopup();
             });       
@@ -73,6 +78,7 @@ $(document).ready(function(){
     $.post('/staff/attendance/new',
             $('#vf_sattn').serialize(),
             function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
               clearpopup();
             });       
@@ -87,6 +93,7 @@ $(document).ready(function(){
     $.post('/customer/attendance/new',
             $('#vf_cattn').serialize(),
             function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
               clearpopup();
             });       
@@ -101,6 +108,7 @@ $(document).ready(function(){
     $.post('/business/service/new',
             $('#vf_ns').serialize(),
             function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
               clearpopup();
             });       
@@ -115,6 +123,7 @@ $(document).ready(function(){
     $.post('/customer/feedback/new',
             $('#vf_cfdb').serialize(),
             function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
               clearpopup();
             });       
@@ -129,6 +138,7 @@ $(document).ready(function(){
     $.post('/staff/feedback/new',
             $('#vf_sfdb').serialize(),
             function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
               $("#popupbox").html("<div class='popBody'>" + data +"</div>");
               clearpopup();
             });       
@@ -352,9 +362,71 @@ $(document).ready(function(){
 
   }); //End VF_ENQ SUBMIT
   
+  
+  /***************************************************************************
+   * PROCESS NEW EMPLOYEE SUBFORMS
+   */
+  
+  // Process Employee Basics Form
+  $('#vf_empbas').live('submit', function(){
 
+    $.post('/staff/employee/basics',
+            $('#vf_empbas').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });
+
+    return false;
+  }); // End VF_EMPBAS SUBMIT
 
   
+  // Process Employee Attachemnts Form
+  $('#vf_empatt').live('submit', function(){
+
+    $.post('/staff/employee/attachments',
+            $('#vf_empatt').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });
+
+    return false;
+  }); // End VF_EMPATT SUBMIT
+  
+  
+  // Process Employee Emergency Contact Form
+  $('#vf_empemer').live('submit', function(){
+
+    $.post('/staff/employee/emergency',
+            $('#vf_empemer').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });
+
+    return false;
+  }); // End VF_EMPEMER SUBMIT
+  
+  
+  // Process Employee Personals Form
+  $('#vf_empper').live('submit', function(){
+
+    $.post('/staff/employee/personals',
+            $('#vf_empper').serialize(),
+            function(data){
+              $("#popupbox, #lightbox").fadeIn(200);
+              $("#popupbox").html("<div class='popBody'>" + data +"</div>");
+              clearpopup();
+            });
+
+    return false;
+  }); // End VF_EMPPER SUBMIT
+  
+  //************************************************************************
   
   
 }); // End DOCUMENT.READY
