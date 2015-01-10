@@ -45,7 +45,7 @@ padding:3px;
 
 
 .ibar {
-  font-size:0.8em;
+  font-size:0.9em;
   color:#FFF;
   background:#0962A3;
   display:block;
@@ -60,6 +60,7 @@ padding:3px;
   -webkit-box-shadow:0 1px 2px #1E1D6D;
   -moz-box-shadow:0 1px 2px #1E1D6D;
   box-shadow:0 1px 2px #1E1D6D;
+  z-index:9;
 }
 
 .nav {
@@ -145,30 +146,6 @@ border:1px solid #777;
 overflow-x:auto;
 margin:20px auto;
 padding:0 15px 20px;
-}
-
-#cash-records-box h3 {
-text-align:center;
-}
-
-#subscriptions-box {
-width:65%;
-line-height:200%;
-overflow-x:hidden;
-padding:20px 15px;
-}
-
-#edit-sup-box {
-width:30%;
-overflow-x:hidden;
-}
-
-#dues-list-box {
-width:80%;
-}
-
-#med-bal-box {
-width:70%;
 }
 
 #records-table {
@@ -261,7 +238,7 @@ table {
 background-color:#FFF;
 }
 
-th,tfoot {
+/*th,tfoot {
 	margin-bottom: 1px;
 	font-weight:700;
 	background-color:#0962A3;
@@ -269,7 +246,7 @@ th,tfoot {
 	-webkit-box-shadow: 0px 1px 2px #1E1D6D;
 	-moz-box-shadow:    0px 1px 2px #1E1D6D;
 	box-shadow:         0px 1px 2px #1E1D6D;
-}
+}*/
 
 #reporttype {
 margin-left:2px;
@@ -513,7 +490,6 @@ dd{
   color: #F00;
 }
 
-
 .none{
   background-color: #f4f4f4;
   border:1px solid rgba(210,210,210,0.8);
@@ -522,7 +498,6 @@ dd{
   padding: 6px 8px;
   line-height:16px;
   font-size:1em;
-  margin: 8px 0px;
 }
 
 
@@ -555,9 +530,13 @@ dd{
   width:40%
 }
 
-.bodyworks form table tr td{
-  padding: 8px 24px;
+.bodyworks form table tr td.label{
+  padding: 8px 16px;
   margin: 8px 0px;
+}
+
+.bodyworks form table tr td.box{
+  width: 60%;
 }
 
 form table tr td{
@@ -570,7 +549,6 @@ form table tr td{
   text-align: center;
   border-radius: 4px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-  
 }
 
 .reports-table th {
@@ -609,4 +587,17 @@ form table tr td{
 
 .branding a{
   color:#000 !important;
+}
+
+input[type=text]{
+  width:90%;
+}
+
+
+textarea{
+  width:90%;
+}
+
+.btn{
+  margin:0 8px;
 }

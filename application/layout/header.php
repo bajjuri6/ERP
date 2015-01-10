@@ -13,7 +13,7 @@
 					<li><a class="gn" href="/business/enquiry/new"> Enquiry</a></li>
      <li><a class="gn" href="/business/followup/new"> Follow-up</a></li>
 					<li><a class="gn" href="/finance/expense/new">Expense </a></li>
-     <li><a class="gn" id="add-service" onclick="fetchform('New Service','/business/service/new')">New Service </a></li>
+     <li><a class="gn" href="/business/service/new">New Service </a></li>
     </ul>
 			</li>
    

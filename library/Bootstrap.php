@@ -17,12 +17,16 @@ class Bootstrap {
       else{        
         
         $controller = new Viven_User_Login();
-        $controller->indexAction();
+        if(isset($url[2]) && $url[2]=='submit'){
+          $controller->submitAction();
+        }
+        else{
+          $controller->indexAction();
+        }
         
       }
     }
     else{
-      
       require_once MODULES . '/api/controllers/generic.php';
       
       if (empty($url[0]) || empty($url[1])) {
@@ -37,8 +41,9 @@ class Bootstrap {
         
         require_once MODULES.'/'.$url[0].'/controllers/'.$url[1].'.php';
         $controller = new $classString;
-        
         if(isset($url[2])){
+          
+          
           
           /**
            * Check if the URL has any GET Parameters

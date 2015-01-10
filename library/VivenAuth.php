@@ -2,7 +2,7 @@
 
 class VivenAuth {
 
-  function sessionExists(){
+  static function sessionExists(){
     if(isset($_SESSION['un']) && isset($_SESSION['level'])) return true;
     else return false;
   }

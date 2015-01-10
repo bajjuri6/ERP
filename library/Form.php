@@ -137,6 +137,38 @@ class Form {
   }
   
   
+  public function Viven_AddButtons($num_btns){
+    
+    /**
+    * Add Submit and Clear Buttons
+    * $num_btns decides the number of buttons needed
+    * num_btns -> 1 - Only Submit Button
+    * num_btns -> 2 - Need Submit and Clear Buttons
+    */
+    
+    $org = '<div style="clear:both; margin:16px 0px">';
+
+    $sub = array("type" => "submit", 
+                "name" => "Submit",
+                "id" => "Submit",
+                "Value" => "Submit",
+                "class" => "btn btn-primary btn-lg");
+    $org .= $this->Viven_AddInput($sub);
+    
+    if($num_btns == 2){
+      $res = array("type" => "reset", 
+                  "name" => "Reset",
+                  "id" => "Reset",
+                  "Value" => "Clear Form",
+                  "class" => "btn btn-primary btn-lg");
+      $org .= $this->Viven_AddInput($res);
+    }
+
+    $org .= '</div>';
+    return $org;
+    
+  }
+    
   
   /**
    * 
@@ -150,84 +182,74 @@ class Form {
    * 
    */
   
-  public function Viven_ArrangeForm($list, $num_btns, $num_cols = 0, $hidden=TRUE){
+  public function Viven_ArrangeForm($list, $num_btns,  $formparams, $num_cols = 0, $hidden=TRUE){
     $org = ''; 
     $col_count = $hidden? count($list)-1 : count($list);
     
-    //count($list) < 4 || 
-    if($num_cols > 0){
+    /**
+    * Build <form> tag with given ID and Class Parameters
+    */
+
+    $org .= "<form";
+    if(!empty($formparams)){
       
-      $org .= '<table>';
-      
-      foreach($list as $name => $field){
-        $org .= '<tr><td>';
-        $org .= '<label for="'.$name.'">'.$name.'</label>';
-        $org .= '<td>'.$field.'</td>';
-        $org .= '</td></tr>';
+      foreach($formparams as $fp => $fv){
+        $org .= " " . $fp . " = '" . $fv . "' ";
       }
       
-      $org .= '</table>';
+    }
+    
+    $org .= " method = 'POST'>";
+    $org .= "<div class='row'>";
+    $org .= "<div class='row-fluid'>";
+
+    if($num_cols == 1){      
+      
+      //$list = array_slice($list, 0, -1);
+      foreach($list as $name => $field){
+        
+        $org .= "<div class='col-md-12'>";
+        
+        $org .= "<div class='form-group'>";
+        $org .= "<label class='col-lg-5 control-label'>$name</label>";
+        $org .= "<div class='col-lg-7'>";
+        $org .= $field;
+        $org .= "</div></div></div>";
+      
+      }
       
     } else{
       $tbl1 = array_slice($list, 0, $col_count/2);
       $tbl2 = array_slice($list, $col_count/2,($col_count/2)+1);
       
-      $org .= '<div style="float:left;"><table>';
+      $org .= "<div class='col-md-12'>";
+      $org .= "<div class='col-md-6'>";
       foreach($tbl1 as $name => $field){
-        $org .= '<tr><td>';
-        $org .= '<label for="'.$name.'">'.$name.'</label>';
-        $org .= '<td>'.$field.'</td>';
-        $org .= '</td></tr>';
-      }
-      $org .= '</table></div>';
+        
+        $org .= "<div class='form-group'>";
+        $org .= "<label for='$name' class='col-lg-5 control-label'>$name</label>";
+        $org .= "<div class='col-lg-7'>";
+        $org .= $field;
+        $org .= "</div></div>";
+      }      
+      $org .= "</div>";
       
-      $org .= '<div><table>';
+      
+      $org .= "<div class='col-md-6'>";
       foreach($tbl2 as $name => $field){
-        $org .= '<tr><td>';
-        $org .= '<label for="'.$name.'">'.$name.'</label>';
-        $org .= '<td>'.$field.'</td>';
-        $org .= '</td></tr>';
+        $org .= "<div class='form-group'>";
+        $org .= "<label for='$name' class='col-lg-5 control-label'>$name</label>";
+        $org .= "<div class='col-lg-7'>";
+        $org .= $field;
+        $org .= "</div></div>";
       }
-      $org .= '</table></div>';
+      $org .= "</div></div>"; //Close col-md-6
   
     }
     
-    /**
-      * Add Submit and Clear Buttons
-      * $num_btns decides the number of buttons needed
-      * num_btns -> 1 - Only Submit Button
-      * num_btns -> 2 - Need Submit and Clear Buttons
-      */
-     if($num_btns == 1){
-       $org .= '<div style="clear:both; margin:6px 0px">';
-
-       $sub = array("type" => "submit", 
-                   "name" => "Submit",
-                   "id" => "Submit",
-                   "Value" => "Submit",
-                   "class" => "flat custom");
-       $org .= $this->Viven_AddInput($sub);     
-
-       $org .= '</div>';
-     }elseif($num_btns == 2){
-       $org .= '<div style="clear:both; margin:16px 0px">';
-
-       $sub = array("type" => "submit", 
-                   "name" => "Submit",
-                   "id" => "Submit",
-                   "Value" => "Submit",
-                   "class" => "flat custom");
-       $org .= $this->Viven_AddInput($sub);     
-
-       $res = array("type" => "reset", 
-                   "name" => "Reset",
-                   "id" => "Reset",
-                   "Value" => "Clear Form",
-                   "class" => "flat custom");
-       $org .= $this->Viven_AddInput($res);     
-
-       $org .= '</div>';
-     }
+    $org .= '</div></div>'; //Close row-fluid and span12
+    $org .= $this -> Viven_AddButtons($num_btns);
+    $org .= '</form>';
 
     return $org;
   }

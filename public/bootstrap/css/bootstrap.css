@@ -928,7 +928,7 @@ textarea {
 }
 label {
   display: block;
-  margin-bottom: 5px;
+  margin: 12px 0;
 }
 select,
 textarea,

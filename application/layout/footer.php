@@ -13,10 +13,7 @@
         $(this).datepicker("destroy");
       }
     });
-  });
-  
-  
-
+  }); 
   
   
   /**
@@ -48,5 +45,5 @@
     $("#lightbox").fadeOut(400);
   });
 </script>
-
+<link rel="stylesheet" type="text/css" href="/public/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="/public/css/jquery-ui-1.9.2.custom.css">

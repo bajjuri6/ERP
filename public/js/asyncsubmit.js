@@ -16,7 +16,7 @@ $(document).ready(function(){
   // Process New Department Form
   $('#vf_dept').live('submit', function(){
 
-    $.post('/business/department/new',
+    $.post('/business/department/add',
             $('#vf_dept').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -30,7 +30,7 @@ $(document).ready(function(){
 
   // Process New Branch Form
   $('#vf_brnch').live('submit', function(){
-    $.post('/business/branch/new',
+    $.post('/business/branch/add',
             $('#vf_brnch').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -45,7 +45,7 @@ $(document).ready(function(){
   
   // Process New User Form
   $('#vf_register').live('submit', function(){
-    $.post('/user/register/new',
+    $.post('/user/register/add',
             $('#vf_register').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -60,7 +60,7 @@ $(document).ready(function(){
   
   // Process New User Role Form
   $('#vf_role').live('submit', function(){
-    $.post('/user/roles/new',
+    $.post('/user/roles/add',
             $('#vf_role').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -75,7 +75,7 @@ $(document).ready(function(){
   
   // Process Add Staff Attendance Form
   $('#vf_sattn').live('submit', function(){
-    $.post('/staff/attendance/new',
+    $.post('/staff/attendance/add',
             $('#vf_sattn').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -90,7 +90,7 @@ $(document).ready(function(){
   
   // Process Add Customer Attendance Form
   $('#vf_cattn').live('submit', function(){
-    $.post('/customer/attendance/new',
+    $.post('/customer/attendance/add',
             $('#vf_cattn').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -105,7 +105,7 @@ $(document).ready(function(){
   
   // Process Add New Service Form
   $('#vf_ns').live('submit', function(){
-    $.post('/business/service/new',
+    $.post('/business/service/add',
             $('#vf_ns').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -120,7 +120,7 @@ $(document).ready(function(){
     
   // Process Add Customer Feedback Form
   $('#vf_cfdb').live('submit', function(){
-    $.post('/customer/feedback/new',
+    $.post('/customer/feedback/add',
             $('#vf_cfdb').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -135,7 +135,7 @@ $(document).ready(function(){
     
   // Process Add Staff Feedback Form
   $('#vf_sfdb').live('submit', function(){
-    $.post('/staff/feedback/new',
+    $.post('/staff/feedback/add',
             $('#vf_sfdb').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -151,7 +151,7 @@ $(document).ready(function(){
   
   // Process New Expense Type Form    
   $('#vf_exptype').live('submit', function(){
-    $.post('/business/generic/expenseType',
+    $.post('/business/generic/addExpenseType',
             $('#vf_exptype').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -166,7 +166,7 @@ $(document).ready(function(){
   
   // Process New Payment Mode Form    
   $('#vf_pmode').live('submit', function(){
-    $.post('/finance/mode/new',
+    $.post('/finance/mode/add',
             $('#vf_pmode').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -199,7 +199,7 @@ $(document).ready(function(){
     
   // Process Enrollment Personal Details Form
   $('#vf_cep').live('submit', function(){
-    $.post('/customer/personal/new',
+    $.post('/customer/personal/add',
             $('#vf_cep').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -214,7 +214,7 @@ $(document).ready(function(){
     
   // Process Enrollment Emergency Contact Form
   $('#vf_cee').live('submit', function(){
-    $.post('/customer/emergency/new',
+    $.post('/customer/emergency/add',
             $('#vf_cee').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -229,7 +229,7 @@ $(document).ready(function(){
     
   // Process Enrollment Medical Details Form
   $('#vf_cem').live('submit', function(){
-    $.post('/customer/medical/new',
+    $.post('/customer/medical/add',
             $('#vf_cem').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -244,7 +244,7 @@ $(document).ready(function(){
     
   // Process Enrollment Medical Details Form
   $('#vf_cephy').live('submit', function(){
-    $.post('/customer/physical/new',
+    $.post('/customer/physical/add',
             $('#vf_cephy').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -265,7 +265,7 @@ $(document).ready(function(){
   // Process Revenue Form
     
   $('#vf_pmnt').live('submit', function(){
-    $.post('/finance/revenue/new',
+    $.post('/finance/revenue/add',
             $('#vf_pmnt').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -282,7 +282,7 @@ $(document).ready(function(){
   // Process Customer Physical Form
     
   $('#vf_cphy').live('submit', function(){
-    $.post('/customer/physical/new',
+    $.post('/customer/physical/add',
             $('#vf_cphy').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -299,7 +299,7 @@ $(document).ready(function(){
   // Process New Expense
     
   $('#vf_expense').live('submit', function(){
-    $.post('/finance/expense/new',
+    $.post('/finance/expense/add',
             $('#vf_expense').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
@@ -333,7 +333,7 @@ $(document).ready(function(){
   // Process New Enquiry Form
     
   $('#vf_enq').live('submit', function(){
-    $.post('/business/enquiry/new',
+    $.post('/business/enquiry/add',
             $('#vf_enq').serialize(),
             function(data){
               $("#popupbox, #lightbox").fadeIn(200);
